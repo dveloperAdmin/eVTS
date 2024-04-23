@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+
+
+body, html {
+	height: 100%;
+	margin: 0;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 200;
+}
+
+body {
+	background: #a7f2ffcc;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+#in_form ::before{
+	opacity: .5;
+}
+.digit_group input{
+	 
+		width: 25px;
+		height: 40px;
+		background-color:#41416f ;
+		border: none;
+		line-height: 50px;
+		text-align: center;
+		font-size: 24px;
+		font-family: 'Raleway', sans-serif;
+		font-weight: 900;
+		color: white;
+		margin: 0 2px;
+	}
+
+.digit_group .splitter {
+		padding: 0 5px;
+		color: #0019ab;
+		font-size: 24px;
+	}
+
+
+.prompt {
+	text-align: center;
+	margin-bottom: 50px;
+	font-size: 2rem;
+	color: #0019ab;
+	font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.prompt button{
+	border:none;
+	background-color: #41416fa4;
+}
+.splitter{
+	color: #0019ab;
+}

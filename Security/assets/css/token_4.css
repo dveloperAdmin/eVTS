@@ -1,0 +1,88 @@
+* {
+    font-size: 12px;
+    font-family: 'Times New Roman';
+}
+
+td,
+th,
+tr,
+table {
+   
+    border-top: 1px solid rgba(0, 0, 0, 0.132);
+    border-collapse: collapse;
+    width: 100%;
+    padding: 5px;
+}
+.com_head{
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 1rem 0 1rem 0;
+}
+.com_head span{
+    font-size: 14px;
+    font-weight: 700;
+    word-break: break-all;
+}
+
+p.centered{
+    padding: 3px;
+}
+.signed{
+    text-decoration-line: underline;
+    font-style: italic;
+    font-weight: 700;
+}
+td.description,
+th.description {
+    width: 75px;
+    max-width: 75px;
+    word-break: break-all;
+}
+
+td.quantity,
+th.quantity {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+    text-align: left;
+    padding-left: 1rem;
+}
+
+td.price,
+th.price {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+}
+
+.centered {
+    text-align: center;
+    align-content: center;
+}
+
+.ticket {
+    border-style: double;
+    border-radius: 11px;;
+    width: 220px;
+    max-width: 220px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+img {
+    max-width: inherit;
+    width: inherit;
+}
+
+@media print {
+    .hidden-print,
+    .hidden-print * {
+        display: none !important;
+    }
+}
+@page { size: auto;  margin: 0mm; }
+
+
