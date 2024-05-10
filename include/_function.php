@@ -43,3 +43,18 @@ function findDesig($conn, $desigCode)
   }
   return $desig;
 }
+
+function userDetails($conn, $userid)
+{
+  if ($conn != "" && $userid != "") {
+    $userDetails = mysqli_fetch_array(mysqli_query($conn, "select * from `user` where EmployeeId = '$userid' or user_name = '$userid'"));
+    if ($userDetails !== "") {
+      return $userDetails;
+    } else {
+      return null;
+    }
+
+  } else {
+    return null;
+  }
+}
