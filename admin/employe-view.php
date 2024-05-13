@@ -10,6 +10,7 @@ $head = "Employe Info";
 include '../include/_audi_log.php';
 
 $user_emp_id = $emp_id;
+$printNoBlank = "";
 // echo $user_role;
 if (in_array($user_role, array("Developer", "Super Admin"))) {
   $serach_emp = mysqli_query($conn, "select * from `eomploye_details` order by `EmployeeId` desc");
@@ -24,6 +25,15 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
   $sql_no_of_resign_emp = mysqli_num_rows(mysqli_query($conn, "select * from `eomploye_details` where `BranchId`='$branch_id' and `Status`='Resign'"));
 
 }
+
+$numOfBlankMailId = mysqli_fetch_assoc(mysqli_query($conn, "select count(*) as num_row from eomploye_details where email_id in ('nomail@gmail.com', '', NULL);"));
+if ($numOfBlankMailId['num_row'] >= 1) {
+  $printNoBlank = "NO Mail Id :- &nbsp;" . $numOfBlankMailId['num_row'];
+}
+
+
+
+
 
 
 
@@ -71,12 +81,28 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
 
 
                     <div class="card">
-                      <div class="col-md-6">
-                        <div class="form-group row" style="margin:5px;">
-                          <label class="col-sm-3 col-form-label" style="padding-right: 0;">Search</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Search" id="searchInput">
+                      <div class="row">
 
+
+                        <div class="col-md-6">
+                          <div class="form-group row" style="margin:5px;">
+                            <label class="col-sm-3 col-form-label" style="padding-right: 0;flex:0 0 10%;">Search</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" placeholder="Search" id="searchInput"
+                                style="width:60%">
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row" style="margin:5px; justify-content: end;">
+                            <label class="col-sm-3 col-form-label" style="flex:0 0 38%; max-width:38%; text-align:right;    font-style: italic;
+    font-weight: 700;"><?= $printNoBlank ?></label>
+                            <!-- <div class="col-sm-9">
+                              <input type="text" class="form-control" placeholder="Search" id="searchInput"
+                                style="width:60%">
+
+                            </div> -->
                           </div>
                         </div>
                       </div>
@@ -128,8 +154,13 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                 // if($emp_role == 'Super Admin' && $user_role!='Developer'){
                                 //     continue;
                                 // }
+                                if (in_array($emp_data['email_id'], array('nomail@gmail.com', "", null))) {
+                                  $bgcolor = "#ff000024";
+                                } else {
+                                  $bgcolor = "#ffffff";
+                                }
                                 ?>
-                                <tr>
+                                <tr style="background-color:<?= $bgcolor ?>">
                                   <th scope="row" style="padding: .25rem;">
                                     <?php echo $i; ?>
                                   </th>

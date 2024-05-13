@@ -21,7 +21,7 @@ $user_role = $user_data_sql['user_role'];
 // $emp_id = $user_data['EmployeeId'];
 $emp_code_details = "";
 $branchNameNav = "";
-
+$Approval = array("Mood" => "", "Email" => "", "Reffer" => "");
 if ($emp_id != "") {
 
     $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select * from `eomploye_details` where `EmployeeId` = '$emp_id'"));
@@ -36,6 +36,13 @@ if ($emp_id != "") {
                 $branchNameNav = " - <span style='font-style:italic;'>" . $branchDetails['branch_name'] . "</span>";
             }
         }
+        $checkApproval = mysqli_fetch_assoc(mysqli_query($conn, "select * from `approval_sts` where `branch_id` = '$branch_id'"));
+        if ($checkApproval != "") {
+            $Approval["Mood"] = $checkApproval['Approve_status'];
+            $Approval["Email"] = $checkApproval['emailApproval'];
+            $Approval["Reffer"] = $checkApproval['meet_end_status'];
+        }
+
     }
 }
 
