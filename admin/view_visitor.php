@@ -18,7 +18,12 @@ if (isset($_GET['id'])) {
     $v_id = $_POST['vid'];
     $v_permit = $_POST['action'];
     // $e_remark = $_POST['remark'];
-    $sql_udate = mysqli_query($conn, "update `visitor_log` set `Emp_approve`='$v_permit' where `visit_uid`='$v_id'");
+    if ($v_permit == 'Reject') {
+      $sql_udate = mysqli_query($conn, "update `visitor_log` set `Emp_approve`='$v_permit',security_approval = '$v_permit','check_status' = 'OUT' where `visit_uid`='$v_id'");
+
+    } else {
+      $sql_udate = mysqli_query($conn, "update `visitor_log` set `Emp_approve`='$v_permit' where `visit_uid`='$v_id'");
+    }
     if ($sql_udate != "") {
       $_SESSION['icon'] = 'success';
       $_SESSION['status'] = 'Your action updated.....';
