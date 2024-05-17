@@ -45,6 +45,16 @@
   <script src="../js/sweetalert2.js"></script>
   <script src="../js/ajax.js"></script>
   <style>
+  .table-border-style {
+    padding-top: 3px !important;
+  }
+
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 1248px;
+    }
+  }
+
   @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&display=swap');
   </style>
 

@@ -1,4 +1,3 @@
-
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
 <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
@@ -20,19 +19,32 @@
 
 <script src="assets/js/clock1.js"></script>
 <script src="assets/js/networkconn.js"></script>
+<script>
+$("#searchInput").keyup(function() {
+  var searchText = $(this).val().toLowerCase();
 
+  $("#dataTable tbody tr").each(function() {
+    var rowData = $(this).text().toLowerCase();
+    if (rowData.indexOf(searchText) === -1) {
+      $(this).hide();
+    } else {
+      $(this).show();
+    }
+  });
+});
+</script>
 
-<?php if(isset($_SESSION['status']) && $_SESSION['status']!=''){ ?>
-        <script>
-  Swal.fire({
+<?php if (isset($_SESSION['status']) && $_SESSION['status'] != '') { ?>
+<script>
+Swal.fire({
   icon: '<?php echo $_SESSION['icon'] ?>',
   title: '<?php echo $_SESSION['status'] ?>',
   showCloseButton: true,
   confirmButton: true,
-  
+
 })
 </script>
 <?php
-unset($_SESSION['status']);
-unset($_SESSION['icon']);
-  }?>
+  unset($_SESSION['status']);
+  unset($_SESSION['icon']);
+} ?>

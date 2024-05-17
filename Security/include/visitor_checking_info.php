@@ -1,150 +1,156 @@
 <?php
 
 $first_date = date("Y-m-01");
- $last_date = date("Y-m-t");
- $today = date("Y-m-d");
- $sql_total_no_of_v_day= mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `checkin_date`= '$today' and `check_status` != 'Pending'"));
- $sql_total_no_of_v_day_out= mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `checkin_date`= '$today' and `check_status` = 'OUT'"));
- $sql_total_no_of_v_day_stay= mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `checkin_date`= '$today' and `check_status` = 'IN'"));
- $sql_total_no_of_v_month = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `check_status` != 'Pending' and `checkin_date` between '$first_date' and '$last_date'"));
- $sql_total_no_of_v_month_out = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `check_status` = 'OUT' and `checkin_date` between '$first_date' and '$last_date'"));
- $sql_total_no_of_v_month_stay = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where  `check_status` = 'IN' and `checkin_date` between '$first_date' and '$last_date'"));
- $sql_total_no_of_V = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `check_status` != 'Pending'"));
- $sql_total_no_of_V_out = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `check_status` = 'OUT'"));
- $sql_total_no_of_V_stay = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `check_status` = 'IN'"));
- $sql_total_no_of_check_in = mysqli_num_rows(mysqli_query($conn,"select * from `visitor_log` where `checkin_date`= '$today' and `check_status` = 'IN'"));
+$last_date = date("Y-m-t");
+$today = date("Y-m-d");
+$sql_total_no_of_v_day = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `checkin_date`= '$today' and `check_status` != 'Pending' and branch_id = '$branch_id'"));
+$sql_total_no_of_v_day_out = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `checkin_date`= '$today' and `check_status` = 'OUT' and branch_id = '$branch_id'"));
+$sql_total_no_of_v_day_stay = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `checkin_date`= '$today' and `check_status` = 'IN' and branch_id = '$branch_id'"));
+$sql_total_no_of_v_month = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `check_status` != 'Pending' and branch_id = '$branch_id' and `checkin_date` between '$first_date' and '$last_date'"));
+$sql_total_no_of_v_month_out = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `check_status` = 'OUT' and branch_id = '$branch_id' and `checkin_date` between '$first_date' and '$last_date'"));
+$sql_total_no_of_v_month_stay = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where  `check_status` = 'IN' and branch_id = '$branch_id' and `checkin_date` between '$first_date' and '$last_date'"));
+$sql_total_no_of_V = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `check_status` != 'Pending' and branch_id = '$branch_id'"));
+$sql_total_no_of_V_out = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `check_status` = 'OUT' and branch_id = '$branch_id'"));
+$sql_total_no_of_V_stay = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `check_status` = 'IN' and branch_id = '$branch_id'"));
+$sql_total_no_of_check_in = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `checkin_date`= '$today' and `check_status` = 'IN' and branch_id = '$branch_id'"));
 
 
 ?>
 
 
 <div class="col-xl-6 col-md-12">
-<div class="row">
-        <!-- sale card start -->
+  <div class="row">
+    <!-- sale card start -->
 
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="total-u">
-                <div class="card-block dsh-card">
-                    <img src="assets/images/icons.png" alt="" srcset="">
-                <i class="icofont icofont-swoosh-left"></i>
-                <div class="card-text">
-                    <h6 class="m-b-0 m-b-275">TODAY CHECK - IN <br> &nbsp;[ <?php echo date("d-M-y");?> ]</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_day;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="total-u">
+        <div class="card-block dsh-card">
+          <img src="assets/images/icons.png" alt="" srcset="">
+          <i class="icofont icofont-swoosh-left"></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275">TODAY CHECK - IN <br> &nbsp;[ <?php echo date("d-M-y"); ?> ]</h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_day; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
         </div>
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="total-A">
-                <div class="card-block dsh-card">
-                <img src="assets/images/icons.png" alt="" srcset=""><i class="icofont icofont-swoosh-right"></i>
-                <div class="card-text ">
-                <h6 class="m-b-0 m-b-275">TODAY CHECK - OUT <br> &nbsp;[ <?php echo date("d-M-y");?> ]</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_day_out?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="active">
-                <div class="card-block dsh-card">
-                <i class="fa fa-user-plus m-r-15 text-c-black"><i class="icofont icofont-calendar" style="font-size: 1.2rem;"></i></i>
-                <div class="card-text">
-                    <h6 class="m-b-0 m-b-275">MONTHLY CHECK - IN <br> &nbsp;[ <?php echo strtoupper(date("F"));?> ]</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_month?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="deactive">
-                <div class="card-block dsh-card">
-                <i class="fa fa-user-times m-r-15 text-c-black" style="margin:0;"><i class="icofont icofont-calendar" style="font-size: 1.2rem;"></i></i>
-                <div class="card-text">
-                <h6 class="m-b-0 m-b-275">MONTHLY CHECK - OUT <br> &nbsp;[ <?php echo strtoupper(date("F"));?> ]</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_month_out;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="users">
-                <div class="card-block dsh-card">
-                <i class="fa fa-calendar-plus-o m-r-15 text-c-black"></i>
-                <div class="card-text">
-                    <h6 class="m-b-0 m-b-275">TOTAL CHECK - IN</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_V;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="deactive1">
-                <div class="card-block dsh-card">
-                <i class="fa fa-calendar-minus-o m-r-15 text-c-black"></i>
-                <div class="card-text">
-                    <h6 class="m-b-0 m-b-275">TOTAL CHECK - OUT</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_V_out;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
-        </div>
-        <!-- sale card end -->
+      </div>
     </div>
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="total-A">
+        <div class="card-block dsh-card">
+          <img src="assets/images/icons.png" alt="" srcset=""><i class="icofont icofont-swoosh-right"></i>
+          <div class="card-text ">
+            <h6 class="m-b-0 m-b-275">TODAY CHECK - OUT <br> &nbsp;[ <?php echo date("d-M-y"); ?> ]</h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_day_out ?></h4>
+            <p class="m-b-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="active">
+        <div class="card-block dsh-card">
+          <i class="fa fa-user-plus m-r-15 text-c-black"><i class="icofont icofont-calendar"
+              style="font-size: 1.2rem;"></i></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275">MONTHLY CHECK - IN <br> &nbsp;[ <?php echo strtoupper(date("F")); ?> ]
+            </h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_month ?></h4>
+            <p class="m-b-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="deactive">
+        <div class="card-block dsh-card">
+          <i class="fa fa-user-times m-r-15 text-c-black" style="margin:0;"><i class="icofont icofont-calendar"
+              style="font-size: 1.2rem;"></i></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275">MONTHLY CHECK - OUT <br> &nbsp;[ <?php echo strtoupper(date("F")); ?> ]
+            </h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_month_out; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="users">
+        <div class="card-block dsh-card">
+          <i class="fa fa-calendar-plus-o m-r-15 text-c-black"></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275">TOTAL CHECK - IN</h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_V; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="deactive1">
+        <div class="card-block dsh-card">
+          <i class="fa fa-calendar-minus-o m-r-15 text-c-black"></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275">TOTAL CHECK - OUT</h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_V_out; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- sale card end -->
+  </div>
 </div>
 <div class="col-xl-6 col-md-12">
-    <div class="row">
-        <!-- sale card start -->
+  <div class="row">
+    <!-- sale card start -->
 
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="users2">
-                <div class="card-block dsh-card">
-                <i class=" icofont icofont-users-alt-4 m-r-15 text-c-black " style="font-size:3rem;" ></i>
-                <div class="card-text">
-                <h6 class="m-b-0 m-b-275">TODAY STAYING <br> &nbsp;[ <?php echo date("d-M-y");?> ]</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_day_stay;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="users2">
+        <div class="card-block dsh-card">
+          <i class=" icofont icofont-users-alt-4 m-r-15 text-c-black " style="font-size:3rem;"></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275">TODAY STAYING <br> &nbsp;[ <?php echo date("d-M-y"); ?> ]</h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_day_stay; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="users">
+        <div class="card-block dsh-card">
+          <i class="icofont icofont-users-alt-4 m-r-15 text-c-black " style="font-size:3rem;"><i
+              class="icofont icofont-calendar" style="font-size: 1.2rem;"></i></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275"> MONTHLY STAYING <br> &nbsp;<span>[
+                <?php echo strtoupper(date("F")); ?> ]</span></h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_month_stay; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
         </div>
-        <div class="row">
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="users">
-                <div class="card-block dsh-card">
-                <i class="icofont icofont-users-alt-4 m-r-15 text-c-black " style="font-size:3rem;"><i class="icofont icofont-calendar" style="font-size: 1.2rem;"></i></i>
-                <div class="card-text">
-                <h6 class="m-b-0 m-b-275"> MONTHLY STAYING <br> &nbsp;<span >[ <?php echo strtoupper(date("F"));?> ]</span></h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_v_month_stay;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card text-center order-visitor-card" id="users3">
+        <div class="card-block dsh-card">
+          <i class="fa fa-user m-r-15 text-c-black"></i>
+          <div class="card-text">
+            <h6 class="m-b-0 m-b-275"> TOTAL STYAING</h6>
+            <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_V_stay; ?></h4>
+            <p class="m-b-0"></p>
+          </div>
         </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6">
-            <div class="card text-center order-visitor-card" id="users3">
-                <div class="card-block dsh-card">
-                <i class="fa fa-user m-r-15 text-c-black"></i>
-                <div class="card-text">
-                    <h6 class="m-b-0 m-b-275"> TOTAL STYAING</h6>
-                    <h4 class="m-t-15 m-b-15"><?php echo $sql_total_no_of_V_stay;?></h4>
-                    <p class="m-b-0"></p>
-                </div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="col-md-6">
+      </div>
+    </div>
+    <!-- <div class="col-md-6">
             <div class="card bg-c-red total-card">
                 <div class="card-block">
                     <div class="text-left">
@@ -166,7 +172,7 @@ $first_date = date("Y-m-01");
                 </div>
             </div>
         </div> -->
-        <!-- <div class="col-md-6">
+    <!-- <div class="col-md-6">
             <div class="card text-center order-visitor-card">
                 <div class="card-block">
                     <h6 class="m-b-0">Unique Visitors</h6>
@@ -184,6 +190,6 @@ $first_date = date("Y-m-01");
                 </div>
             </div>
         </div> -->
-        <!-- sale card end -->
-    </div>
+    <!-- sale card end -->
+  </div>
 </div>

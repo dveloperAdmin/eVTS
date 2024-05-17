@@ -1,7 +1,7 @@
 <?php
 function findCom($conn, $comCode)
 {
-  $comName = "Data not found";
+  $comName = "Not found";
   if ($comCode != "") {
     $comDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details` where`company_id` ='$comCode'"));
     if ($comDetails != "") {
@@ -12,7 +12,7 @@ function findCom($conn, $comCode)
 }
 function findBranch($conn, $branchCode)
 {
-  $branchName = "Data not found";
+  $branchName = "Not found";
   if ($branchCode != "") {
     $branchDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from `branch` where `branch_code`='$branchCode'"));
     if ($branchDetails != "") {
@@ -23,7 +23,7 @@ function findBranch($conn, $branchCode)
 }
 function findDepartment($conn, $deptCode)
 {
-  $deptName = "Data not found";
+  $deptName = "Not found";
   if ($deptCode != "") {
     $deptDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from `department` where `department_code`='$deptCode'"));
     if ($deptDetails != "") {
@@ -34,7 +34,7 @@ function findDepartment($conn, $deptCode)
 }
 function findDesig($conn, $desigCode)
 {
-  $desig = "Data not found";
+  $desig = "Not found";
   if ($desigCode != "") {
     $desigDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from `designation` where `designation_code`='$desigCode'"));
     if ($desigDetails != "") {
@@ -42,6 +42,43 @@ function findDesig($conn, $desigCode)
     }
   }
   return $desig;
+}
+function findVisitortype($conn, $visitType)
+{
+  $vType = "Not found";
+  if ($visitType != "") {
+    $visitTypeDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from `vsitor_type` where `type_id`='$visitType'"));
+    if ($visitTypeDetails != "") {
+      $vType = $visitTypeDetails['type_name'];
+    }
+  }
+  return $vType;
+}
+function findVisitorPurpose($conn, $visitPurpose)
+{
+  $vpurpose = "Not found";
+  if ($visitPurpose != "") {
+    $visitPurposeDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id`='$visitPurpose'"));
+    if ($visitPurposeDetails != "") {
+      $vpurpose = $visitPurposeDetails['purpose'];
+    }
+  }
+  return $vpurpose;
+}
+function findEmp($conn, $empCode)
+{
+
+  if ($empCode != "") {
+    $empDetails = mysqli_fetch_assoc(mysqli_query($conn, "select * from eomploye_details where Emp_code ='$empCode' or EmployeeId = '$empCode'"));
+    if ($empDetails != "") {
+      return $empDetails;
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+
 }
 
 function userDetails($conn, $userid)

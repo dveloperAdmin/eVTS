@@ -8,19 +8,19 @@ $head = "Visitor Info";
 include '../include/_audi_log.php';
 $sql_check_reject = mysqli_query($conn, "select * from `visitor_log` where `security_approval`='Reject' or `Emp_approve`='Reject'");
 if (mysqli_num_rows($sql_check_reject) >= 1) {
-    while ($reject_data = mysqli_fetch_assoc($sql_check_reject)) {
-        $v_id = $reject_data['visit_uid'];
-        mysqli_query($conn, "update `visitor_log` set `check_status`='OUT' where `visit_uid` ='$v_id'");
-    }
+  while ($reject_data = mysqli_fetch_assoc($sql_check_reject)) {
+    $v_id = $reject_data['visit_uid'];
+    mysqli_query($conn, "update `visitor_log` set `check_status`='OUT' where `visit_uid` ='$v_id'");
+  }
 }
 if (isset($_GET['id'])) {
-    $form_action = "preschedul_view";
-    $sql_vistor = mysqli_query($conn, "select * from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`='Pending' order by `sl_no` desc");
-    $serach_visit = mysqli_query($conn, "select distinct `visitor_id` from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`='Pending'  order by `sl_no` desc");
+  $form_action = "preschedul_view";
+  $sql_vistor = mysqli_query($conn, "select * from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`='Pending' and Emp_approve!='Reject' order by `sl_no` desc");
+  $serach_visit = mysqli_query($conn, "select distinct `visitor_id` from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`='Pending'  order by `sl_no` desc");
 } else {
-    $form_action = "Visitor_details";
-    $sql_vistor = mysqli_query($conn, "select * from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`!='Pending' order by `sl_no` desc");
-    $serach_visit = mysqli_query($conn, "select distinct `visitor_id` from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`!='Pending' order by `sl_no` desc");
+  $form_action = "Visitor_details";
+  $sql_vistor = mysqli_query($conn, "select * from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`!='Pending' order by `sl_no` desc");
+  $serach_visit = mysqli_query($conn, "select distinct `visitor_id` from `visitor_log` where `branch_id` = '$branch_id'and `security_approval`!='Pending' order by `sl_no` desc");
 
 }
 
@@ -65,18 +65,19 @@ if (isset($_GET['id'])) {
                   <!-- Page body start -->
                   <div class="page-body">
                     <div class="card">
-                      <div class="col-md-6" style="    padding-top: 1rem;">
+                      <div class="col-md-6" style="    padding-top: .3rem;">
                         <div class="form-group row" style="margin:5px;">
-                          <label class="col-sm-3 col-form-label" style="padding-right: 0;">Search By Name </label>
+                          <label class="col-sm-3 col-form-label" style="padding-right: 0;flex:0 0 10%;">Search</label>
                           <div class="col-sm-9">
-                            <input list="emp_name" type="text" class="form-control" placeholder="Search By Visitor Name"
-                              id="searchInput">
+                            <input type="text" class="form-control" placeholder="Search" id="searchInput"
+                              style="width:60%">
+
 
 
                           </div>
                         </div>
                       </div>
-                      <div class="card-block table-border-style">
+                      <div class="card-block table-border-style" style="padding-top:5px;">
                         <div class="table-responsive table-short" style="height: 376px;">
                           <table class="table" id="dataTable">
                             <thead>
@@ -85,16 +86,17 @@ if (isset($_GET['id'])) {
                                   Sl No.</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">Visit Id
                                 </th>
-                                <th style="  width: 20%;padding-bottom:2px;padding-top:2px;">
+                                <th style=" width: 10%; padding-bottom:2px;padding-top:2px;">Id Card </th>
+                                <th style=" padding-bottom:2px;padding-top:2px;">
                                   Visitor Name</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">Comapny
                                   Name</th>
-                                <th style="padding-bottom:2px;padding-top:2px;">Id Card
-                                </th>
-                                <th style="  width: 20%;padding-bottom:2px;padding-top:2px;">
+                                <th style="padding-bottom:2px;padding-top:2px;">
                                   Visit To Wish</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">
-                                  Permission</th>
+                                  Emp. Permit</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">
+                                  Secq. Permit</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">Status
                                 </th>
                                 <th style="  width: 10%;padding-bottom:2px;padding-top:2px;">
@@ -103,64 +105,78 @@ if (isset($_GET['id'])) {
                             </thead>
                             <tbody>
                               <?php $i = 0;
-                                while ($visitor_data = mysqli_fetch_assoc($sql_vistor)) {
-                                    $v_nam = "";
-                                    $v_com = "";
-                                    $e_name = "";
-                                    $visitor_id = $visitor_data['visitor_id'];
-                                    $visitor_details = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_info` where `visitor_id` = '$visitor_id' "));
-                                    if ($visitor_details != "") {
-                                        $v_nam = $visitor_details['name'];
-                                        $v_com = $visitor_details['com_name'];
-                                    }
+                              while ($visitor_data = mysqli_fetch_assoc($sql_vistor)) {
+                                $v_nam = "";
+                                $v_com = "";
+                                $e_name = "";
+                                $visitor_id = $visitor_data['visitor_id'];
+                                $visitor_details = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_info` where `visitor_id` = '$visitor_id' "));
+                                if ($visitor_details != "") {
+                                  $v_nam = $visitor_details['name'];
+                                  $v_com = $visitor_details['com_name'];
+                                }
 
-                                    $emp_id = $visitor_data['emp_id'];
-                                    $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select * from `eomploye_details` where `Emp_code`= '$emp_id'"));
-                                    if ($emp_details != "") {
-                                        $e_name = $emp_details['EmployeeName'];
-                                    }
+                                $emp_id = $visitor_data['emp_id'];
+                                $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select * from `eomploye_details` where `Emp_code`= '$emp_id'"));
+                                if ($emp_details != "") {
+                                  $e_name = $emp_details['EmployeeName'];
+                                }
 
-                                    $i++;
+                                $i++;
 
-                                    ?>
+                                ?>
                               <tr>
                                 <th scope="row" style="padding:1px;"><?php echo $i; ?>
                                 </th>
                                 <td style="padding:1px;">
-                                  <?php 
+                                  <?php
                                     $id = explode("-", rtrim($visitor_data['visit_uid']));
-                                        if ($id != "") {
-                                            echo $id[1];
-                                        } ?>
+                                    if ($id != "") {
+                                      echo $id[1];
+                                    } ?>
+                                </td>
+                                <td style="padding:1px;">
+                                  <?php echo $visitor_data['id_card_no']; ?>
                                 </td>
                                 <td style="padding:1px;"><?php echo ucfirst($v_nam); ?>
                                 </td>
                                 <td style="padding:1px;"><?php echo ucfirst($v_com); ?>
                                 </td>
-                                <td style="padding:1px;">
-                                  <?php echo $visitor_data['id_card_no']; ?></td>
                                 <td style="padding:1px;"><?php echo ucfirst($e_name); ?>
                                 </td>
                                 <td style="padding:1px;">
                                   <?php
-                                    if ($visitor_data['security_approval'] == 'Approve' && $visitor_data['Emp_approve'] == 'Approve') {
-                                        echo "<span style='color:green; font-weight:700;'>Approve</span>";
-                                    } else if ($visitor_data['security_approval'] == 'Reject' || $visitor_data['Emp_approve'] == 'Reject') {
-                                        echo "<span style='color:red; font-weight:700;'>Reject</span>";
+                                    if ($visitor_data['Emp_approve'] == 'Pending') {
+                                      echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
+                                    } else if ($visitor_data['Emp_approve'] == 'Approve') {
+                                      echo '<i class="icofont icofont-tick-mark" style="color:green; font-size:2rem;"></i>';
                                     } else {
-                                        echo "<span style='color:blue; font-weight:700;'>Pending</span>";
+                                      echo '<i class="icofont icofont-not-allowed" style="color:red; font-size:2rem; font-weight:900"></i>';
                                     }
                                     ?>
                                 </td>
-                                <td <?php
-                                    if ($visitor_data['check_status'] == "OUT") {
-                                        echo 'style="font-weight:700; color:red; padding:1px;"';
-                                    } else if ($visitor_data['check_status'] == "IN") {
-                                        echo 'style="font-weight:700; color:green;padding:1px;"';
+                                <td style="padding:1px;"><?php
+                                  if ($visitor_data['security_approval'] == 'Pending') {
+                                    echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
+                                  } else if ($visitor_data['security_approval'] == 'Approve') {
+                                    echo '<i class="icofont icofont-tick-mark" style="color:green; font-size:2rem;"></i>';
+                                    ;
+                                  } else {
+                                    echo '<i class="icofont icofont-not-allowed" style="color:red; font-size:2rem; font-weight:900"></i>';
+                                  }
+                                  ?></td>
+                                <td style="padding: 0; text-align:center;">
+                                  <?php
+                                    if ($visitor_data['check_status'] == 'OUT') {
+                                      echo '<i class="icofont icofont-arrow-right" style="color:red; font-size:2.2rem; "></i>';
+                                    } else if ($visitor_data['check_status'] == 'IN') {
+                                      echo '<i class="icofont icofont-arrow-left" style="color:green; font-size:2.2rem;"></i>';
+                                      ;
                                     } else {
-                                        echo 'style="font-weight:700; color:blue;padding:1px;"';
-                                    } ?>>
-                                  <?php echo ucfirst($visitor_data['check_status']); ?>
+                                      echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
+
+                                    }
+                                    ?>
                                 </td>
 
                                 <td style="padding:1px;">
