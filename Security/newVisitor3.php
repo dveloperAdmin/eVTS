@@ -98,6 +98,16 @@ if (isset($_POST['u_submit'])) {
 <html lang="en">
 
 <?php include "include/head.php"; ?>
+<style>
+input[type="file"]::file-selector-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
 
 <body>
   <!-- Pre-loader start -->
@@ -130,43 +140,58 @@ if (isset($_POST['u_submit'])) {
                   <!-- Page-body start -->
                   <div class="page-body">
                     <div class="card">
+                      <div class="card-header" style="padding-top:8px; padding-bottom:8px;">
+                        <div class="row">
+                          <div class="col-md-3" style="flex:0 0 30%; max-width:35%;">
 
-
-                      <div class="row">
-                        <div class="col-md-6" style=" display:grid; place-content:center;">
-                          <div id="my_camera" style="width:303px; height:253px;"></div>
-                          <div class="user-entry" style="margin-left: .4rem; padding:1rem; margin-top:1.2rem;">
-
-                            <a href="new_visitor1"><button type="button"
-                                class="btn waves-effect waves-light btn-inverse btn-outline-inverse"><i
-                                  class="icofont icofont-exchange"></i>Back</button></a>
-                            <button type="click" id="click_pic"
-                              class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                              onclick="take_snapshot()"><i class="fa fa-camera"
-                                style=" font-size: 20px;margin-right: 10px;" autofocus></i>Click A Picture</button>
+                            <h5>Upload Visitor Image</h5>
                           </div>
-                          <form action="new_visitor_final" method="post" enctype="multipart/form-data" id="img_sub">
-                            <?php
-                            if ($e == true) {
+                        </div>
+                      </div>
 
-                              foreach ($visitor_data as $id => $value) {
-                                if ($id != "7") {
-                                  ?>
-                            <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
-                            <?php
+                      <div class="row" style="max-height:20rem;">
+                        <div class="col-md-6">
+                          <div class="card-block">
+                            <form action="new_visitor_final" method="post" enctype="multipart/form-data">
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Upload Image</label>
+                                <div class="col-sm-9">
+
+                                  <input type="file" class="form-control" id="imgFileInput" name="image"
+                                    accept=".jpg, .jpeg, .png" Required />
+                                </div>
+                              </div>
+                              <div class="user-entry">
+
+                                <button type="reset"
+                                  class="btn waves-effect waves-light btn-inverse btn-outline-inverse"><i
+                                    class="icofont icofont-exchange"></i>Cancel</button>
+
+                              </div>
+                              <?php
+                              if ($e == true) {
+
+                                foreach ($visitor_data as $id => $value) {
+                                  if ($id != "7") {
+                                    ?>
+                              <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
+                              <?php
+                                  }
                                 }
                               }
-                            }
-                            ?>
-                            <input type="hidden" name="visit_id" value="<?php echo $visit_id; ?>" />
-                            <input type="hidden" name="image" class="image-tag" id="img2" />
-                            <input type="hidden" name="uid" value="<?php echo "VSL-" . abs(crc32(uniqid())); ?>" />
-                            <!-- <input type="text" value="yes" id = "img2"> -->
+                              ?>
+                              <input type="hidden" name="visit_id" value="<?php echo $visit_id; ?>" />
+                              <!-- <input type="hidden" name="image" class="image-tag" /> -->
+                              <input type="hidden" name="uid" value="<?php echo "VSL-" . abs(crc32(uniqid())); ?>" />
+                              <!-- <input type="text" value="yes" id = "img2"> -->
 
+                          </div>
                         </div>
                         <div class="col-md-6" style=" display:grid; place-content:center; ">
-                          <div id="results" style="width:303px; height:253px; margin-top:.2rem;"></div>
-                          <div id="sub_id" class="user-entry"
+                          <div id="results" style="width:218px; height:223px; margin-top:.2rem;">
+
+                          </div>
+                          <div id="subBtn" class="user-entry"
                             style="margin-left: .4rem; padding:.5rem; padding-top:1.5rem; display:grid;">
                             <button type="submit" class="btn waves-effect waves-light btn-primary btn-outline-primary"
                               name="img_submit"><i class="fa fa-camera"
@@ -174,20 +199,22 @@ if (isset($_POST['u_submit'])) {
                           </div>
 
                         </div>
+                        </form>
                       </div>
-                      </form>
                     </div>
-
                   </div>
-                  <!-- Page-body end -->
                 </div>
 
               </div>
+              <!-- Page-body end -->
             </div>
+
           </div>
         </div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 
   <!-- Required Jquery -->
@@ -196,20 +223,23 @@ if (isset($_POST['u_submit'])) {
 
 </html>
 <script language="JavaScript">
-Webcam.set({
-  width: 303,
-  height: 250,
-  image_format: "jpeg",
-  jpeg_quality: 100,
-});
+$("#imgFileInput").change(function() {
+  let img = document.getElementById("imgFileInput");
+  // let imageProparty = $(this).prop('src');
+  var file = this.files[0];
+  var fileType = file["type"];
+  var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+  if ($.inArray(fileType, validImageTypes) < 0) {
+    // invalid file type code goes here.
 
-Webcam.attach("#my_camera");
 
-function take_snapshot() {
-  Webcam.snap(function(data_uri) {
-    $(".image-tag").val(data_uri);
+    console.log('Invalid image type');
+  } else {
     document.getElementById("results").innerHTML =
-      '<img src="' + data_uri + '"/>';
-  });
-}
+      '<img style="width:218px; height:222px" src="' + URL.createObjectURL(img.files[0]) + '"/>';
+    $('image-tag').val(img.files[0]);
+
+  }
+
+})
 </script>

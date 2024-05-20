@@ -41,6 +41,7 @@ if ($emp_id != "") {
             $Approval["Mood"] = $checkApproval['Approve_status'];
             $Approval["Email"] = $checkApproval['emailApproval'];
             $Approval["Reffer"] = $checkApproval['meet_end_status'];
+            $Approval["Camera"] = $checkApproval['camApprove'];
         }
 
     }

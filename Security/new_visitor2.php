@@ -15,6 +15,7 @@ $time = "";
 $purpose = "";
 $e = false;
 $email = "";
+$camApp = false;
 if (isset($_POST['u_submit'])) {
   try {
     $e = true;
@@ -58,6 +59,9 @@ if (isset($_POST['u_submit'])) {
       $_SESSION['status'] = 'Please Fill All The Input Carefully';
 
       header("location:new_visitor1");
+    }
+    if ($Approval['Camera'] != "" && $Approval['Camera'] != null) {
+      $camApp = $Approval['Camera'];
     }
   } catch (Exception $e) {
     $_SESSION['icon'] = 'error';
@@ -110,6 +114,17 @@ if (isset($_POST['u_submit'])) {
 <html lang="en">
 
 <?php include "include/head.php"; ?>
+<style>
+#expandingTextarea {
+  width: calc(100% - 10px);
+  transition: height 0.3s ease;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  text-overflow: ellipsis;
+
+}
+</style>
 
 <body>
   <!-- Pre-loader start -->
@@ -140,7 +155,6 @@ if (isset($_POST['u_submit'])) {
               <!-- Main-body start -->
               <div class="main-body">
                 <div class="page-wrapper">
-
                   <!-- Page body start -->
                   <div class="page-body">
                     <div class="card">
@@ -150,18 +164,31 @@ if (isset($_POST['u_submit'])) {
 
                             <h5>Emp.name :- </h5><?php echo $emp_name_v; ?>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 35%; max-width:35%;">
+                          <div class="col-md-3" style="flex:0 0 30%; max-width:35%;">
+                            <div style="display:flex;flex-wrap:wrap;">
 
-                            <h5>Purpose :- </h5><?php echo $purpose; ?>
+                              <div>
+                                <h5>Purpose :- </h5>
+                              </div>
+                              <div id="containerOverFlow" style="flex:0 0 74%; max-width: 75%; overflow: hidden;">
+                                <textarea id="expandingTextarea" rows="1" style="width: 100%;"
+                                  readonly><?= $purpose; ?></textarea>
+
+                              </div>
+                            </div>
+
+                            <!--  -->
                           </div>
                           <div class="col-md-3" style="flex:0 0 20.5%; ">
 
                             <h5>Arrive-Time:- <?php echo $time; ?></h5>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 14%">
+                          <div class="col-md-3" style="flex:0 0 17%; padding-right:0px;">
 
                             <h5>Gate No :- <?php echo $gate_no; ?></h5>
                           </div>
+
+
 
                         </div>
 
@@ -170,10 +197,17 @@ if (isset($_POST['u_submit'])) {
 
                       <div class="row">
                         <div class="col-md-6">
+                          <?php
+                          if ($camApp == 'Activate') {
+                            $formUrl = "new_visitor3";
+                          } else {
+                            $formUrl = "newVisitor3";
 
+                          }
+                          ?>
 
                           <div class="card-block">
-                            <form action="new_visitor3" method="post" id="save_next" enctype="multipart/form-data">
+                            <form action="<?= $formUrl; ?>" method="post" id="save_next" enctype="multipart/form-data">
                               <div class="form-group row" style="margin-bottom:.65rem;">
                                 <?php
                                 if ($e == true) {
@@ -395,5 +429,38 @@ function randomString(length) {
 }
 $(document).ready(function() {
   $("#vidcard").val(randomString(13).toUpperCase());
+});
+
+
+$(document).ready(function() {
+  var $textarea = $('#expandingTextarea');
+  var originalHeight = $textarea.height(); // Store the original height
+
+  function adjustHeight() {
+    // Reset the height to auto to recalculate the scrollHeight
+    $textarea.css('height', 'auto');
+
+    // Calculate the scroll height and set it as the new height if it exceeds the current height
+    var scrollHeight = $textarea.prop('scrollHeight');
+    var currentHeight = $textarea.height();
+
+    if (scrollHeight > currentHeight) {
+      $textarea.css('height', scrollHeight + 'px');
+    }
+  }
+
+  // Adjust height on input
+  $textarea.on('input', adjustHeight);
+
+  // Adjust height on hover
+  $textarea.hover(
+    function() {
+      adjustHeight();
+    },
+    function() {
+      // Revert to the original height on mouse leave
+      $textarea.css('height', originalHeight + 'px');
+    }
+  );
 });
 </script>

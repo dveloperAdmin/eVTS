@@ -16,10 +16,11 @@ if (isset($_POST['set_app_sts'])) {
   $meet_end_sts = $_POST['end_sts'];
   $referral_sts = $_POST['end_sts'];
   $emailApp = $_POST['emailApp'];
+  $camApproval = $_POST['camApp_sts'];
   if ($ap_branch != "" && $app_sts != "") {
     $sql_emp_code_temp = mysqli_query($conn, "select * from `approval_sts` where `branch_id`= '$ap_branch'");
     if (mysqli_num_rows($sql_emp_code_temp) < 1) {
-      $sql_insert = mysqli_query($conn, "insert into `approval_sts`(`branch_id`, `Approve_status`,`meet_end_status`,`referral_status`,`emailApproval`) values ('$ap_branch','$app_sts','$meet_end_sts','$referral_sts','$emailApp')");
+      $sql_insert = mysqli_query($conn, "insert into `approval_sts`(`branch_id`, `Approve_status`,`meet_end_status`,`referral_status`,`emailApproval`.`camApprove`) values ('$ap_branch','$app_sts','$meet_end_sts','$referral_sts','$emailApp','$camApproval')");
       if ($sql_insert != "") {
         $_SESSION['icon'] = 'success';
         $_SESSION['status'] = 'Approval Status Set Successfully';
@@ -36,7 +37,7 @@ if (isset($_POST['set_app_sts'])) {
       $data = mysqli_fetch_assoc($sql_emp_code_temp);
       $sl_no = $data['sl_no'];
 
-      $sql_update = mysqli_query($conn, "update `approval_sts` set `branch_id`='$ap_branch',`Approve_status`='$app_sts',`meet_end_status`='$meet_end_sts',`referral_status`='$referral_sts',`emailApproval` = '$emailApp' where `sl_no` = '$sl_no'");
+      $sql_update = mysqli_query($conn, "update `approval_sts` set `branch_id`='$ap_branch',`Approve_status`='$app_sts',`meet_end_status`='$meet_end_sts',`referral_status`='$referral_sts',`emailApproval` = '$emailApp', `camApprove`='$camApproval' where `sl_no` = '$sl_no'");
       if ($sql_update != "") {
         $_SESSION['icon'] = 'success';
         $_SESSION['status'] = 'Approval Status Update Successfully';
@@ -150,68 +151,99 @@ if (isset($_GET['true'])) {
                                 <label class="col-sm-3 col-form-label" style="padding-right: 0;max-width:7.7rem;">Branch
                                   Name</label>
                                 <div class="col-sm-9" style="max-width: 61%;">
-                                  <select class="form-control" id="mob" name="branch_ap_id"
+                                  <select class="form-control" id="appBranch" name="branch_ap_id"
                                     style="    width: 23rem;margin-right: 1rem;" required>
                                     <option value="" selected disable hidden>Select
                                       Branch</option>
                                     <?php $sql_branch = mysqli_query($conn, "select *  from `branch`");
                                     while ($branch_details = mysqli_fetch_assoc($sql_branch)) { ?>
-                                      <option value="<?php echo $branch_details['branch_code']; ?>">
-                                        <?php echo $branch_details['branch_name']; ?>
-                                      </option>
+                                    <option value="<?php echo $branch_details['branch_code']; ?>">
+                                      <?php echo $branch_details['branch_name']; ?>
+                                    </option>
                                     <?php } ?>
 
                                   </select>
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label"
-                                  style="padding-right: 0;max-width:7.7rem;">Approval
-                                  Status</label>
-                                <div class="col-sm-9" style="max-width: 61%;">
-                                  <select class="form-control" id="mob" name="app_sts"
-                                    style="width: 23rem;margin-right: 1rem;" required>
-                                    <option value="" selected disable hidden>Select
-                                      Approval Status</option>
-                                    <option value="Activate">Activate</option>
-                                    <option value="Deactivate">Deactivate</option>
-                                  </select>
+                              <div id="changeOne">
+
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label"
+                                    style="padding-right: 0;max-width:7.7rem;">Approval
+                                    Status</label>
+                                  <div class="col-sm-9" style="max-width: 61%;">
+                                    <select class="form-control" id="mob" name="app_sts"
+                                      style="width: 23rem;margin-right: 1rem;" required>
+                                      <option value="" id="appSts" selected disable hidden>Select
+                                        Approval Status</option>
+                                      <option value="Activate">Activate</option>
+                                      <option value="Deactivate">Deactivate</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label"
+                                    style="padding-right: 0;max-width:7.7rem;">Camera
+                                    Appr.</label>
+                                  <div class="col-sm-9" style="max-width: 61%;">
+                                    <select class="form-control" id="mob" name="camApp_sts"
+                                      style="width: 23rem;margin-right: 1rem;" required>
+                                      <option value="" id="camSts" selected disable hidden>Select Camera
+                                        Approval Status</option>
+                                      <option value="Activate">Activate</option>
+                                      <option value="Deactivate">Deactivate</option>
+                                    </select>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-6" style="max-width: 80%; flex: 0 0 56%;">
-                            <div class="card-block table-border-style">
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" style="padding-right: 0;max-width:7.7rem;">Email
-                                  Approval</label>
-                                <div class="col-sm-9" style="max-width: 61%;">
-                                  <select class="form-control" name="emailApp" style="width: 23rem;margin-right: 1rem;"
-                                    required>
-                                    <option value="" selected disable hidden>Select
-                                      Email Approval Status</option>
-                                    <option value="Activate">Activate</option>
-                                    <option value="Deactivate">Deactivate</option>
-                                  </select>
+                          <div id="changeTwo">
+                            <div class="col-md-6" style="max-width: 100%; flex: 0 0 56%;">
+                              <div class="card-block table-border-style">
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label"
+                                    style="padding-right: 0;max-width:7.7rem;">Email
+                                    Approval</label>
+                                  <div class="col-sm-9" style="max-width: 61%;">
+                                    <select class="form-control" name="emailApp"
+                                      style="width: 23rem;margin-right: 1rem;" required>
+                                      <option value="" id="emailSts" selected disable hidden>Select
+                                        Email Approval Status</option>
+                                      <option value="Activate">Activate</option>
+                                      <option value="Deactivate">Deactivate</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label"
+                                    style=" padding-right: 0;max-width:7.7rem;">Meet
+                                    End & Ref.</label>
+                                  <div class="col-sm-9" style="max-width: 61%;">
+                                    <select class="form-control" name="end_sts" style="width: 23rem;margin-right: 1rem;"
+                                      required>
+                                      <option value="" id="reffSts" selected disable hidden>Select
+                                        Meet & Referral Status</option>
+                                      <option value="Activate">Activate</option>
+                                      <option value="Deactivate">Deactivate</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="col-sm-3" style="max-width: 61%;"></div>
+                                  <div class="col-sm-9" style="max-width: 61%;"></div>
+
                                 </div>
                               </div>
                               <div class="form-group row">
-                                <label class="col-sm-3 col-form-label" style=" padding-right: 0;max-width:7.7rem;">Meet
-                                  End & Ref.</label>
-                                <div class="col-sm-9" style="max-width: 61%;">
-                                  <select class="form-control" name="end_sts" style="width: 23rem;margin-right: 1rem;"
-                                    required>
-                                    <option value="" selected disable hidden>Select
-                                      Meet & Referral Status</option>
-                                    <option value="Activate">Activate</option>
-                                    <option value="Deactivate">Deactivate</option>
-                                  </select>
-                                </div>
-                                <div class="user-entry">
-                                  <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                    style="padding: 7px 20px; background-color:none;" name="set_app_sts"><i
-                                      class="icofont icofont-settings-alt"
-                                      style="    font-size: 20px;margin-right: 10px;"></i>Set</button>
+                                <div class="col-sm-3" style="max-width: 61%;"></div>
+                                <div class="col-sm-9" style="max-width: 70%;">
+                                  <div class="user-entry">
+                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                      style="padding: 7px 20px; background-color:none;" name="set_app_sts"><i
+                                        class="icofont icofont-settings-alt"
+                                        style="    font-size: 20px;margin-right: 10px;"></i>Set</button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -228,6 +260,7 @@ if (isset($_GET['true'])) {
                                 <th style="width: 5rem;">Sl No.</th>
                                 <th>Branch Name</th>
                                 <th>Approval Status</th>
+                                <th>Cam Appr. Status</th>
                                 <th>Email Approval</th>
                                 <th>Meeing End Status</th>
                                 <th>Referral Status</th>
@@ -248,24 +281,25 @@ if (isset($_GET['true'])) {
                                 }
 
                                 ?>
-                                <tr>
-                                  <th scope="row"><?php echo $i; ?></th>
-                                  <td><?php echo ucfirst($comp_name); ?></td>
-                                  <td><?php echo ucfirst($Approve_data['Approve_status']); ?>
-                                  </td>
-                                  <td><?php echo ucfirst($Approve_data['emailApproval']); ?>
-                                  </td>
-                                  <td><?php echo ucfirst($Approve_data['meet_end_status']); ?>
-                                  </td>
-                                  <td><?php echo ucfirst($Approve_data['referral_status']); ?>
-                                  </td>
-                                  <td class="th_width">
-                                    <a href="approval? did=<?php echo $Approve_data['sl_no']; ?> " class="delt_href">
-                                      <button class="btn waves-effect waves-light btn-danger btn-outline-danger"><i
-                                          class="icofont icofont-delete-alt"></i>Delete</button>
-                                    </a>
-                                  </td>
-                                  <!-- <td class="th_width">
+                              <tr>
+                                <th scope="row"><?php echo $i; ?></th>
+                                <td><?php echo ucfirst($comp_name); ?></td>
+                                <td><?php echo ucfirst($Approve_data['Approve_status']); ?>
+                                <td><?php echo ucfirst($Approve_data['camApprove']); ?>
+                                </td>
+                                <td><?php echo ucfirst($Approve_data['emailApproval']); ?>
+                                </td>
+                                <td><?php echo ucfirst($Approve_data['meet_end_status']); ?>
+                                </td>
+                                <td><?php echo ucfirst($Approve_data['referral_status']); ?>
+                                </td>
+                                <td class="th_width">
+                                  <a href="approval? did=<?php echo $Approve_data['sl_no']; ?> " class="delt_href">
+                                    <button class="btn waves-effect waves-light btn-danger btn-outline-danger"><i
+                                        class="icofont icofont-delete-alt"></i>Delete</button>
+                                  </a>
+                                </td>
+                                <!-- <td class="th_width">
                                                                     <form action="" method="get">
                                                                         <?php if ($log_out_time_sts == False) { ?>
                                                                             <button class="btn waves-effect waves-light btn-success btn-outline-success" name="true"><i class="fa fa-smile-o" aria-hidden="true" style="font-size:1.3rem; font-weight:900;"></i>Log Out Timing</button>
@@ -276,7 +310,7 @@ if (isset($_GET['true'])) {
                                                                     </form>
                                                                 </td> -->
 
-                                </tr>
+                              </tr>
                               <?php } ?>
                             </tbody>
                           </table>
@@ -302,47 +336,47 @@ if (isset($_GET['true'])) {
 
 </html>
 <script>
-  $("#mob").keyup(function () {
-    $("#emp_name").val('');
-    $("#com").val('');
-    $("#dept").val('');
-    $("#bran").val('');
+$("#mob").keyup(function() {
+  $("#emp_name").val('');
+  $("#com").val('');
+  $("#dept").val('');
+  $("#bran").val('');
+})
+$("#emp_name").keyup(function() {
+  $("#mob").val('');
+  $("#com").val('');
+  $("#dept").val('');
+  $("#bran").val('');
+})
+$("#com , #dept, #bran").change(function() {
+  $("#mob").val('');
+  $("#emp_name").val('');
+
+})
+
+$('.delt_href').on('click', function(e) {
+  e.preventDefault();
+  // console.log(e);
+  var href = $(this).attr('href')
+  console.log(href)
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      console.log(result.value);
+      document.location.href = href;
+
+    } else {
+
+    }
   })
-  $("#emp_name").keyup(function () {
-    $("#mob").val('');
-    $("#com").val('');
-    $("#dept").val('');
-    $("#bran").val('');
-  })
-  $("#com , #dept, #bran").change(function () {
-    $("#mob").val('');
-    $("#emp_name").val('');
 
-  })
-
-  $('.delt_href').on('click', function (e) {
-    e.preventDefault();
-    // console.log(e);
-    var href = $(this).attr('href')
-    console.log(href)
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        console.log(result.value);
-        document.location.href = href;
-
-      } else {
-
-      }
-    })
-
-  })
+})
 </script>

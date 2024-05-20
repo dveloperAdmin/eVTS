@@ -25,15 +25,25 @@ function is_connected()
 }
 function mail_send($approv_sts, $email, $v_log_id, $v_id, $name, $company, $add, $cont, $visit_purpose, $arr_time, $check_sts_mail)
 {
-    $url = "";
+    // $url = "";
 
-    if ($url == "") {
-        $url_host = gethostname();
-    } else {
-        $url_host = $url;
-    }
-    $ipaddress_server = gethostbynamel($url_host);
-    $localhost = end($ipaddress_server) . ":" . $_SERVER['SERVER_PORT'];
+    // if ($url == "") {
+    //     $url_host = gethostname();
+    // } else {
+    //     $url_host = $url;
+    // }
+    // $ipaddress_server = gethostbynamel($url_host);
+    $url = $_SERVER['REQUEST_URI'];
+
+    // Parse the URL and get the host/domain name
+    $parsed_url = parse_url($url);
+    $domain = $parsed_url['host'];
+
+
+
+    // Get the IP address
+    $ip = gethostbyname($domain);
+    $localhost = $ip . ":" . $_SERVER['SERVER_PORT'];
     $emp_visit_status =
         $destination_mail = $email;
     $attechment = "";

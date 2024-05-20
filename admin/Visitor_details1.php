@@ -282,19 +282,25 @@ if (isset($_POST['view_v'])) {
                           <div class="admit-card">
                             <div class="BoxA border- padding mar-bot">
                               <div class="row">
-                                <div class="col-sm-4" style="flex:0 0 28%; ">
-                                  <h5 style="font-size:15px;">In Date-Time :- <span
-                                      style="font-style: italic;"><?php echo $v_in_date ?></span>
+                                <div class="col-sm-4" style="flex:0 0 33%; ">
+                                  <h5 style="font-size:15px;">
+                                    <?php if ($check_in_sts == "Pending" || $approval_sts == "Reject") {
+                                      echo "Arrival ";
+                                    } else {
+                                      echo "IN ";
+                                    } ?>Date-Time
+                                    :-&nbsp; <span
+                                      style="font-style: italic;"><?php echo $v_in_date . ' ' . $arr_time; ?></span>
                                   </h5>
 
                                 </div>
                                 <div class="col-sm-4 txt-center"
-                                  style="flex:0 0 43%; max-width:50%; text-align: center;">
+                                  style="flex:0 0 33%; max-width:50%; text-align: center;">
                                   <h5 style="font-size:15px;">Approval Sts.: -
                                     <?php echo $approval_sts; ?>
                                   </h5>
                                 </div>
-                                <div class="col-sm-4" style="flex:0 0 29%;">
+                                <div class="col-sm-4" style="flex:0 0 35%;">
                                   <h5 style="font-size:15px;">Out Date-Time :- <span
                                       style="font-style: italic;"><?php echo $check_out ?></span>
                                   </h5>
@@ -303,28 +309,28 @@ if (isset($_POST['view_v'])) {
                               </div>
                             </div>
                             <?php if ($end_meeting_sts == "Pending") { ?>
-                            <div class="BoxA border- padding mar-bot">
-                              <div class="row">
-                                <div class="col-sm-4" style="flex:0 0 28%; ">
-                                  <h5 style="font-size:15px;">Meeting status :- <span
-                                      style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
-                                  </h5>
+                              <div class="BoxA border- padding mar-bot">
+                                <div class="row">
+                                  <div class="col-sm-4" style="flex:0 0 28%; ">
+                                    <h5 style="font-size:15px;">Meeting status :- <span
+                                        style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
+                                    </h5>
 
-                                </div>
-                                <div class="col-sm-4 txt-center"
-                                  style="flex:0 0 43%; max-width:50%; text-align: center;">
-                                  <h5 style="font-size:15px;">Meeting End By.: -
-                                    <?php echo $meeting_end_by; ?>
-                                  </h5>
-                                </div>
-                                <div class="col-sm-4" style="flex:0 0 29%;">
-                                  <h5 style="font-size:15px;">End Date-Time :- <span
-                                      style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
-                                  </h5>
+                                  </div>
+                                  <div class="col-sm-4 txt-center"
+                                    style="flex:0 0 43%; max-width:50%; text-align: center;">
+                                    <h5 style="font-size:15px;">Meeting End By.: -
+                                      <?php echo $meeting_end_by; ?>
+                                    </h5>
+                                  </div>
+                                  <div class="col-sm-4" style="flex:0 0 29%;">
+                                    <h5 style="font-size:15px;">End Date-Time :- <span
+                                        style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
+                                    </h5>
 
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                             <?php } ?>
 
                             <div class="BoxD mar-bot">
@@ -334,7 +340,7 @@ if (isset($_POST['view_v'])) {
                                     <tbody>
                                       <tr>
                                         <td colspan="3"
-                                          style="font-size:16px; padding: .3rem 0px .0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;">
+                                          style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
                                           Visitor Info</td>
                                       </tr>
                                       <tr>
@@ -430,7 +436,7 @@ if (isset($_POST['view_v'])) {
                                   <tbody>
                                     <tr>
                                       <td colspan="3"
-                                        style="font-size:16px; padding: .3rem; padding-bottom:0;font-weight:700;border-bottom:2px solid #000;text-align:left;">
+                                        style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
                                         TO Meet</td>
                                     </tr>
                                     <tr>
@@ -475,30 +481,30 @@ if (isset($_POST['view_v'])) {
                         <div class="user-entry"
                           style="margin-right: 1.3rem; display:flex; width:30rem;     justify-content: end;">
                           <?php if ($approval_sts == "Approve" && $check_in_sts != "Pending") { ?>
-                          <select class="form-control" name="" id="url" style="margin-right:1rem;height:40%" autofocus>
-                            <option value="" selected disabled hidden>Select Print Option
-                            </option>
-                            <option value="new_visit_short_recipt.php">Short Info Print
-                            </option>
-                            <option value="new_visit_recipt.php">Info Print</option>
-                          </select>
+                            <select class="form-control" name="" id="url" style="margin-right:1rem;height:40%" autofocus>
+                              <option value="" selected disabled hidden>Select Print Option
+                              </option>
+                              <option value="new_visit_short_recipt.php">Short Info Print
+                              </option>
+                              <option value="new_visit_recipt.php">Info Print</option>
+                            </select>
 
 
-                          <button class="btn waves-effect waves-light btn-primary btn-outline-primary" id="print_url"
-                            style="width:60%; margin-right:1rem;height: 2.1rem; padding: 0;"><i class="fa fa-print"
-                              style="    font-size: 20px;margin-right: 10px;"></i>Print</button>
+                            <button class="btn waves-effect waves-light btn-primary btn-outline-primary" id="print_url"
+                              style="width:60%; margin-right:1rem;height: 2.1rem; padding: 0;"><i class="fa fa-print"
+                                style="    font-size: 20px;margin-right: 10px;"></i>Print</button>
 
-                          <a href="<?= $backUrl ?>" style="width:60%;  "><button
-                              class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                              style="height: 2.1rem; width:60%; padding: 0;"><i class="fa fa-arrow-left"
-                                style="font-size: 20px;margin-right: 10px;"></i>Back</button></a>
+                            <a href="<?= $backUrl ?>" style="width:60%;  "><button
+                                class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
+                                style="height: 2.1rem;  padding: 0rem 1.5rem;"><i class="fa fa-arrow-left"
+                                  style="font-size: 20px;margin-right: 10px;"></i>Back</button></a>
                           <?php } else { ?>
 
-                          <a href="<?= $backUrl ?>" style="display:grid; justify-content: end;">
-                            <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                              style="height: 2.1rem;  width:8rem; padding: 0;"><i class="fa fa-arrow-left"
-                                style="    font-size: 20px;margin-right: 10px;"></i>Back</button>
-                          </a>
+                            <a href="<?= $backUrl ?>" style="display:grid; justify-content: end;">
+                              <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
+                                style="height: 2.1rem;  width:8rem; padding: 0;"><i class="fa fa-arrow-left"
+                                  style="    font-size: 20px;margin-right: 10px;"></i>Back</button>
+                            </a>
                           <?php } ?>
                         </div>
                       </div>
@@ -531,19 +537,19 @@ if (isset($_POST['view_v'])) {
 </html>
 
 <script>
-$("#print_url").click(function(e) {
-  // e.preventDefault();
-  var url = $("#url").val();
-  url = url + "?id=<?php echo $v_log_id; ?>-";
+  $("#print_url").click(function (e) {
+    // e.preventDefault();
+    var url = $("#url").val();
+    url = url + "?id=<?php echo $v_log_id; ?>-";
 
-  printExternal(url);
-
-
-})
-
-function printExternal(url) {
-  window.open(url, "print", "width=800, height=800, scrollbars=yes");
+    printExternal(url);
 
 
-}
+  })
+
+  function printExternal(url) {
+    window.open(url, "print", "width=800, height=800, scrollbars=yes");
+
+
+  }
 </script>

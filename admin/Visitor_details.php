@@ -291,19 +291,25 @@ if (isset($_POST['view_v'])) {
                           <div class="admit-card">
                             <div class="BoxA border- padding mar-bot">
                               <div class="row">
-                                <div class="col-sm-4" style="flex:0 0 28%; ">
-                                  <h5 style="font-size:15px;">In Date-Time :- <span
+                                <div class="col-sm-4" style="flex:0 0 33%; ">
+                                  <h5 style="font-size:15px;">
+                                    <?php if ($check_in_sts == "Pending" || $approval_sts == "Reject") {
+                                      echo "Arrival ";
+                                    } else {
+                                      echo "IN ";
+                                    } ?>Date-Time
+                                    :-&nbsp; <span
                                       style="font-style: italic;"><?php echo $v_in_date . ' ' . $arr_time; ?></span>
                                   </h5>
 
                                 </div>
                                 <div class="col-sm-4 txt-center"
-                                  style="flex:0 0 43%; max-width:50%; text-align: center;">
+                                  style="flex:0 0 33%; max-width:50%; text-align: center;">
                                   <h5 style="font-size:15px;">Approval Sts.: -
                                     <?php echo $approval_sts; ?>
                                   </h5>
                                 </div>
-                                <div class="col-sm-4" style="flex:0 0 29%;">
+                                <div class="col-sm-4" style="flex:0 0 35%;">
                                   <h5 style="font-size:15px;">Out Date-Time :- <span
                                       style="font-style: italic;"><?php echo $check_out ?></span>
                                   </h5>
@@ -343,7 +349,7 @@ if (isset($_POST['view_v'])) {
                                     <tbody>
                                       <tr>
                                         <td colspan="3"
-                                          style="font-size:16px; padding: .2rem 1px 0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;">
+                                          style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
                                           Visitor Info</td>
                                       </tr>
                                       <tr>
@@ -439,7 +445,7 @@ if (isset($_POST['view_v'])) {
                                   <tbody>
                                     <tr>
                                       <td colspan="3"
-                                        style="font-size:16px; padding: .3rem;    font-family: 'Aboreto', cursive; padding-bottom:0;font-weight:700;border-bottom:2px solid #000;text-align:left;">
+                                        style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
                                         TO Meet</td>
                                     </tr>
                                     <tr>

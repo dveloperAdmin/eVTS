@@ -1,15 +1,30 @@
 <script>
-  document.getElementById("alert_show").style.display="none";
-  window.addEventListener("online", onFunction);
-  window.addEventListener("offline", offFunction);
-  function onFunction() {
-    document.getElementById("alert_show").style.cssText = "display: block; background:#53e600; color:#fff;";
-    document.getElementById("connection_sts").innerHTML = "Back to Online.";
-  }
-  function offFunction() {
-    document.getElementById("alert_show").style.cssText = "display: block; background:red; color:#fff;";
-    document.getElementById("connection_sts").innerHTML = "Your are Offline.";
-  }
+document.getElementById("alert_show").style.display = "none";
+window.addEventListener("online", onFunction);
+window.addEventListener("offline", offFunction);
+
+function onFunction() {
+  document.getElementById("alert_show").style.cssText = "display: block; background:#53e600; color:#fff;";
+  document.getElementById("connection_sts").innerHTML = "Back to Online.";
+}
+
+function offFunction() {
+  document.getElementById("alert_show").style.cssText = "display: block; background:red; color:#fff;";
+  document.getElementById("connection_sts").innerHTML = "Your are Offline.";
+}
+
+$("#searchInput").keyup(function() {
+  var searchText = $(this).val().toLowerCase();
+
+  $("#dataTable tbody tr").each(function() {
+    var rowData = $(this).text().toLowerCase();
+    if (rowData.indexOf(searchText) === -1) {
+      $(this).hide();
+    } else {
+      $(this).show();
+    }
+  });
+});
 </script>
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
@@ -34,13 +49,13 @@
 
 
 <?php if(isset($_SESSION['status']) && $_SESSION['status']!=''){ ?>
-        <script>
-  Swal.fire({
+<script>
+Swal.fire({
   icon: '<?php echo $_SESSION['icon'] ?>',
   title: '<?php echo $_SESSION['status'] ?>',
   showCloseButton: true,
   confirmButton: true,
-  
+
 })
 </script>
 <?php

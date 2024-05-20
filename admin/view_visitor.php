@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
     $v_permit = $_POST['action'];
     // $e_remark = $_POST['remark'];
     if ($v_permit == 'Reject') {
-      $sql_udate = mysqli_query($conn, "update `visitor_log` set `Emp_approve`='$v_permit',security_approval = '$v_permit','check_status' = 'OUT' where `visit_uid`='$v_id'");
+      $sql_udate = mysqli_query($conn, "update `visitor_log` set `Emp_approve`='$v_permit',security_approval = '$v_permit',check_status = 'OUT' where `visit_uid`='$v_id'");
 
     } else {
       $sql_udate = mysqli_query($conn, "update `visitor_log` set `Emp_approve`='$v_permit' where `visit_uid`='$v_id'");
@@ -144,24 +144,24 @@ if (isset($_GET['id'])) {
                                 $i++;
 
                                 ?>
-                              <tr>
-                                <th scope="row" style="padding:1px;"><?php echo $i; ?>
-                                </th>
-                                <td style="padding:1px;">
-                                  <?php $id = explode("-", rtrim($visitor_data['visit_uid']));
+                                <tr>
+                                  <th scope="row" style="padding:1px;"><?php echo $i; ?>
+                                  </th>
+                                  <td style="padding:1px;">
+                                    <?php $id = explode("-", rtrim($visitor_data['visit_uid']));
                                     if ($id != "") {
                                       echo $id[1];
                                     } ?>
-                                </td>
-                                <td style="padding:1px;"><?php echo ucfirst($v_nam); ?>
-                                </td>
-                                <td style="padding:1px;"><?php echo ucfirst($v_com); ?>
-                                </td>
-                                <td style="padding:1px;">
-                                  <?php echo $visitor_data['register_type']; ?>
-                                </td>
+                                  </td>
+                                  <td style="padding:1px;"><?php echo ucfirst($v_nam); ?>
+                                  </td>
+                                  <td style="padding:1px;"><?php echo ucfirst($v_com); ?>
+                                  </td>
+                                  <td style="padding:1px;">
+                                    <?php echo $visitor_data['register_type']; ?>
+                                  </td>
 
-                                <td style="padding:1px;"><?php
+                                  <td style="padding:1px;"><?php
                                   if ($visitor_data['Emp_approve'] == 'Pending') {
                                     echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
                                   } else if ($visitor_data['Emp_approve'] == 'Approve') {
@@ -170,7 +170,7 @@ if (isset($_GET['id'])) {
                                     echo '<i class="icofont icofont-not-allowed" style="color:red; font-size:2rem; font-weight:900"></i>';
                                   }
                                   ?></td>
-                                <td style="padding:1px;"><?php
+                                  <td style="padding:1px;"><?php
                                   if ($visitor_data['security_approval'] == 'Pending') {
                                     echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
                                   } else if ($visitor_data['security_approval'] == 'Approve') {
@@ -180,8 +180,8 @@ if (isset($_GET['id'])) {
                                     echo '<i class="icofont icofont-not-allowed" style="color:red; font-size:2rem; font-weight:900"></i>';
                                   }
                                   ?></td>
-                                <td style="padding: 0; text-align:center;">
-                                  <?php
+                                  <td style="padding: 0; text-align:center;">
+                                    <?php
                                     if ($visitor_data['check_status'] == 'OUT') {
                                       echo '<i class="icofont icofont-arrow-right" style="color:red; font-size:2.2rem; "></i>';
                                     } else if ($visitor_data['check_status'] == 'IN') {
@@ -192,20 +192,20 @@ if (isset($_GET['id'])) {
 
                                     }
                                     ?>
-                                </td>
+                                  </td>
 
-                                <td style="padding:4px;">
-                                  <form action="<?php echo $form_action; ?>" method="post">
-                                    <input type="hidden" name="v_id" value="<?php echo $visitor_data['visit_uid']; ?>">
-                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                      name="view_v" style="padding: 4px 11px 4px 11px;"><i
-                                        class="icofont icofont-eye-alt"></i>View</button>
-                                  </form>
+                                  <td style="padding:4px;">
+                                    <form action="<?php echo $form_action; ?>" method="post">
+                                      <input type="hidden" name="v_id" value="<?php echo $visitor_data['visit_uid']; ?>">
+                                      <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                        name="view_v" style="padding: 4px 11px 4px 11px;"><i
+                                          class="icofont icofont-eye-alt"></i>View</button>
+                                    </form>
 
-                                </td>
+                                  </td>
 
 
-                              </tr>
+                                </tr>
                               <?php } ?>
                             </tbody>
                           </table>
@@ -232,26 +232,26 @@ if (isset($_GET['id'])) {
   <?php include "include/footer.php"; ?>
 </body>
 <script>
-function quickSearch() {
-  var input, filter, table, tr, td, i, txtValue;
+  function quickSearch() {
+    var input, filter, table, tr, td, i, txtValue;
 
-  input = document.getElementById("myInput");
-  filter = input.value;
-  console.log(filter);
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    input = document.getElementById("myInput");
+    filter = input.value;
+    console.log(filter);
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
       }
     }
   }
-}
 </script>
 
 </html>

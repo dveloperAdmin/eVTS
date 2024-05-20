@@ -89,10 +89,12 @@ if (isset($_GET['id'])) {
                                 <th style=" width: 10%; padding-bottom:2px;padding-top:2px;">Id Card </th>
                                 <th style=" padding-bottom:2px;padding-top:2px;">
                                   Visitor Name</th>
-                                <th style="padding-bottom:2px;padding-top:2px;">Comapny
+                                <th style="padding-bottom:2px;padding-top:2px;">Com.
                                   Name</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">
                                   Visit To Wish</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">
+                                  Reg. Type</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">
                                   Emp. Permit</th>
                                 <th style="padding-bottom:2px;padding-top:2px;">
@@ -125,27 +127,29 @@ if (isset($_GET['id'])) {
                                 $i++;
 
                                 ?>
-                              <tr>
-                                <th scope="row" style="padding:1px;"><?php echo $i; ?>
-                                </th>
-                                <td style="padding:1px;">
-                                  <?php
+                                <tr>
+                                  <th scope="row" style="padding:1px;"><?php echo $i; ?>
+                                  </th>
+                                  <td style="padding:1px;">
+                                    <?php
                                     $id = explode("-", rtrim($visitor_data['visit_uid']));
                                     if ($id != "") {
                                       echo $id[1];
                                     } ?>
-                                </td>
-                                <td style="padding:1px;">
-                                  <?php echo $visitor_data['id_card_no']; ?>
-                                </td>
-                                <td style="padding:1px;"><?php echo ucfirst($v_nam); ?>
-                                </td>
-                                <td style="padding:1px;"><?php echo ucfirst($v_com); ?>
-                                </td>
-                                <td style="padding:1px;"><?php echo ucfirst($e_name); ?>
-                                </td>
-                                <td style="padding:1px;">
-                                  <?php
+                                  </td>
+                                  <td style="padding:1px;">
+                                    <?php echo $visitor_data['id_card_no']; ?>
+                                  </td>
+                                  <td style="padding:1px;"><?php echo ucfirst($v_nam); ?>
+                                  </td>
+                                  <td style="padding:1px;"><?php echo ucfirst($v_com); ?>
+                                  </td>
+                                  <td style="padding:1px;"><?php echo ucfirst($e_name); ?>
+                                  </td>
+                                  <td style="padding:1px;"><?php echo ucfirst($visitor_data['register_type']); ?>
+                                  </td>
+                                  <td style="padding:1px;">
+                                    <?php
                                     if ($visitor_data['Emp_approve'] == 'Pending') {
                                       echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
                                     } else if ($visitor_data['Emp_approve'] == 'Approve') {
@@ -154,8 +158,8 @@ if (isset($_GET['id'])) {
                                       echo '<i class="icofont icofont-not-allowed" style="color:red; font-size:2rem; font-weight:900"></i>';
                                     }
                                     ?>
-                                </td>
-                                <td style="padding:1px;"><?php
+                                  </td>
+                                  <td style="padding:1px;"><?php
                                   if ($visitor_data['security_approval'] == 'Pending') {
                                     echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
                                   } else if ($visitor_data['security_approval'] == 'Approve') {
@@ -165,8 +169,8 @@ if (isset($_GET['id'])) {
                                     echo '<i class="icofont icofont-not-allowed" style="color:red; font-size:2rem; font-weight:900"></i>';
                                   }
                                   ?></td>
-                                <td style="padding: 0; text-align:center;">
-                                  <?php
+                                  <td style="padding: 0; text-align:center;">
+                                    <?php
                                     if ($visitor_data['check_status'] == 'OUT') {
                                       echo '<i class="icofont icofont-arrow-right" style="color:red; font-size:2.2rem; "></i>';
                                     } else if ($visitor_data['check_status'] == 'IN') {
@@ -177,20 +181,20 @@ if (isset($_GET['id'])) {
 
                                     }
                                     ?>
-                                </td>
+                                  </td>
 
-                                <td style="padding:1px;">
-                                  <form action="<?php echo $form_action; ?>" method="post">
-                                    <input type="hidden" name="v_id" value="<?php echo $visitor_data['visit_uid']; ?>">
-                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                      name="view_v" style="padding: 4px 11px 4px 11px;"><i
-                                        class="icofont icofont-eye-alt"></i>View</button>
-                                  </form>
+                                  <td style="padding:1px;">
+                                    <form action="<?php echo $form_action; ?>" method="post">
+                                      <input type="hidden" name="v_id" value="<?php echo $visitor_data['visit_uid']; ?>">
+                                      <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                        name="view_v" style="padding: 4px 11px 4px 11px;"><i
+                                          class="icofont icofont-eye-alt"></i>View</button>
+                                    </form>
 
-                                </td>
+                                  </td>
 
 
-                              </tr>
+                                </tr>
                               <?php } ?>
                             </tbody>
                           </table>
@@ -217,46 +221,46 @@ if (isset($_GET['id'])) {
   <?php include "include/footer.php"; ?>
 </body>
 <script>
-$("#searchInput").keyup(function() {
-  var searchText = $(this).val().toLowerCase();
+  $("#searchInput").keyup(function () {
+    var searchText = $(this).val().toLowerCase();
 
-  $("#dataTable tbody tr").each(function() {
-    var rowData = $(this).text().toLowerCase();
-    if (rowData.indexOf(searchText) === -1) {
-      $(this).hide();
-    } else {
-      $(this).show();
-    }
+    $("#dataTable tbody tr").each(function () {
+      var rowData = $(this).text().toLowerCase();
+      if (rowData.indexOf(searchText) === -1) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
   });
-});
 
 
 
-$('.delt_href').on('click', function(e) {
-  e.preventDefault();
-  // console.log(e);
-  var href = $(this).attr('href')
-  console.log(href)
+  $('.delt_href').on('click', function (e) {
+    e.preventDefault();
+    // console.log(e);
+    var href = $(this).attr('href')
+    console.log(href)
 
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.value) {
-      console.log(result.value);
-      document.location.href = href;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value);
+        document.location.href = href;
 
-    } else {
+      } else {
 
-    }
+      }
+    })
+    $(':focus').blur();
   })
-  $(':focus').blur();
-})
 </script>
 
 </html>
