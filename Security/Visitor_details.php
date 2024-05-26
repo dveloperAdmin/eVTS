@@ -38,6 +38,7 @@ $v_log_id = "";
 $v_in_date = "";
 $approval_sts = "Pending";
 $check_in_sts = "";
+$v_e_desig = "";
 if (isset($_POST['view_v'])) {
   $visitor_id = $_POST['v_id'];
   $visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_log` where `visit_uid`='$visitor_id'"));
@@ -306,28 +307,28 @@ if (isset($_POST['view_v'])) {
                               </div>
                             </div>
                             <?php if ($end_meeting_sts == "Pending") { ?>
-                              <div class="BoxA border- padding mar-bot">
-                                <div class="row">
-                                  <div class="col-sm-4" style="flex:0 0 28%; ">
-                                    <h5 style="font-size:15px;">Meeting status :- <span
-                                        style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
-                                    </h5>
+                            <div class="BoxA border- padding mar-bot">
+                              <div class="row">
+                                <div class="col-sm-4" style="flex:0 0 33%; ">
+                                  <h5 style="font-size:15px;">Meeting status :- <span
+                                      style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
+                                  </h5>
 
-                                  </div>
-                                  <div class="col-sm-4 txt-center"
-                                    style="flex:0 0 43%; max-width:50%; text-align: center;">
-                                    <h5 style="font-size:15px;">Meeting End By : -
-                                      <?php echo $meeting_end_by; ?>
-                                    </h5>
-                                  </div>
-                                  <div class="col-sm-4" style="flex:0 0 29%;">
-                                    <h5 style="font-size:15px;">End Date-Time :- <span
-                                        style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
-                                    </h5>
+                                </div>
+                                <div class="col-sm-4 txt-center"
+                                  style="flex:0 0 33%; max-width:50%; text-align: center;">
+                                  <h5 style="font-size:15px;">Meeting End By : -
+                                    <?php echo $meeting_end_by; ?>
+                                  </h5>
+                                </div>
+                                <div class="col-sm-4" style="flex:0 0 35%;">
+                                  <h5 style="font-size:15px;">End Date-Time :- <span
+                                      style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
+                                  </h5>
 
-                                  </div>
                                 </div>
                               </div>
+                            </div>
                             <?php } ?>
 
                             <div class="BoxD mar-bot">
@@ -470,33 +471,33 @@ if (isset($_POST['view_v'])) {
                         <div class="user-entry"
                           style="margin-right: 1.3rem; display:flex; width:30rem;place-content: end;">
                           <?php if ($approval_sts == "Approve") { ?>
-                            <select class="form-control" name="" id="url" style="margin-right:1rem;height:40%" autofocus>
-                              <option value="" selected disabled hidden>Select Print Option
-                              </option>
-                              <!-- <?php if ($check_in_sts != "OUT") { ?> -->
-                                <!-- <?php } ?> -->
-                              <option value="new_visit_token">Short Token Print</option>
-                              <option value="new_visit_token_with_rules">Token Print</option>
-                              <option value="new_visit_short_recipt">Short Info Print</option>
-                              <option value="new_visit_recipt">Info Print</option>
-                            </select>
+                          <select class="form-control" name="" id="url" style="margin-right:1rem;height:40%" autofocus>
+                            <option value="" selected disabled hidden>Select Print Option
+                            </option>
+                            <!-- <?php if ($check_in_sts != "OUT") { ?> -->
+                            <!-- <?php } ?> -->
+                            <option value="new_visit_token">Short Token Print</option>
+                            <option value="new_visit_token_with_rules">Token Print</option>
+                            <option value="new_visit_short_recipt">Short Info Print</option>
+                            <option value="new_visit_recipt">Info Print</option>
+                          </select>
 
 
-                            <button class="btn waves-effect waves-light btn-primary btn-outline-primary" id="print_url"
-                              style="width:60%; margin-right:1rem;height:2.1rem; padding:0rem;"><i class="fa fa-print"
-                                style="    font-size: 20px;margin-right: 10px;"></i>Print</button>
+                          <button class="btn waves-effect waves-light btn-primary btn-outline-primary" id="print_url"
+                            style="width:60%; margin-right:1rem;height:2.1rem; padding:0rem;"><i class="fa fa-print"
+                              style="    font-size: 20px;margin-right: 10px;"></i>Print</button>
 
-                            <a href="view_visitor" style="width:60%;  ">
-                              <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                                style="height:2.1rem; padding:0rem 1.5rem"><i class="fa fa-arrow-left"
-                                  style="    font-size: 20px;margin-right: 10px;"></i>Back</button>
-                            </a>
+                          <a href="view_visitor" style="width:60%;  ">
+                            <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
+                              style="height:2.1rem; padding:0rem 1.5rem"><i class="fa fa-arrow-left"
+                                style="    font-size: 20px;margin-right: 10px;"></i>Back</button>
+                          </a>
                           <?php } else { ?>
 
-                            <a href="view_visitor" style="width:60%; display:grid; "><button
-                                class="btn waves-effect waves-light btn-inverse btn-outline-inverse"><i
-                                  class="fa fa-arrow-left"
-                                  style="    font-size: 20px;margin-right: 10px;"></i>Back</button></a>
+                          <a href="view_visitor" style="width:60%; display:grid; "><button
+                              class="btn waves-effect waves-light btn-inverse btn-outline-inverse"><i
+                                class="fa fa-arrow-left"
+                                style="    font-size: 20px;margin-right: 10px;"></i>Back</button></a>
                           <?php } ?>
                         </div>
                       </div>
@@ -519,19 +520,19 @@ if (isset($_POST['view_v'])) {
 </html>
 
 <script>
-  $("#print_url").click(function (e) {
-    // e.preventDefault();
-    var url = $("#url").val();
-    url = url + "?id=<?php echo $v_log_id; ?>-";
+$("#print_url").click(function(e) {
+  // e.preventDefault();
+  var url = $("#url").val();
+  url = url + "?id=<?php echo $v_log_id; ?>-";
 
-    printExternal(url);
-
-
-  })
-
-  function printExternal(url) {
-    window.open(url, "print", "width=800, height=800, scrollbars=yes");
+  printExternal(url);
 
 
-  }
+})
+
+function printExternal(url) {
+  window.open(url, "print", "width=800, height=800, scrollbars=yes");
+
+
+}
 </script>

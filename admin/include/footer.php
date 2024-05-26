@@ -73,6 +73,62 @@
       }
     })
   });
+
+  $('input[list]').on('input', function (e) {
+    var $input = $(e.target),
+      list = $input.attr('list'),
+      $options = $('#' + list + ' option'),
+      $hiddenInput = $('#' + $input.attr('id') + '-hidden'),
+      inputValue = $input.val();
+
+    $hiddenInput.val(inputValue);
+
+    $options.each(function () {
+      var $option = $(this);
+
+      console.log('Data-value:', $option.data('value'));
+
+      if ($option.val().toLowerCase() === inputValue.toLowerCase()) {
+
+        $hiddenInput.val($option.data('value'));
+        return false; // Break the loop
+      }
+    });
+  });
+
+  $("#empd").prop('disabled', true);
+  $("#branchSelect").change(function () {
+    let branchValue = $(this).val();
+    var formData = new FormData();
+    formData.append("branchValueemp", branchValue);
+    $.ajax({
+      url: "ajax.php", // Update the URL to your server-side script
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        var data = JSON.parse(response);
+        updateDatalist(data);
+        $("#empd").prop('disabled', false);
+      }
+    });
+
+  })
+
+  function updateDatalist(data) {
+    var $datalist = $('#suggestionListe');
+    $datalist.empty(); // Clear existing options
+
+
+
+    // Append new options from the AJAX response
+    $.each(data, function (index, item) {
+      $datalist.append($('<option></option>')
+        .attr('data-value', item.Emp_code)
+        .text(item.EmployeeName));
+    });
+  }
 </script>
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>

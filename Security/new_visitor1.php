@@ -92,18 +92,18 @@ foreach ($files as $file) {
                                     *</span></label>
                                 <div class="col-sm-9">
                                   <input list="emps" type="text" class="form-control" placeholder="Enter Employe Name "
-                                    name="visit[]" oninput="this.value = this.value.toUpperCase()" required id="emp"
-                                    autofocus>
+                                    oninput="this.value = this.value.toUpperCase()" required id="empData" autofocus>
                                   <datalist id="emps">
                                     <?php
                                     $sql_emp_data = mysqli_query($conn, "select eomploye_details.* from eomploye_details join user on eomploye_details.EmployeeId = user.EmployeeId where user.user_role != 'Security' and eomploye_details.BranchId ='$branch_id'");
                                     while ($emp_data = mysqli_fetch_assoc($sql_emp_data)) {
                                       ?>
-                                      <option
-                                        value="<?php echo $emp_data['Emp_code'] . ' ' . $emp_data['EmployeeName']; ?>">
-                                      <?php } ?>
+                                    <option data-value="<?= $emp_data['Emp_code'] ?>">
+                                      <?= $emp_data['EmployeeName']; ?>
+                                    </option>
+                                    <?php } ?>
                                   </datalist>
-
+                                  <input type="hidden" name="visit[]" id="empData-hidden">
                                 </div>
                               </div>
 
@@ -136,9 +136,9 @@ foreach ($files as $file) {
                                     $sql_gate = mysqli_query($conn, "select * from `gate_info`");
                                     while ($gate = mysqli_fetch_assoc($sql_gate)) {
                                       ?>
-                                      <option value="<?php echo $gate['gate_number']; ?>">
-                                        <?php echo $gate['gate_number']; ?>
-                                      </option>
+                                    <option value="<?php echo $gate['gate_number']; ?>">
+                                      <?php echo $gate['gate_number']; ?>
+                                    </option>
 
                                     <?php } ?>
                                   </select>
@@ -158,9 +158,9 @@ foreach ($files as $file) {
                                     $sql_pur = mysqli_query($conn, "select * from `visit_purpose`");
                                     while ($pur = mysqli_fetch_assoc($sql_pur)) {
                                       ?>
-                                      <option value="<?php echo $pur['purpose_id']; ?>">
-                                        <?php echo $pur['purpose']; ?>
-                                      </option>
+                                    <option value="<?php echo $pur['purpose_id']; ?>">
+                                      <?php echo $pur['purpose']; ?>
+                                    </option>
 
                                     <?php } ?>
                                   </select>
@@ -211,56 +211,56 @@ foreach ($files as $file) {
 </script> -->
 
 <script type="text/javascript">
-  $("#emp").change(function () {
-    let emp = $(this).val();
-    if (emp != "") {
+$("#empData").change(function() {
+  let emp = $("#empData-hidden").val();
+  if (emp != "") {
 
-      var emp_spl = emp.split(' ');
-      let emp_id = 'id=' + emp_spl[0];
-      $.ajax({
-        type: "POST",
-        url: "ajax.php",
-        data: emp_id,
-        cache: false,
-        success: function (cities) {
-          $("#contact1").css("display", "block");
-          $("#contact1").html(cities);
-        }
-      });
-    } else {
-      $("#contact1").css("display", "none");
-    }
-
-  });
-
-
-  function showTime() {
-    var date = new Date();
-    var h = date.getHours(); // 0 - 23
-    var m = date.getMinutes(); // 0 - 59
-    var s = date.getSeconds(); // 0 - 59
-    var session = "AM";
-
-    if (h == 0) {
-      h = 12;
-    }
-
-    if (h > 12) {
-      h = h - 12;
-      session = "PM";
-    }
-
-    h = (h < 10) ? "0" + h : h;
-    m = (m < 10) ? "0" + m : m;
-    s = (s < 10) ? "0" + s : s;
-
-    var time = h + ":" + m + ":" + s + " " + session;
-    document.getElementById("clock_span2").innerText = time;
-    document.getElementById("clock_span2").textContent = time;
-
-    setTimeout(showTime, 1000);
-
+    var emp_spl = emp.split(' ');
+    let emp_id = 'id=' + emp_spl[0];
+    $.ajax({
+      type: "POST",
+      url: "ajax.php",
+      data: emp_id,
+      cache: false,
+      success: function(cities) {
+        $("#contact1").css("display", "block");
+        $("#contact1").html(cities);
+      }
+    });
+  } else {
+    $("#contact1").css("display", "none");
   }
 
-  showTime();
+});
+
+
+function showTime() {
+  var date = new Date();
+  var h = date.getHours(); // 0 - 23
+  var m = date.getMinutes(); // 0 - 59
+  var s = date.getSeconds(); // 0 - 59
+  var session = "AM";
+
+  if (h == 0) {
+    h = 12;
+  }
+
+  if (h > 12) {
+    h = h - 12;
+    session = "PM";
+  }
+
+  h = (h < 10) ? "0" + h : h;
+  m = (m < 10) ? "0" + m : m;
+  s = (s < 10) ? "0" + s : s;
+
+  var time = h + ":" + m + ":" + s + " " + session;
+  document.getElementById("clock_span2").innerText = time;
+  document.getElementById("clock_span2").textContent = time;
+
+  setTimeout(showTime, 1000);
+
+}
+
+showTime();
 </script>

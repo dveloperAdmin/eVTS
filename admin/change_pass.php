@@ -176,7 +176,7 @@ if (isset($_POST['reset_pass'])) {
 <script type="text/javascript">
 $("#uid").keyup(function() {
   let uid = $(this).val();
-  console.log(uid);
+
   if (uid != "") {
 
 

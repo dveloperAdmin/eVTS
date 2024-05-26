@@ -7,6 +7,7 @@ $head = "Visitor Info";
 $des = "Page Load new_visit_recipt";
 $rem = "New visitor";
 include '../include/_audi_log.php';
+include '../include/_function.php';
 $company_name = "";
 
 
@@ -22,6 +23,8 @@ $v_type = "";
 $v_e_code = "";
 $v_e_name = "";
 $v_time = "";
+$o_time = "";
+$o_time_p = "";
 $v_date = "";
 $v_sts = "";
 $v_desig = "";
@@ -32,24 +35,67 @@ $v_govt_id = "";
 $v_mertial = "";
 $v_vehicle_type = "";
 $v_vehicle_no = "";
+$empName = "";
 $v_e_depart = "";
 $v_e_desig = "";
+$branchCode = "";
 $user_id = $_SESSION['user_id'];
-// $user_data_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `user` where `uid`='$user_id'"));
-// $sequrity_name = $user_data_sql['name'];
+$user_data_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `user` where `uid`='$user_id'"));
+$sequrity_name = $user_data_sql['name'];
 
 $id = explode("-", rtrim($_SERVER['REQUEST_URI']));
 $id = $id[1];
 $visit_id = "VSL-" . $id;
-$visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select visitor_log.*,eomploye_details.EmployeeName  from `visitor_log` join eomploye_details on visitor_log.emp_id = eomploye_details.Emp_code where visitor_log.`visit_uid`='$visit_id'"));
-
+$visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_log` where `visit_uid`='$visit_id'"));
 if ($visit_data != "") {
+  if ($visit_data['checkin_time'] != "00:00:00") {
+
+    $check_time = $visit_data['checkin_time'];
+    $check_date = date("Y-m-d");
+  } else {
+    $check_date = date("Y-m-d");
+    $check_time = date("H:i:s");
+
+  }
+  $emp_code_id = "";
+  $user_code_id = $user_id;
+  include "../include/_emp_details.php";
+  $refer_by_user_id = $emp_code_user_id;
+  $refer_to_user_id = $visit_data['emp_id'];
+
+
+  $today = date("Y-m-d");
+  $time = date("H:i:s");
+
+  $v_emp_code = $visit_data['emp_id'];
+  include '../include/_approval.php';
+  $emp_visit_status = $emp_status;
+  $end_sts = $end_status;
+
+  if ($visit_data['check_status'] != "OUT" && $visit_data['check_in_by'] == "") {
+    mysqli_query($conn, "update `visitor_log` set `check_status`='IN', `check_in_by`='$user_id', `checkin_date`='$check_date', `checkin_time`='$check_time', `meeting_status`='$end_sts' where `visit_uid` ='$visit_id'");
+    mysqli_query($conn, "insert into `meeting_referrable`(`refer_by`, `refer_to`, `refer_visitor`, `refer_date`, `refer_time`, `reffer_status`,`visitor_enetry`) values ('$refer_by_user_id','$refer_to_user_id','$visit_id','$today','$time','Entry','Register')");
+
+  }
+  $visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select visitor_log.*,coalesce(eomploye_details.EmployeeName, 'Not exsist') as EmployeeName from `visitor_log` left join eomploye_details on visitor_log.emp_id = eomploye_details.Emp_code where visitor_log.`visit_uid`='$visit_id'"));
+
   $v_c_no = $visit_data['id_card_no'];
   $v_g_no = $visit_data['gate_no'];
   $v_time = $visit_data['checkin_time'];
+  $v_time_p = date("h:i:s A", strtotime($v_time));
+  $v_date = $visit_data['checkin_date'];
+  $v_date_p = date("d-M-Y", strtotime($v_date));
   $vEmpApproveSts = $visit_data['Emp_approve'];
   $empName = $visit_data['EmployeeName'];
   $checkInBY = $visit_data['check_in_by'];
+  $branchCode = $visit_data['branch_id'];
+  $v_sts = ucfirst($visit_data['check_status']);
+  $v_mertial = $visit_data['things_brought'];
+  $v_vehicle_type = $visit_data['vehical_type'];
+  $v_vehicle_no = $visit_data['vahical_num'];
+  $o_time = $visit_data['checkout_time'];
+  $o_time_p = date("h:i:s A", strtotime($o_time));
+
 
   $securitydetails = mysqli_fetch_assoc((mysqli_query($conn, "select * from `user` where `uid`='$checkInBY'")));
   if ($securitydetails != "") {
@@ -60,16 +106,19 @@ if ($visit_data != "") {
     $sequrity_name = "Not Found";
   }
 
-  if ($v_time != '00:00:00') {
-    $v_time = date("h:i:s A", strtotime($v_time));
 
-  }
-  $v_date = $visit_data['checkin_date'];
-  $v_date = date("d-M-Y", strtotime($v_date));
-  $v_sts = ucfirst($visit_data['check_status']);
-  $v_mertial = $visit_data['things_brought'];
-  $v_vehicle_type = $visit_data['vehical_type'];
-  $v_vehicle_no = $visit_data['vahical_num'];
+  // $arrival_date_time =$visit_data['Arrival_time_stamp'];
+  // $prereg = $visit_data['pre_schedule_date'];
+  // if($arrival_date_time == '0000-00-00 00:00:00'){
+  // 	$v_time_p = "00:00:00";
+  // 	$v_date_p = date("d-M-Y", strtotime($prereg));
+  // }else if($v_time == '00:00:00' && $arrival_date_time != '0000-00-00 00:00:00'){
+  // 	$v_time_p = date("h:i:s A", strtotime($arrival_date_time));
+  // 	$v_date_p = date("d-M-Y", strtotime($arrival_date_time));
+  // }
+
+
+
 
   $v_p = $visit_data['visit_purpose'];
   $visito_purpse_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$v_p'"));
@@ -82,8 +131,12 @@ if ($visit_data != "") {
 
   $v_type = $visit_data['visitor_type'];
   $visit_type_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `vsitor_type` where `type_id` = '$v_type'"));
-  $v_type = $visit_type_sql['type_name'];
+  if ($visit_type_sql != "") {
+    $v_type = $visit_type_sql['type_name'];
 
+  } else {
+    $v_type = "";
+  }
 
   $v_e_code = $visit_data['emp_id'];
   $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select *from `eomploye_details` where `Emp_code`='$v_e_code'"));
@@ -107,11 +160,11 @@ if ($visit_data != "") {
 
     $com_id = $emp_details['CompanyId'];
 
-    $company_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details` where `company_id` = '$com_id'"));
-    if ($company_sql != "") {
-      $company_name = $company_sql['companyFname'];
-    }
 
+  }
+  $company_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details`"));
+  if ($company_sql != "") {
+    $company_name = $company_sql['companyFname'];
   }
 
 
@@ -157,10 +210,12 @@ if ($visit_data != "") {
   <link rel="stylesheet" href="assets/css/recipt_6.css">
   <title>Visit Info</title>
   <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+  <link
+    href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Josefin+Sans:ital,wght@1,700&family=Noto+Serif:ital,wght@1,600&family=Raleway:ital,wght@0,800;1,500&display=swap"
+    rel="stylesheet">
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oleo+Script:wght@400;700&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oleo+Script:wght@400;700&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&display=swap');
   </style>
-
 
 </head>
 
@@ -173,14 +228,22 @@ if ($visit_data != "") {
   <section>
     <div class="container">
       <div class="admit-card">
-        <div class="BoxA border- padding mar-bot">
+        <div class="BoxA border- padding mar-bot" style="margin:0; padding:7px;">
           <div class="row">
-            <div class="col-sm-4" style="flex:0 0 20%">
-              <h5>Date :- <?php echo $v_date; ?></h5>
-              <p>Intime: - <?php echo $v_time; ?> </p>
+            <div class="col-sm-4" style="flex:0 0 30%;  padding-right:0px">
+              <h5>Date :- <?= $v_date_p; ?></h5>
+              <?php if ($v_sts === "OUT") { ?>
+                <p>Time:- <span style="font-size:14px;"><?= $v_time_p . " - " . $o_time_p; ?></span> </p>
+
+              <?php } else { ?>
+                <p>In time: - <?= $v_time_p; ?> </p>
+
+              <?php } ?>
             </div>
-            <div class="col-sm-4 txt-center" style="flex:0 0 48%; max-width:50%">
-              <h5><?php echo strtoupper($company_name); ?></h5>
+            <div class="col-sm-4 txt-center" style="flex:0 0 33%; max-width:50%">
+              <span
+                style="font-family: 'El Messiri', sans-serif; font-size:25px"><?= strtoupper($company_name) . '<span style="font-size: 18px; font-weight: 500; font-style: italic;"> ( ' . findBranch($conn, $branchCode) . ' )</span>'; ?>
+                </spna>
             </div>
             <div class="col-sm-4" style="flex:0 0 20%">
               <h5>UID:- <?php echo $id; ?></h5>
@@ -189,48 +252,50 @@ if ($visit_data != "") {
           </div>
         </div>
 
-        <div class="BoxD mar-bot">
+        <div class="BoxD mar-bot" style="margin:0;">
           <div class="row">
             <div class="col-sm-10">
               <table class="table">
                 <tbody>
                   <tr>
-                    <td colspan="3" style="font-size:18px; font-weight:700;border-bottom:2px solid #000;"> Visitor Info
+                    <td colspan="3"
+                      style="font-size:24px;font-family: 'El Messiri', sans-serif; font-weight:700;border-bottom:2px solid #000; padding-bottom:0px; font-style:italic;">
+                      Visitor Info
                     </td>
                   </tr>
                   <tr>
-                    <td id="tb"><b>Visitor Name:- </b><?php echo $v_name; ?> </td>
-                    <td><b>Govt. Id:- </b><?php echo $v_govt_id; ?> </td>
+                    <td id="tb" style="padding:.2rem .5rem;"><b>Visitor Name:- </b><?php echo $v_name; ?> </td>
+                    <td style="padding:.2rem .5rem;"><b>Govt. Id:- </b><?php echo $v_govt_id; ?> </td>
                     <th rowspan="4" scope="row txt-center" style="width:8rem;"><img
-                        src="../upload/<?php echo $visit_id; ?>.png" width="123px" height="165px"
+                        src="../upload/<?php echo $visit_id; ?>.png" width="123px" height="120px"
                         onerror="this.src='../src/error.png';" /></th>
 
                   </tr>
                   <tr>
-                    <td id="tb"><b>Comopany:- </b><?php echo $v_c_name; ?></td>
-                    <td><b>Mobile No :- </b><?php echo $v_mobile; ?></td>
+                    <td id="tb" style="padding:.2rem .5rem;"><b>Comopany:- </b><?php echo $v_c_name; ?></td>
+                    <td style="padding:.2rem .5rem;"><b>Mobile No :- </b><?php echo $v_mobile; ?></td>
                     <!-- <td><b>Sex: </b>M</td> -->
                   </tr>
                   <tr>
-                    <td id="tb"><b>Designation:- </b><?php echo $v_desig; ?></td>
-                    <td><b>Email:- </b><?php echo $v_email; ?></td>
+                    <td id="tb" style="padding:.2rem .5rem;"><b>Designation:- </b><?php echo $v_desig; ?></td>
+                    <td style="padding:.2rem .5rem;"><b>Email:- </b><?php echo $v_email; ?></td>
                     <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
                   </tr>
                   <tr>
-                    <td id="tb"><b>Address:- </b><?php echo $v_address; ?></td>
-                    <td><b>Issued Id No:- </b><?php echo $v_c_no; ?></td>
+                    <td id="tb" style="padding:.2rem .5rem;"><b>Address:- </b><?php echo $v_address; ?></td>
+                    <td style="padding:.2rem .5rem;"><b>Issued Id No:- </b><?php echo $v_c_no; ?></td>
                     <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
                   </tr>
                   <tr>
-                    <td id="tb"><b>Visitor Type:- </b><?php echo $v_type; ?></td>
-                    <td><b>Purpose: </b><?php echo $v_p; ?></td>
-                    <td><b>Gate No:- </b><?php echo $v_g_no; ?></td>
+                    <td id="tb" style="padding:.2rem .5rem;"><b>Visitor Type:- </b><?php echo $v_type; ?></td>
+                    <td style="padding:.2rem .5rem;"><b>Purpose: </b><?php echo $v_p; ?></td>
+                    <td style="padding:.2rem .5rem;"><b>Gate No:- </b><?php echo $v_g_no; ?></td>
                   </tr>
                   <tr>
-                    <td id="tb"><b>Mterials Carried:- </b><span
+                    <td id="tb" style="padding:.2rem .5rem;"><b>Mterials Carried:- </b><span
                         style="word-break: break-all;"><?php echo $v_mertial; ?></span></td>
-                    <td><b>Vehicle Type(With No): </b><?php echo $v_vehicle_type; ?></td>
-                    <td><?php echo $v_vehicle_no; ?></td>
+                    <td style=" padding:.2rem .5rem;"><b>Vehicle Type(With No): </b><?php echo $v_vehicle_type; ?></td>
+                    <td style="padding:.2rem .5rem;"><?php echo $v_vehicle_no; ?></td>
                   </tr>
 
                 </tbody>
@@ -239,27 +304,30 @@ if ($visit_data != "") {
 
           </div>
         </div>
-        <div class="row">
+        <div class=" row">
           <div class="col-sm-10">
             <table class="table">
               <tbody>
                 <tr>
-                  <td colspan="2" style="font-size:18px; font-weight:700;border-bottom:2px solid #000;"> TO Meet</td>
+                  <td colspan="2"
+                    style="font-size:24px;font-family: 'El Messiri', sans-serif; font-weight:700;border-bottom:2px solid #000; padding-bottom:0px; font-style:italic;">
+                    TO
+                    Meet</td>
                 </tr>
                 <tr>
-                  <td id="tb"><b>Employe Code:- </b><?php echo $v_e_code; ?></td>
-                  <td><b>Employe Name:- </b><?php echo $v_e_name; ?></td>
+                  <!-- <td id="tb"><b>Employe Code:- </b><?php echo $v_e_code; ?></td> -->
+                  <td><b>Employe Name:- </b><?php echo $v_e_name;
+                  if ($v_e_desig != "") {
+                    echo " - " . $v_e_desig;
+                  } ?></td>
                   <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
-                </tr>
-                <tr>
                   <td id="tb"><b>Department:- </b><?php echo $v_e_depart; ?></td>
-                  <td><b>Designation:- </b><?php echo $v_e_desig; ?></td>
-                  <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
                 </tr>
+
               </tbody>
             </table>
           </div>
-          <!-- <!-- <div class="BoxA border- padding mar-bot">  -->
+
         </div>
         <div style="display:flex;padding: 2rem; padding-bottom:1rem;">
 
@@ -301,8 +369,7 @@ if ($visit_data != "") {
           </div>
         </div>
 
-
-        <footer class="txt-center">
+        <footer class=" txt-center">
           <p>
           <h5 style="border-bottom:2px solid black">*** Inportant Information ***</h5>
           </p>
@@ -313,9 +380,9 @@ if ($visit_data != "") {
         while ($rules = mysqli_fetch_assoc($rules_sql)) {
           if ($rules != "") {
             $i++ ?>
-        <span style="font-weight:700; font-size:14px; color:red; text-align:left!important;">
-          <?php echo $i . ". " . $rules['rules']; ?></span><br>
-        <?php }
+            <span style="font-weight:700; font-size:14px; color:red; text-align:left!important;">
+              <?php echo $i . ". " . $rules['rules']; ?></span><br>
+          <?php }
         } ?>
       </div>
     </div>
@@ -332,12 +399,12 @@ if ($visit_data != "") {
 
 </html>
 <script>
-const $btnPrint = document.querySelector("#btnPrint");
-$btnPrint.addEventListener("click", () => {
-  window.print();
-});
-const $btnClose = document.querySelector("#btnClose");
-$btnClose.addEventListener("click", () => {
-  window.close();
-});
+  const $btnPrint = document.querySelector("#btnPrint");
+  $btnPrint.addEventListener("click", () => {
+    window.print();
+  });
+  const $btnClose = document.querySelector("#btnClose");
+  $btnClose.addEventListener("click", () => {
+    window.close();
+  });
 </script>

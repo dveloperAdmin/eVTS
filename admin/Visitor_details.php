@@ -121,6 +121,28 @@ if (isset($_POST['view_v'])) {
 
     // $meeting_status = $visit_data['meeting_status'];
 
+    // if ($end_meeting_sts == 'Pending') {
+    //   if ($visit_data['meeting_end_by'] != "") {
+    //     $emp_code_id = "";
+    //     $user_code_id = $visit_data['meeting_end_by'];
+    //     include '../include/_emp_details.php';
+    //     $meeting_end_by = $emp_name;
+
+    //   } else {
+    //     $meeting_end_by = "";
+    //   }
+    //   if ($visit_data['meeting_status'] == 'Pending' && $check_in_sts == 'IN') {
+    //     $meeting_end_sts = 'Going On';
+    //     $meeting_end_date_time = "-:-:-";
+    //   } else {
+    //     $meeting_end_sts = $visit_data['meeting_status'];
+    //     $meeting_end_date_time = date("d-M-Y h:i:s A", strtotime($visit_data['meeting_end_date'] . ' ' . $visit_data['meeting_end_time']));
+    //   }
+    // } else {
+    //   $meeting_end_by = "";
+    //   $meeting_end_date_time = "";
+    //   $meeting_end_sts = "";
+    // }
     if ($end_meeting_sts == 'Pending') {
       if ($visit_data['meeting_end_by'] != "") {
         $emp_code_id = "";
@@ -136,7 +158,13 @@ if (isset($_POST['view_v'])) {
         $meeting_end_date_time = "-:-:-";
       } else {
         $meeting_end_sts = $visit_data['meeting_status'];
-        $meeting_end_date_time = date("d-M-Y h:i:s A", strtotime($visit_data['meeting_end_date'] . ' ' . $visit_data['meeting_end_time']));
+        if ($visit_data['meeting_end_date'] != "0000-00-00" && $visit_data['meeting_end_time'] != "0000-00-00") {
+
+          $meeting_end_date_time = date("d-M-Y h:i:s A", strtotime($visit_data['meeting_end_date'] . ' ' . $visit_data['meeting_end_time']));
+        } else {
+          $meeting_end_date_time = $check_out;
+
+        }
       }
     } else {
       $meeting_end_by = "";
@@ -320,19 +348,19 @@ if (isset($_POST['view_v'])) {
                             <?php if ($end_meeting_sts == "Pending") { ?>
                             <div class="BoxA border- padding mar-bot">
                               <div class="row">
-                                <div class="col-sm-4" style="flex:0 0 28%; ">
+                                <div class="col-sm-4" style="flex:0 0 33%; ">
                                   <h5 style="font-size:15px;">Meeting status :- <span
                                       style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
                                   </h5>
 
                                 </div>
                                 <div class="col-sm-4 txt-center"
-                                  style="flex:0 0 43%; max-width:50%; text-align: center;">
+                                  style="flex:0 0 33%; max-width:50%; text-align: center;">
                                   <h5 style="font-size:15px;">Meeting End By.: -
                                     <?php echo $meeting_end_by; ?>
                                   </h5>
                                 </div>
-                                <div class="col-sm-4" style="flex:0 0 29%;">
+                                <div class="col-sm-4" style="flex:0 0 25%;">
                                   <h5 style="font-size:15px;">End Date-Time :- <span
                                       style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
                                   </h5>

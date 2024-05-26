@@ -16,52 +16,52 @@ $purpose = "";
 $e = false;
 
 if (isset($_POST['u_submit'])) {
-    try {
-        $e = true;
-        $emp_code = "";
-        $i = 0;
-        $visitor_data = $_POST['visit'];
-        $emp_details = $visitor_data[0];
-        $time = date("d-M-Y", strtotime($visitor_data[2]));
-        $gate_no = $visitor_data[3];
-        $purpose = $visitor_data[4];
-        if ($emp_details != "" && $time != "" && $gate_no != "" && $purpose != "") {
+  try {
+    $e = true;
+    $emp_code = "";
+    $i = 0;
+    $visitor_data = $_POST['visit'];
+    $emp_details = $visitor_data[0];
+    $time = date("d-M-Y", strtotime($visitor_data[2]));
+    $gate_no = $visitor_data[3];
+    $purpose = $visitor_data[4];
+    if ($emp_details != "" && $time != "" && $gate_no != "" && $purpose != "") {
 
-            $emp_name = substr($emp_details, strpos($emp_details, ' '), strlen($emp_details));
-            $purpose_check = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$purpose'"));
-            if ($purpose_check != "") {
-                $purpose = strtoupper($purpose_check['purpose']);
-            }
-            $full1 = explode(' ', $emp_details);
-            $emp_code = $full1[0];
-            $sql_emp_data = mysqli_fetch_assoc(mysqli_query($conn, "select eomploye_details.* from eomploye_details join user on eomploye_details.EmployeeId = user.EmployeeId where user.user_role != 'Security'and eomploye_details.`Emp_code`='$emp_code'"));
-            if ($sql_emp_data != "") {
+      $emp_name = substr($emp_details, strpos($emp_details, ' '), strlen($emp_details));
+      $purpose_check = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$purpose'"));
+      if ($purpose_check != "") {
+        $purpose = strtoupper($purpose_check['purpose']);
+      }
+      $full1 = explode(' ', $emp_details);
+      $emp_code = $full1[0];
+      $sql_emp_data = mysqli_fetch_assoc(mysqli_query($conn, "select eomploye_details.* from eomploye_details join user on eomploye_details.EmployeeId = user.EmployeeId where user.user_role != 'Security'and eomploye_details.`Emp_code`='$emp_code'"));
+      if ($sql_emp_data != "") {
 
-                $email = $sql_emp_data['email_id'];
-                if ($email == "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $_SESSION['icon'] = 'error';
-                    $_SESSION['status'] = 'Invalid Employee Mail Id';
-    
-                    header("location:new_visitor1");
-                }
-            }else{
-                $_SESSION['icon'] = 'warning';
-                $_SESSION['status'] = 'Please enter valid employee details';
+        $email = $sql_emp_data['email_id'];
+        if ($email == "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          $_SESSION['icon'] = 'error';
+          $_SESSION['status'] = 'Invalid Employee Mail Id';
 
-                header("location:new_visitor1");
-            }
-        } else {
-            $_SESSION['icon'] = 'error';
-            $_SESSION['status'] = 'Please Fill All The Input Carefully';
-
-            header("location:new_visitor1");
+          header("location:new_visitor1");
         }
-    } catch (Exception $e) {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Please Enter Input Properly';
+      } else {
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Please enter valid employee details';
 
         header("location:new_visitor1");
+      }
+    } else {
+      $_SESSION['icon'] = 'error';
+      $_SESSION['status'] = 'Please Fill All The Input Carefully';
+
+      header("location:new_visitor1");
     }
+  } catch (Exception $e) {
+    $_SESSION['icon'] = 'error';
+    $_SESSION['status'] = 'Please Enter Input Properly';
+
+    header("location:new_visitor1");
+  }
 
 
 
@@ -70,9 +70,9 @@ if (isset($_POST['u_submit'])) {
 
 
 } else {
-    $_SESSION['icon'] = 'info';
-    $_SESSION['status'] = 'Please Fill This Form At Fast';
-    header("location:new_visitor1");
+  $_SESSION['icon'] = 'info';
+  $_SESSION['status'] = 'Please Fill This Form At Fast';
+  header("location:new_visitor1");
 }
 
 // registration form submit start 
@@ -173,24 +173,25 @@ if (isset($_POST['u_submit'])) {
                             <form action="new_visitor3" method="post" id="save_next" enctype="multipart/form-data">
                               <div class="form-group row" style="margin-bottom:.65rem;">
                                 <?php
-                                                                if ($e == true) {
+                                if ($e == true) {
 
-                                                                    foreach ($visitor_data as $id => $value) { ?>
+                                  foreach ($visitor_data as $id => $value) { ?>
                                 <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
                                 <?php
-                                                                    }
-                                                                }
-                                                                ?>
+                                  }
+                                }
+                                ?>
                                 <label class="col-sm-3 col-form-label">Govt. ID
                                   Type<span style="color:red;padding:2px;">*</span></label>
                                 <div class="col-sm-9">
                                   <select class="form-control" name="visit[]" id="govt_id_type" required autofocus>
-                                    <option value="" selected disabled hidden>Select
-                                      Govt. ID Type</option>
+
+                                    <option value="" selected disabled hidden>Select ID Type</option>
                                     <option value="Aadhaar">Aadhaar</option>
                                     <option value="PAN">PAN</option>
                                     <option value="Voter">Voter</option>
                                     <option value="License">Driving License</option>
+                                    <option value="MobileNumber">Mobile Number</option>
                                     <option value="Others">Others</option>
 
                                   </select>

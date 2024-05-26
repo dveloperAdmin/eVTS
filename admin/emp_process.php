@@ -43,7 +43,7 @@ if (isset($_POST['user_submit'])) {
 
 
         if ($emp_code != "" && $emp_name != "" && $emp_co_name != "" && $emp_branch != "" && $emp_dept != "" && $emp_mob != "" && $emp_email != "" && $emp_sts != "") {
-            $sql_check_dublicate = mysqli_query($conn, "select * from `eomploye_details` where `Emp_code`='$emp_code' and `ContactNo`='$emp_mob' and `email_id`='$emp_email'");
+            $sql_check_dublicate = mysqli_query($conn, "select * from `eomploye_details` where `Emp_code`='$emp_code' and `ContactNo`='$emp_mob'");
 
 
             if (mysqli_num_rows($sql_check_dublicate) < 1) {
@@ -207,7 +207,7 @@ if (isset($_POST['user_edit'])) {
                         }
                     } else {
                         $check_emp_mail = mysqli_query($conn, "select * from `eomploye_details` where `email_id` = '$emp_email'");
-                        if (mysqli_num_rows($check_emp_mail) < 1) {
+                        if (mysqli_num_rows($check_emp_mail) >= 1) {
                             if ($sql_emp_data['ContactNo'] == $emp_mob) {
 
                                 $update_cms_emp = mysqli_query($conn, "update `eomploye_details` set `EmployeeName`='$emp_name',`CompanyId`='$emp_co_name',`DepartmentId`='$emp_dept',`BranchId`='$emp_branch',`Sub_DepartmentId`='$emp_subdept',`DesignationId`='$emp_desig',`GradeId`='$emp_grade',`Location`='$emp_loc',`EmployeType`='$emp_type',`CategoryId`='$emp_cat',`ContactNo`='$emp_mob',`email_id`='$emp_email', `Status`='$emp_sts' where `EmployeeId`='$edit_id'");
@@ -264,7 +264,7 @@ if (isset($_POST['user_edit'])) {
                             }
                         } else {
                             $_SESSION['icon'] = 'error';
-                            $_SESSION['status'] = 'Dublicate Email id';
+                            $_SESSION['status'] = 'NO Email id';
                             $des = "Click On Update Employe ";
                             $rem = "Employe Update unsuccess";
                             include '../include/_audi_log.php';

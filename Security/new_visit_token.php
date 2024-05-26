@@ -7,6 +7,7 @@ $head = "Visitor Info";
 $des = "Page Load new_visit_token";
 $rem = "New visitor";
 include '../include/_audi_log.php';
+include '../include/_function.php';
 // $rules_sql = mysqli_query($conn, "select * from `rules`");
 $company_name = "";
 
@@ -15,7 +16,7 @@ $v_c_name = "";
 $v_c_no = "";
 $v_g_no = "";
 $v_p = "";
-$v_e_name = "";
+$empName = "";
 $v_time = "";
 $v_date = "";
 $user_id = $_SESSION['user_id'];
@@ -56,7 +57,7 @@ if ($visit_data != "") {
     mysqli_query($conn, "update `visitor_log` set `check_status`='IN', `check_in_by`='$user_id', `checkin_date`='$check_date', `checkin_time`='$check_time', `meeting_status`='$end_sts' where `visit_uid` ='$visit_id'");
     mysqli_query($conn, "insert into `meeting_referrable`(`refer_by`, `refer_to`, `refer_visitor`, `refer_date`, `refer_time`, `reffer_status`,`visitor_enetry`) values ('$refer_by_user_id','$refer_to_user_id','$visit_id','$today','$time','Entry', 'Register')");
   }
-  $visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select visitor_log.*,eomploye_details.EmployeeName  from `visitor_log` join eomploye_details on visitor_log.emp_id = eomploye_details.Emp_code where visitor_log.`visit_uid`='$visit_id'"));
+  $visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select visitor_log.*,coalesce(eomploye_details.EmployeeName, 'Not exsist') as EmployeeName from `visitor_log` left join eomploye_details on visitor_log.emp_id = eomploye_details.Emp_code where visitor_log.`visit_uid`='$visit_id'"));
 
   $v_c_no = $visit_data['id_card_no'];
   $v_g_no = $visit_data['gate_no'];
@@ -67,6 +68,8 @@ if ($visit_data != "") {
   $vEmpApproveSts = $visit_data['Emp_approve'];
   $empName = $visit_data['EmployeeName'];
   $checkInBY = $visit_data['check_in_by'];
+  $branchCode = $visit_data['branch_id'];
+
 
   $securitydetails = mysqli_fetch_assoc((mysqli_query($conn, "select * from `user` where `uid`='$checkInBY'")));
   if ($securitydetails != "") {
@@ -86,17 +89,10 @@ if ($visit_data != "") {
     $v_p = "";
   }
 
-  $emp_code = $visit_data['emp_id'];
-  $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select *from `eomploye_details` where `Emp_code`='$emp_code'"));
-  if ($emp_details) {
-    $v_e_name = $emp_details['EmployeeName'];
-    $com_id = $emp_details['CompanyId'];
 
-    $company_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details` where `company_id` = '$com_id'"));
-    if ($company_sql != "") {
-      $company_name = $company_sql['companyFname'];
-    }
-
+  $company_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details`"));
+  if ($company_sql != "") {
+    $company_name = $company_sql['companyFname'];
   }
 
 
@@ -134,6 +130,9 @@ if ($visit_data != "") {
   <link rel="stylesheet" href="assets/css/token_4.css">
   <title>Visit Token </title>
   <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+  <link
+    href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Josefin+Sans:ital,wght@1,700&family=Noto+Serif:ital,wght@1,600&family=Raleway:ital,wght@0,800;1,500&display=swap"
+    rel="stylesheet">
 </head>
 
 <body onload="zoom()">
@@ -144,7 +143,10 @@ if ($visit_data != "") {
       <span style="flex:0 0 50%;text-align:end;float:right; font-weight:700;"><?php echo $id; ?></span>
 
     </div>
-    <div class="com_head"> <span><?php echo strtoupper($company_name); ?></spna>
+    <div class="com_head" style="    padding: 1rem 0 .5rem 0;">
+      <span
+        style="font-family: 'El Messiri', sans-serif;"><?= strtoupper($company_name) . '<span style="font-size: 13px; font-weight: 500; font-style: italic;"> ( ' . findBranch($conn, $branchCode) . ' )</span>'; ?>
+        </spna>
     </div>
     <!-- <p class="centered">
                 <br>Address line 1
@@ -163,18 +165,13 @@ if ($visit_data != "") {
 
         </tr>
         <tr>
-          <th class="quantity">Card NO:</th>
-          <td class="description"><?php echo $v_c_no; ?></td>
-
-        </tr>
-        <tr>
           <th class="quantity">Purpose:</th>
           <td class="description"><?php echo $v_p; ?></td>
 
         </tr>
         <tr>
           <th class="quantity">To Meet:</th>
-          <td class="description"><?php echo $v_e_name; ?></td>
+          <td class="description"><?php echo $empName; ?></td>
 
         </tr>
         <tr>
@@ -185,6 +182,11 @@ if ($visit_data != "") {
         <tr>
           <th class="quantity">Gate No:</th>
           <td class="description"><?php echo $v_g_no; ?></td>
+
+        </tr>
+        <tr>
+          <th class="quantity">Card NO:</th>
+          <td class="description"><?php echo $v_c_no; ?></td>
 
         </tr>
         <tr></tr>
@@ -224,16 +226,16 @@ if ($visit_data != "") {
 
 </html>
 <script>
-const $btnPrint = document.querySelector("#btnPrint");
-$btnPrint.addEventListener("click", () => {
-  window.print();
-});
-const $btnClose = document.querySelector("#btnClose");
-$btnClose.addEventListener("click", () => {
-  window.close();
-});
+  const $btnPrint = document.querySelector("#btnPrint");
+  $btnPrint.addEventListener("click", () => {
+    window.print();
+  });
+  const $btnClose = document.querySelector("#btnClose");
+  $btnClose.addEventListener("click", () => {
+    window.close();
+  });
 
-function zoom() {
-  document.body.style.zoom = "140%"
-}
+  function zoom() {
+    document.body.style.zoom = "140%"
+  }
 </script>
