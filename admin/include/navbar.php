@@ -89,6 +89,11 @@ $user_data_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `user` wh
           </a>
           <ul class="show-notification profile-notification">
             <li class="waves-effect waves-light">
+              <a href="my_details">
+                <i class="ti-user"></i> Profile Details
+              </a>
+            </li>
+            <li class="waves-effect waves-light">
               <a href="change_password.php">
                 <i class="ti-settings"></i> Change Password
               </a>

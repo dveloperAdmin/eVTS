@@ -45,13 +45,15 @@ function detailsReport($sql_for_v_log, $file_name)
     'Employee Name',
     'Department',
     'Designation',
+    'Regiter Type',
+    'Security Permission',
+    'Employee Permission',
+    'Arrival Status',
+    'Meeting End Time',
+    'Meeting End Status',
     'Check In Time',
     'Check Out Time',
     'Status',
-    'Meeting End Time',
-    'Meeting End Status',
-    'Security Permission',
-    'Employee Permission',
     'Visitor Image',
   ];
 
@@ -78,13 +80,15 @@ function detailsReport($sql_for_v_log, $file_name)
     'emp_id',
     'emp_id',
     'emp_id',
+    'register_type',
+    'security_approval',
+    'Emp_approve',
+    'Arrival_time_stamp',
+    'visit_uid',
+    'meeting_status',
     'visit_uid',
     'visit_uid',
     'check_status',
-    'visit_uid',
-    'meeting_status',
-    'security_approval',
-    'Emp_approve',
     'visit_uid',
   ];
 
@@ -189,28 +193,35 @@ function detailsReport($sql_for_v_log, $file_name)
               break;
 
           }
-        } else if (in_array($j, range(22, 23)) || $j == 25) {
+        } else if (in_array($j, range(28, 29)) || $j == 26) {
           $v_lof_id = $log_data[$column];
           $timeing_data = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_log` where `visit_uid` = '$v_lof_id'"));
           switch ($j) {
-            case 22:
+            case 28:
 
               $inTime = $timeing_data['checkin_date'] . '  ' . $timeing_data['checkin_time'];
 
               $sheet->setCellValue($cellAddress, $inTime);
               break;
-            case 23:
+            case 29:
               $outTime = $timeing_data['checkout_date'] . '  ' . $timeing_data['checkout_time'];
 
               $sheet->setCellValue($cellAddress, $outTime);
               break;
-            case 25:
+            case 26:
               $meetingEnd = $timeing_data['meeting_end_date'] . '  ' . $timeing_data['meeting_end_time'];
 
               $sheet->setCellValue($cellAddress, $meetingEnd);
 
               break;
           }
+        } else if ($j == 25) {
+          if ($log_data[$column] != "0000-00-00 00:00:00") {
+            $sheet->setCellValue($cellAddress, "Arrived");
+          } else {
+            $sheet->setCellValue($cellAddress, "Not Arrive");
+          }
+
         } else if ($j == (count($colum_name) - 1)) {
           $imagePath = '../upload/' . $log_data[$column] . '.png';
           // $sheet->setCellValue($cellAddress, $imagePath);
@@ -228,11 +239,14 @@ function detailsReport($sql_for_v_log, $file_name)
           $drawing->setOffsetY(0);
           $drawing->setWorksheet($sheet);
           $drawing->setResizeProportional(false);
-          $sheet->getColumnDimensionByColumn($j + 1)->setWidth(8); // Adjust the width as needed
+          $sheet->getColumnDimensionByColumn($j + 1)->setWidth(2); // Adjust the width as needed
         } else {
           $sheet->setCellValue($cellAddress, $log_data[$column]);
         }
       }
+      $sheet->getStyle($cellAddress)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER); // Center horizontally
+      $sheet->getStyle($cellAddress)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER); // Center vertically
+
     }
     $sheet->getRowDimension($i + 1)->setRowHeight(65.75);
   }

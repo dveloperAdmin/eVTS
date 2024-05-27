@@ -1,62 +1,62 @@
 <head>
 
-    <title>VMS</title>
-    <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
-    <style>
-        table {
-            color: #0f267c;
-            border-color: #ffb9b9;
-        }
+  <title>VMS</title>
+  <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
+  <style>
+  table {
+    color: #0f267c;
+    border-color: #ffb9b9;
+  }
 
-        @media print {
-            body * {
-                visibility: hidden;
-                background: white;
-            }
+  @media print {
+    body * {
+      visibility: hidden;
+      background: white;
+    }
 
-            .print_container * {
-                visibility: visible;
-                background: white;
-            }
+    .print_container * {
+      visibility: visible;
+      background: white;
+    }
 
-            .print_container {
-                position: absolute;
-                left: 0px;
-                top: 0px;
-            }
-        }
+    .print_container {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+  }
 
-        .btn-primary {
-            width: 5rem;
-            height: 2.5rem;
-            background-color: #fff;
-            border-color: #448aff;
-            color: #448aff;
-            cursor: pointer;
-            -webkit-transition: all ease-in 0.3s;
-            transition: all ease-in 0.3s;
-            font-size: 1rem;
-            font-weight: bold;
-        }
+  .btn-primary {
+    width: 5rem;
+    height: 2.5rem;
+    background-color: #fff;
+    border-color: #448aff;
+    color: #448aff;
+    cursor: pointer;
+    -webkit-transition: all ease-in 0.3s;
+    transition: all ease-in 0.3s;
+    font-size: 1rem;
+    font-weight: bold;
+  }
 
-        .btn-primary:hover {
-            background-color: #77aaff;
-            border-color: #77aaff;
-            color: #fff;
-        }
+  .btn-primary:hover {
+    background-color: #77aaff;
+    border-color: #77aaff;
+    color: #fff;
+  }
 
-        @media print {
-            @page {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
+  @media print {
+    @page {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 
-            body {
-                padding-top: 72px;
-                padding-bottom: 72px;
-            }
-        }
-    </style>
+    body {
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+  }
+  </style>
 
 </head>
 
@@ -90,12 +90,12 @@ function details_excel($sql_query)
     $datatable = '<table border="1">
                     <tbody>
                         <tr>
-                            <th colspan = "30" style= "font-size: 23px;
+                            <th colspan = "32" style= "font-size: 23px;
                             font-style: italic;">' . $comName . '</th>
                         
                         </tr>
                         <tr>
-                            <th colspan = "30"style= "font-size: 18px;
+                            <th colspan = "32"style= "font-size: 18px;
                             font-style: italic;" >Visitor Log Report</th>
                         </tr>
                         <tr style="text-align:center;">
@@ -121,16 +121,19 @@ function details_excel($sql_query)
                             <td><b>Employee Name</b></td>
                             <td><b>Department </b></td>
                             <td><b>Designation</b></td>
-                            <td><b>Check Status</b></td>
-                            <td><b>Check Intime</b></td>
-                            <td><b>Check Outtime</b></td>
-                            <td><b>Meeting Status</b></td>
-                            <td><b>Meeting End Time</b></td>
+                            <td><b>Register Type</b></td>
                             <td><b>Employee Approval</b></td>
                             <td><b>Security Approval</b></td>
+                            <td><b>Arrival Status</b></td>
+                            <td><b>Meeting End Time</b></td>
+                            <td><b>Meeting Status</b></td>
+                            <td><b>Check Intime</b></td>
+                            <td><b>Check Outtime</b></td>
+                            <td><b>Check Status</b></td>
                             <td><b>Visitor Photo</b></td>
                         </tr>';
     $i = 1;
+    $arrivalSts = "Not Arrive";
     while ($log_data = mysqli_fetch_assoc($sql_query)) {
         if ($log_data != "") {
 
@@ -198,7 +201,9 @@ function details_excel($sql_query)
                 }
             }
 
-
+            if ($log_data['Arrival_time_stamp'] != "0000-00-00 00:00:00") {
+                $arrivalSts = "Arrived";
+            }
 
             $datatable .= '<tr style="height:90px;width: 125px;">
                 <td style="text-align: center;">' . $i . '</td>
@@ -223,13 +228,15 @@ function details_excel($sql_query)
                 <td style="text-align: center;">' . ucfirst($emp_name) . '</td>
                 <td style="text-align: center;">' . $emp_deprt . '</td>
                 <td style="text-align: center;">' . $emp_desig . '</td>
-                <td style="text-align: center;">' . $log_data['check_status'] . '</td>
-                <td style="text-align: center;">' . $log_data['checkin_date'] . ' ' . $log_data['checkin_time'] . '</td>
-                <td style="text-align: center;">' . $log_data['checkout_date'] . ' ' . $log_data['checkout_time'] . '</td>
-                <td style="text-align: center;">' . $log_data['meeting_status'] . '</td>
-                <td style="text-align: center;">' . $log_data['meeting_end_date'] . ' ' . $log_data['meeting_end_time'] . '</td>
+                <td style="text-align: center;">' . $log_data['register_type'] . '</td>
                 <td style="text-align: center;">' . $log_data['Emp_approve'] . '</td>
                 <td style="text-align: center;">' . $log_data['security_approval'] . '</td>
+                <td style="text-align: center;">' . $arrivalSts . '</td>
+                <td style="text-align: center;">' . $log_data['meeting_end_date'] . ' ' . $log_data['meeting_end_time'] . '</td>
+                <td style="text-align: center;">' . $log_data['meeting_status'] . '</td>
+                <td style="text-align: center;">' . $log_data['checkin_date'] . ' ' . $log_data['checkin_time'] . '</td>
+                <td style="text-align: center;">' . $log_data['checkout_date'] . ' ' . $log_data['checkout_time'] . '</td>
+                <td style="text-align: center;">' . $log_data['check_status'] . '</td>
                 <td style="align-content: center;"><img src="../upload/' . $log_data['visit_uid'] . '.png"  onerror="this.src=' . "'" . '../src/error.png' . "'" . ';" width="85" height="85"/></td>
                 </tr>';
 
@@ -323,7 +330,7 @@ function reffer_view($sql_data)
                         <td style="text-align: center;">' . ucfirst($visitor_name) . '</td>
                         <td style="text-align: center;">' . date("d-m-Y H:i:s", strtotime($reffer_data['refer_date'] . ' ' . $reffer_data['refer_time'])) . '</td>
                         <td style="text-align: center;">' . $check_status . '</td>
-                        <td style="text-align: center;"><img src="http://localhost/vms/upload/' . $visit_log_id . '.png" width="85" height="85"/></td>
+                        <td style="text-align: center;"><img src="../upload/' . $visit_log_id . '.png" onerror="this.src=' . "'" . '../src/error.png' . "'" . ';"width="85" height="85"/></td>
                     </tr>
                         ';
 

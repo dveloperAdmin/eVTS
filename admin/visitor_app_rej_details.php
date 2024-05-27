@@ -9,125 +9,130 @@ include '../include/_audi_log.php';
 include '../include/_function.php';
 
 if (isset($_POST['view_v'])) {
-    $company_name = "Not Found";
-    $v_name = "Not Found";
-    $v_c_name = "Not Found";
-    $v_c_no = "Not Found";
-    $v_g_no = "Not Found";
-    $v_p = "Not Found";
-    $v_type = "Not Found";
-    $v_e_code = "Not Found";
-    $v_e_name = "Not Found";
-    $v_time = "Not Found";
-    $v_date = "Not Found";
-    $v_sts = "Not Found";
-    $v_desig = "Not Found";
-    $v_address = "Not Found";
-    $v_email = "Not Found";
-    $v_mobile = "Not Found";
-    $v_govt_id = "Not Found";
-    $v_mertial = "Not Found";
-    $v_vehicle_type = "Not Found";
-    $v_vehicle_no = "Not Found";
-    $v_e_depart = "Not Found";
-    $v_e_desig = "Not Found";
-    $vBranch = "Not Found";
+  $company_name = "Not Found";
+  $v_name = "Not Found";
+  $v_c_name = "Not Found";
+  $v_c_no = "Not Found";
+  $v_g_no = "Not Found";
+  $v_p = "Not Found";
+  $v_type = "Not Found";
+  $v_e_code = "Not Found";
+  $v_e_name = "Not Found";
+  $v_time = "Not Found";
+  $v_date = "Not Found";
+  $v_sts = "Not Found";
+  $v_desig = "Not Found";
+  $v_address = "Not Found";
+  $v_email = "Not Found";
+  $v_mobile = "Not Found";
+  $v_govt_id = "Not Found";
+  $v_mertial = "Not Found";
+  $v_vehicle_type = "Not Found";
+  $v_vehicle_no = "Not Found";
+  $v_e_depart = "Not Found";
+  $v_e_desig = "Not Found";
+  $vBranch = "Not Found";
 
-    $approval_sts = "Pending";
-    $vlog_id = $_POST['v_id'];
-    $id = explode('-', $vlog_id);
-    $id = $id[1];
+  $approval_sts = "Pending";
+  $vlog_id = $_POST['v_id'];
+  $id = explode('-', $vlog_id);
+  $id = $id[1];
 
-    $dami_img = "'../src/error.png'";
-    $visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_log` where `visit_uid`='$vlog_id'"));
-    if ($visit_data != "") {
-        $v_emp_approve = $visit_data['Emp_approve'];
-        $v_seq_approve = $visit_data['security_approval'];
-        if ($v_emp_approve == "Approve" && $v_seq_approve == 'Approve') {
-            $approval_sts = "Approve";
-        } else if ($v_emp_approve == "Reject" || $v_seq_approve == 'Reject') {
-            $approval_sts = "Reject";
-        }
-
-        $v_c_no = $visit_data['id_card_no'];
-        $v_g_no = $visit_data['gate_no'];
-        $v_time = $visit_data['checkin_time'];
-        $arr_time = date("h:i:s A", strtotime($v_time));
-        $v_date = $visit_data['checkin_date'];
-        $v_date = date("d-M-Y", strtotime($v_date));
-        $v_sts = ucfirst($visit_data['check_status']);
-        $v_mertial = $visit_data['things_brought'];
-        $v_vehicle_type = $visit_data['vehical_type'];
-        $v_vehicle_no = $visit_data['vahical_num'];
-        $arrival_date_time = $visit_data['Arrival_time_stamp'];
-        $prereg = $visit_data['pre_schedule_date'];
-        if ($arrival_date_time == '0000-00-00 00:00:00') {
-            $arr_time = "00:00:00";
-            $v_date = date("d-M-Y", strtotime($prereg));
-        } else if ($v_time == '00:00:00' && $arrival_date_time != '0000-00-00 00:00:00') {
-            $arr_time = date("h:i:s A", strtotime($arrival_date_time));
-            $v_date = date("d-M-Y", strtotime($arrival_date_time));
-        }
-
-
-        $v_p = $visit_data['visit_purpose'];
-        $visito_purpse_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$v_p'"));
-        if ($visito_purpse_sql != "") {
-
-            $v_p = $visito_purpse_sql['purpose'];
-        } else {
-            $v_p = "";
-        }
-
-        $v_type = $visit_data['visitor_type'];
-        $visit_type_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `vsitor_type` where `type_id` = '$v_type'"));
-        $v_type = $visit_type_sql['type_name'];
-
-
-        $v_e_code = $visit_data['emp_id'];
-        $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select *from `eomploye_details` where `Emp_code`='$v_e_code'"));
-        if ($emp_details) {
-            $v_e_name = $emp_details['EmployeeName'];
-            $v_e_depart = $emp_details['DepartmentId'];
-            $vBranch = $emp_details['BranchId'];
-            $v_department_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `department` where `department_code`='$v_e_depart'"));
-            if ($v_department_sql != "") {
-                $v_e_depart = $v_department_sql['department_name'];
-
-            } else {
-                $v_e_depart = "";
-            }
-            $v_e_desig = $emp_details['DesignationId'];
-            $v_desig_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `designation` where `designation_code`='$v_e_desig'"));
-            if ($v_desig_sql != "") {
-                $v_e_desig = $v_desig_sql['designation'];
-            } else {
-                $v_e_desig = "";
-            }
-
-            $com_id = $emp_details['CompanyId'];
-
-            $company_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details` where `company_id` = '$com_id'"));
-            if ($company_sql != "") {
-                $company_name = $company_sql['companyFname'];
-            }
-
-        }
-
-
-        $visitor_details_id = $visit_data['visitor_id'];
-        $visitor_details_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_info` where `visitor_id` = '$visitor_details_id'"));
-        if ($visitor_details_sql != "") {
-            $v_name = $visitor_details_sql['name'];
-            $v_c_name = $visitor_details_sql['com_name'];
-            $v_desig = $visitor_details_sql['designation'];
-            $v_address = $visitor_details_sql['address'];
-            $v_email = $visitor_details_sql['mail_id'];
-            $v_mobile = $visitor_details_sql['contact_no'];
-            $v_govt_id = $visitor_details_sql['govt_id_no'];
-            $v_govt_id = $masked = str_pad(substr($v_govt_id, -4), strlen($v_govt_id), '*', STR_PAD_LEFT);
-        }
+  $dami_img = "'../src/error.png'";
+  $visit_data = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_log` where `visit_uid`='$vlog_id'"));
+  if ($visit_data != "") {
+    $v_emp_approve = $visit_data['Emp_approve'];
+    $v_seq_approve = $visit_data['security_approval'];
+    if ($v_emp_approve == "Approve" && $v_seq_approve == 'Approve') {
+      $approval_sts = "Approve";
+    } else if ($v_emp_approve == "Reject" || $v_seq_approve == 'Reject') {
+      $approval_sts = "Reject";
     }
+
+    $v_c_no = $visit_data['id_card_no'];
+    $v_g_no = $visit_data['gate_no'];
+    $v_time = $visit_data['checkin_time'];
+    $arr_time = date("h:i:s A", strtotime($v_time));
+    $v_date = $visit_data['checkin_date'];
+    $v_date = date("d-M-Y", strtotime($v_date));
+    $v_sts = ucfirst($visit_data['check_status']);
+    $v_mertial = $visit_data['things_brought'];
+    $v_vehicle_type = $visit_data['vehical_type'];
+    $v_vehicle_no = $visit_data['vahical_num'];
+    $arrival_date_time = $visit_data['Arrival_time_stamp'];
+    $prereg = $visit_data['pre_schedule_date'];
+    if ($arrival_date_time == '0000-00-00 00:00:00') {
+      $arr_time = "00:00:00";
+      $v_date = date("d-M-Y", strtotime($prereg));
+    } else if ($v_time == '00:00:00' && $arrival_date_time != '0000-00-00 00:00:00') {
+      $arr_time = date("h:i:s A", strtotime($arrival_date_time));
+      $v_date = date("d-M-Y", strtotime($arrival_date_time));
+    }
+
+
+    $v_p = $visit_data['visit_purpose'];
+    $visito_purpse_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$v_p'"));
+    if ($visito_purpse_sql != "") {
+
+      $v_p = $visito_purpse_sql['purpose'];
+    } else {
+      $v_p = "";
+    }
+
+    $v_type = $visit_data['visitor_type'];
+    $visit_type_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `vsitor_type` where `type_id` = '$v_type'"));
+    if (!empty(($visit_type_sql))) {
+      $v_type = $visit_type_sql['type_name'];
+
+    } else {
+      $v_type = "";
+    }
+
+
+    $v_e_code = $visit_data['emp_id'];
+    $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select *from `eomploye_details` where `Emp_code`='$v_e_code'"));
+    if ($emp_details) {
+      $v_e_name = $emp_details['EmployeeName'];
+      $v_e_depart = $emp_details['DepartmentId'];
+      $vBranch = $emp_details['BranchId'];
+      $v_department_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `department` where `department_code`='$v_e_depart'"));
+      if ($v_department_sql != "") {
+        $v_e_depart = $v_department_sql['department_name'];
+
+      } else {
+        $v_e_depart = "";
+      }
+      $v_e_desig = $emp_details['DesignationId'];
+      $v_desig_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `designation` where `designation_code`='$v_e_desig'"));
+      if ($v_desig_sql != "") {
+        $v_e_desig = $v_desig_sql['designation'];
+      } else {
+        $v_e_desig = "";
+      }
+
+      $com_id = $emp_details['CompanyId'];
+
+      $company_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `company_details` where `company_id` = '$com_id'"));
+      if ($company_sql != "") {
+        $company_name = $company_sql['companyFname'];
+      }
+
+    }
+
+
+    $visitor_details_id = $visit_data['visitor_id'];
+    $visitor_details_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_info` where `visitor_id` = '$visitor_details_id'"));
+    if ($visitor_details_sql != "") {
+      $v_name = $visitor_details_sql['name'];
+      $v_c_name = $visitor_details_sql['com_name'];
+      $v_desig = $visitor_details_sql['designation'];
+      $v_address = $visitor_details_sql['address'];
+      $v_email = $visitor_details_sql['mail_id'];
+      $v_mobile = $visitor_details_sql['contact_no'];
+      $v_govt_id = $visitor_details_sql['govt_id_no'];
+      $v_govt_id = $masked = str_pad(substr($v_govt_id, -4), strlen($v_govt_id), '*', STR_PAD_LEFT);
+    }
+  }
 
 }
 

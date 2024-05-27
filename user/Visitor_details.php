@@ -139,7 +139,13 @@ if (isset($_POST['view_v'])) {
         $meeting_end_date_time = "-:-:-";
       } else {
         $meeting_end_sts = $visit_data['meeting_status'];
-        $meeting_end_date_time = date("d-M-Y h:i:s A", strtotime($visit_data['meeting_end_date'] . ' ' . $visit_data['meeting_end_time']));
+        if ($visit_data['meeting_end_date'] != "0000-00-00" && $visit_data['meeting_end_time'] != "0000-00-00") {
+
+          $meeting_end_date_time = date("d-M-Y h:i:s A", strtotime($visit_data['meeting_end_date'] . ' ' . $visit_data['meeting_end_time']));
+        } else {
+          $meeting_end_date_time = $check_out;
+
+        }
       }
     } else {
       $meeting_end_by = "";
@@ -287,7 +293,7 @@ if (isset($_POST['view_v'])) {
                       </div>
 
                       <section class="animate pop">
-                        <div class="container" style="padding:1rem;padding-bottom: 0rem;">
+                        <div class="container" style="padding:.5rem;padding-bottom: 0rem;">
                           <div class="admit-card">
                             <div class="BoxA border- padding mar-bot">
                               <div class="row">
@@ -320,19 +326,19 @@ if (isset($_POST['view_v'])) {
                             <?php if ($end_meeting_sts == "Pending") { ?>
                               <div class="BoxA border- padding mar-bot">
                                 <div class="row">
-                                  <div class="col-sm-4" style="flex:0 0 28%; ">
+                                  <div class="col-sm-4" style="flex:0 0 33%; ">
                                     <h5 style="font-size:15px;">Meeting status :- <span
                                         style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
                                     </h5>
 
                                   </div>
                                   <div class="col-sm-4 txt-center"
-                                    style="flex:0 0 43%; max-width:50%; text-align: center;">
+                                    style="flex:0 0 33%; max-width:50%; text-align: center;">
                                     <h5 style="font-size:15px;">Meeting End By.: -
                                       <?php echo $meeting_end_by; ?>
                                     </h5>
                                   </div>
-                                  <div class="col-sm-4" style="flex:0 0 29%;">
+                                  <div class="col-sm-4" style="flex:0 0 35%;">
                                     <h5 style="font-size:15px;">End Date-Time :- <span
                                         style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
                                     </h5>
@@ -362,7 +368,7 @@ if (isset($_POST['view_v'])) {
                                             &nbsp;</b><?php echo $v_govt_id; ?>
                                         </td>
                                         <th rowspan="4" scope="row txt-center" style="width:8rem;"><img
-                                            src="../upload/<?php echo $visitor_id; ?>.png" width="123px" height="120px"
+                                            src="../upload/<?php echo $visitor_id; ?>.png" width="103px" height="100px"
                                             onerror="this.src='../src/error.png'" />
                                         </th>
 
@@ -491,7 +497,8 @@ if (isset($_POST['view_v'])) {
                                 <input type="hidden" name="v_id" value="<?php echo $visitor_id; ?>">
                                 <input type="hidden" name="emp_code" value="<?php echo $v_emp_code; ?>">
                                 <button class="btn waves-effect waves-light btn-info btn-outline-info" id="print_url"
-                                  style=" margin-right:1rem;" name="reffer"><i class="icofont icofont-rotation"
+                                  style=" margin-right:1rem;padding:5px 20px;" name="reffer"><i
+                                    class="icofont icofont-rotation"
                                     style="    font-size: 20px;margin-right: 10px;"></i>Reffer</button>
 
                               </form>
@@ -503,7 +510,7 @@ if (isset($_POST['view_v'])) {
                                 <input type="hidden" name="emp_code" value="<?php echo $v_emp_code; ?>">
 
                                 <button class="btn waves-effect waves-light btn-success btn-outline-success" id="print_url"
-                                  style="margin-right:1rem;" name="end_meeting"><i class="fa fa-arrow-right"
+                                  style="margin-right:1rem;padding:5px;" name="end_meeting"><i class="fa fa-arrow-right"
                                     style="    font-size: 20px;margin-right: 10px;"></i>End
                                   Meeting</button>
 

@@ -230,38 +230,30 @@ if (isset($_POST['img_submit'])) {
                     <div class="card" style="margin-bottom:0px;">
                       <div class="card-header" style="    padding: 0.5rem 1px 0.5rem 1.4rem;">
                         <div class="row" style="height:1.5rem;">
-                          <div class="col-md-3" style="flex:0 0 40%; max-width:40%;">
-                            <h5> Visitor Info </h5>
+                          <div class="col-md-3" style="flex:0 0 25%; max-width:40%;">
+                            <h5> Visitor Info :- <?php $v_id = explode("-", $v_log_id);
+                            echo $v_id[1]; ?> </h5>
 
                           </div>
+                          <div class="col-md-3" style="flex:0 0 25%; max-width:40%;">
+                            <h5> Arrival Date :- <?php echo $v_in_date; ?></h5>
+
+                          </div>
+                          <div class="col-md-3" style="flex:0 0 22%; max-width:40%;">
+                            <h5> Arrival Time :- <?php echo $arr_time; ?> </h5>
+
+                          </div>
+                          <div class="col-md-3" style="flex:0 0 25%; max-width:40%;">
+                            <h5> Approval Sts.: - <?php echo $approval_sts; ?></h5>
+
+                          </div>
+
                         </div>
                       </div>
 
                       <section class="animate pop">
                         <div class="container" style="padding:1rem;">
                           <div class="admit-card">
-                            <div class="BoxA border- padding mar-bot">
-                              <div class="row">
-                                <div class="col-sm-4" style="flex:0 0 25%">
-                                  <h5 style="font-size:15px;">Date :- <?php echo $v_in_date; ?></h5>
-
-                                </div>
-                                <div class="col-sm-4 txt-center" style="flex:0 0 20%; max-width:50%">
-                                  <h5 style="font-size:15px;">Arrival time: - <?php echo $arr_time; ?></h5>
-                                </div>
-                                <div class="col-sm-4 txt-center" style="flex:0 0 30%; max-width:50%">
-                                  <h5 style="font-size:15px;">Approval Sts.: - <?php echo $approval_sts; ?> </h5>
-                                </div>
-                                <div class="col-sm-4" style="flex:0 0 25%">
-                                  <h5 style="font-size:15px;">UID:-
-                                    <?php $v_id = explode("-", $v_log_id);
-                                    echo $v_id[1]; ?>
-                                  </h5>
-
-                                </div>
-                              </div>
-                            </div>
-
                             <div class="BoxD mar-bot">
                               <div class="row">
                                 <div class="col-sm-10" style=" max-width: 100%; flex: 0 0 100%;">
@@ -269,7 +261,7 @@ if (isset($_POST['img_submit'])) {
                                     <tbody>
                                       <tr>
                                         <td colspan="3"
-                                          style="font-size:16px; padding: .5rem 1px .2rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;">
+                                          style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
                                           Visitor Info</td>
                                       </tr>
                                       <tr>
@@ -339,11 +331,11 @@ if (isset($_POST['img_submit'])) {
                             </div>
                             <div class="row">
                               <div class="col-sm-10" style="max-width: 100%; flex: 0 0 100%;">
-                                <table class="table">
+                                <table class="table" style="margin:0px;">
                                   <tbody>
                                     <tr>
                                       <td colspan="2"
-                                        style="font-size:16px; padding: .5rem;font-weight:700;border-bottom:2px solid #000;text-align:left;">
+                                        style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
                                         TO Meet</td>
                                     </tr>
                                     <tr>
@@ -372,7 +364,8 @@ if (isset($_POST['img_submit'])) {
                       </section>
 
                       <div class="card-block " style=" padding-top:0;">
-                        <div class="user-entry" style="margin-right: 1.3rem; display:flex; width:30rem;">
+                        <div class="user-entry"
+                          style="margin-right: 1.3rem; display:flex; width:30rem;     justify-content: end;">
                           <form action="new_visit_process" method="post">
                             <?php
                             if ($e == true) {

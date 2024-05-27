@@ -75,14 +75,29 @@ function date_edit_1($input_date)
 function table_data($data)
 {
     include '../include/_dbconnect.php';
-
+    // include '../include/_function.php';
+    $comName = mysqli_fetch_assoc(mysqli_query($conn, "select * from company_details"));
+    if ($comName != "") {
+        $comName = $comName['companyFname'];
+    } else {
+        $comName = "";
+    }
     $datatable = "<table border='1' style='text-align:center;'>
+     <tr>
+        <th colspan = '11' style= 'font-size: 23px; font-style: italic;'>" . $comName . "</th>
+        
+    </tr>
+    <tr>
+        <th colspan = '11'style= 'font-size: 18px;font-style: italic;' >LogIn Report</th>
+    
+    </tr>
 
     <tr>
         <th>Sl NO</th>
         <th>Log ID</th>
         <th>User ID</th>
         <th>Name</th>
+        <th>Branch</th>
         <th>Role</th>
         <th>Status</th>
         <th>Login Date</th>
@@ -110,6 +125,7 @@ function table_data($data)
             <td>" . $rec['uid'] . "</td>
             <td>" . $user_name . "</td>
             <td>" . $user_data_pick['name'] . "</td>
+            <td>" . findBranch($conn, $rec['BranchId']) . "</td>
             <td>" . $user_data_pick['user_role'] . "</td>
             <td>" . $user_data_pick['user_sts'] . "</td>
             <td>" . $rec['login_date'] . "</td>
@@ -298,8 +314,8 @@ if (isset($_POST['mon_txr_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:txn_log");
     }
@@ -337,8 +353,8 @@ if (isset($_POST['mon_txr_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:txn_log");
     }
@@ -350,7 +366,17 @@ if (isset($_POST['date_r_xls'])) {
     $in_date = $_POST['date_report'];
     $data = date_edit_1($in_date);
     if ($in_date != "") {
-        $sql_get_data = mysqli_query($conn, "select * from `log_book` where `login_date` ='$data'");
+        if (in_array($user_role, array("Developer", "Super Admin"))) {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`login_date` ='$data'";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and lb.`login_date` ='$data'";
+            }
+            $sql_get_data = mysqli_query($conn, $userSql);
+
+        } else {
+            $sql_get_data = mysqli_query($conn, "select * from `log_book` lb left join `user` u on  where lb.`login_date` ='$data' and u.BranchId = '$branch_id'");
+        }
 
         if ($sql_get_data != "") {
             $datatable = table_data($sql_get_data);
@@ -375,8 +401,8 @@ if (isset($_POST['date_r_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:log_report");
     }
@@ -389,7 +415,18 @@ if (isset($_POST['mon_r_xls'])) {
     $year = $_POST['year_report'];
 
     if ($month != "" && $year != "") {
-        $sql_get_data = mysqli_query($conn, "select * from `log_book` where `log_month` ='$month' and `log_year` ='$year'");
+        if (in_array($user_role, array("Developer", "Super Admin"))) {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`log_month` ='$month' and lb.`log_year` ='$year'";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and lb.`log_month` ='$month' and lb.`log_year` ='$year'";
+            }
+            $sql_get_data = mysqli_query($conn, $userSql);
+
+        } else {
+            $sql_get_data = mysqli_query($conn, "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`log_month` ='$month' and lb.`log_year` ='$year' and u.BranchId = '$branch_id'");
+        }
+        // $sql_get_data = mysqli_query($conn, "select * from `log_book` where `log_month` ='$month' and `log_year` ='$year'");
 
         if ($sql_get_data != "") {
             $datatable = table_data($sql_get_data);
@@ -414,8 +451,8 @@ if (isset($_POST['mon_r_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:log_report");
     }
@@ -477,8 +514,8 @@ if (isset($_POST['emp_audi_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:audit_log_report");
     }
@@ -521,8 +558,8 @@ if (isset($_POST['date_audi_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:audit_log_report");
     }
@@ -563,8 +600,8 @@ if (isset($_POST['mon_audit_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:audit_log_report");
     }
@@ -572,16 +609,28 @@ if (isset($_POST['mon_audit_xls'])) {
 
 // user report in xls
 if (isset($_POST['emp_r_xls'])) {
-    $emp_id = $_POST['emp_id_report'];
+    $emp_id = $_POST['userCode'];
     if ($emp_id != "") {
-        if ($emp_id == 1) {
-            $sql_get_data = mysqli_query($conn, "select * from `log_book`");
+        if ($emp_id == "VMS-U-1") {
+            if (in_array($user_role, array("Developer", "Super Admin"))) {
+                if ($user_role == 'Developer') {
+                    $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid";
+                } else {
+                    $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer'";
+                }
+
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and u.BranchId = '$branch_id'";
+            }
             $user_name = "All";
         } else {
-            $sql_get_data = mysqli_query($conn, "select * from `log_book`where `user_id`='$emp_id'");
+            $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`user_id`='$emp_id'";
             $sql_get_data2 = mysqli_fetch_assoc(mysqli_query($conn, "select * from `user` where `uid`='$emp_id'"));
             $user_name = $sql_get_data2['user_name'];
+
         }
+        $sql_get_data = mysqli_query($conn, $userSql);
+
         if ($sql_get_data != "") {
             $datatable = table_data($sql_get_data);
 
@@ -605,22 +654,34 @@ if (isset($_POST['emp_r_xls'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:log_report");
     }
 }
 // user report in pdf
 if (isset($_POST['emp_r_pdf'])) {
-    $emp_id = $_POST['emp_id_report'];
+    $emp_id = $_POST['userCode'];
+
     if ($emp_id != "") {
 
-        if ($emp_id == 1) {
-            $sql_get_data = mysqli_query($conn, "select * from `log_book`");
+        if ($emp_id == "VMS-U-1") {
+            if (in_array($user_role, array("Developer", "Super Admin"))) {
+                if ($user_role == 'Developer') {
+                    $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid";
+                } else {
+                    $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer'";
+                }
+
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and u.BranchId = '$branch_id'";
+            }
         } else {
-            $sql_get_data = mysqli_query($conn, "select * from `log_book`where `user_id`='$emp_id'");
+            $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`user_id`='$emp_id'";
+
         }
+        $sql_get_data = mysqli_query($conn, $userSql);
         if ($sql_get_data != "") {
             $datatable = table_data($sql_get_data);
 
@@ -639,8 +700,8 @@ if (isset($_POST['emp_r_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:log_report");
     }
@@ -648,12 +709,113 @@ if (isset($_POST['emp_r_pdf'])) {
 
 
 // date wise report in pdf
+if (isset($_POST['bran_r_pdf'])) {
+    $branchData = $_POST['branchData'];
+    $fromdate = $_POST['fromDate'];
+    $todate = $_POST['toDate'];
+    $fromDate = date_edit_1($fromdate);
+    $toDate = date_edit_1($todate);
+
+    if ($in_date != "" && $branchData != "") {
+        if ($branchData === "All") {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`login_date` in ('$fromDate','$toDate')";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and lb.`login_date` in ('$fromDate','$toDate')";
+            }
+        } else {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.BranchId = '$branchData' and lb.`login_date` in ('$fromDate','$toDate')";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where  u.BranchId = '$branchData' and  u.user_role!='Developer' and lb.`login_date` in ('$fromDate','$toDate')";
+            }
+        }
+        $sql_get_data = mysqli_query($conn, $userSql);
+        if ($sql_get_data != "") {
+            $datatable = table_data($sql_get_data);
+
+            echo '
+                 <button class="btn-primary" onclick="window.print()">Print</button>
+                 <a href="log_report.php"><button class="btn-primary" >Back</button></a>
+                 ';
+            echo '<div class="print_container" style="">' . $datatable . '</div>';
+
+        } else {
+            $_SESSION['icon'] = 'error';
+            $_SESSION['status'] = 'Data Not Found';
+
+            header("location:log_report");
+        }
+
+    } else {
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
+
+        header("location:log_report");
+    }
+}
+// date wise report in pdf
+if (isset($_POST['bran_r_xls'])) {
+    $branchData = $_POST['branchData'];
+    $fromdate = $_POST['fromDate'];
+    $todate = $_POST['toDate'];
+    $fromDate = date_edit_1($fromdate);
+    $toDate = date_edit_1($todate);
+
+    if ($in_date != "" && $branchData != "") {
+        if ($branchData === "All") {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`login_date` in ('$fromDate','$toDate')";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and lb.`login_date` in ('$fromDate','$toDate')";
+            }
+            $fileName = "All_Branch";
+        } else {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.BranchId = '$branchData' and lb.`login_date` in ('$fromDate','$toDate')";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where  u.BranchId = '$branchData' and  u.user_role!='Developer' and lb.`login_date` in ('$fromDate','$toDate')";
+            }
+            $fileName = findBranch($conn, $branchData);
+        }
+        $sql_get_data = mysqli_query($conn, $userSql);
+        if ($sql_get_data != "") {
+            $datatable = table_data($sql_get_data);
+
+            $fname = $fileName . "_log_report.xls";
+            header('Content-Type:application/octet-stream');
+            header('Content-Disposition:attachment; filename=' . $fname);
+
+            echo $datatable;
+        } else {
+            $_SESSION['icon'] = 'error';
+            $_SESSION['status'] = 'Data Not Found';
+
+            header("location:log_report");
+        }
+
+    } else {
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
+
+        header("location:log_report");
+    }
+}
 if (isset($_POST['date_r_pdf'])) {
     $in_date = $_POST['date_report'];
     $data = date_edit_1($in_date);
     if ($in_date != "") {
-        $sql_get_data = mysqli_query($conn, "select * from `log_book` where `login_date` ='$data'");
+        if (in_array($user_role, array("Developer", "Super Admin"))) {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`login_date` ='$data'";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and lb.`login_date` ='$data'";
+            }
+            $sql_get_data = mysqli_query($conn, $userSql);
 
+        } else {
+            $sql_get_data = mysqli_query($conn, "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`login_date` ='$data' and u.BranchId = '$branch_id'");
+        }
         if ($sql_get_data != "") {
             $datatable = table_data($sql_get_data);
 
@@ -672,8 +834,8 @@ if (isset($_POST['date_r_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:log_report");
     }
@@ -686,7 +848,18 @@ if (isset($_POST['mon_r_pdf'])) {
     $year = $_POST['year_report'];
 
     if ($month != "" && $year != "") {
-        $sql_get_data = mysqli_query($conn, "select * from `log_book` where `log_month` ='$month' and `log_year` ='$year'");
+        if (in_array($user_role, array("Developer", "Super Admin"))) {
+            if ($user_role == 'Developer') {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`log_month` ='$month' and lb.`log_year` ='$year'";
+            } else {
+                $userSql = "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where u.user_role!='Developer' and lb.`log_month` ='$month' and lb.`log_year` ='$year'";
+            }
+            $sql_get_data = mysqli_query($conn, $userSql);
+
+        } else {
+            $sql_get_data = mysqli_query($conn, "select * from `log_book` lb left join `user` u on lb.user_id = u.uid where lb.`log_month` ='$month' and lb.`log_year` ='$year' and u.BranchId = '$branch_id'");
+        }
+        // $sql_get_data = mysqli_query($conn, "select * from `log_book` where `log_month` ='$month' and `log_year` ='$year'");
 
         if ($sql_get_data != "") {
             $datatable = table_data($sql_get_data);
@@ -706,8 +879,8 @@ if (isset($_POST['mon_r_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:log_report");
     }
@@ -751,8 +924,8 @@ if (isset($_POST['emp_audi_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:audit_log_report");
     }
@@ -785,8 +958,8 @@ if (isset($_POST['date_audi_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:audit_log_report");
     }
@@ -822,8 +995,8 @@ if (isset($_POST['mon_audi_pdf'])) {
         }
 
     } else {
-        $_SESSION['icon'] = 'error';
-        $_SESSION['status'] = 'Data Not Found';
+        $_SESSION['icon'] = 'warning';
+        $_SESSION['status'] = 'Missing Input';
 
         header("location:audit_log_report");
     }

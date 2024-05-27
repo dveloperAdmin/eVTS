@@ -41,14 +41,16 @@ function column($types_report)
     $security_perm = '<html><b>Security Permission <b></html>';
     $emp_perm = '<html><b>Employee Permission <b></html>';
     $branch = '<html><b>Visited Branch<b></html>';
+    $regType = '<html><b>Register Type<b></html>';
+    $arrival = '<html><b>Arrival Status<b></html>';
     // $v_photo = '<html><b>Visitor Photo <b></html>';
 
     if ($types_report == 1) {
-        $columns = array($sl_no, $v_log_id, $visitor_id, $visitor_name, $com_name, $mobile_no, $id_no, $purpose, $vehical_type, $vehical_no, $branch, $emp_code, $emp_name, $emp_dpt, $intime, $outtime, $check_sts, $meeting_end_time, $meeting_end_sts, $security_perm, $emp_perm);
+        $columns = array($sl_no, $v_log_id, $visitor_id, $visitor_name, $com_name, $mobile_no, $id_no, $purpose, $vehical_type, $vehical_no, $branch, $emp_code, $emp_name, $emp_dpt, $regType, $emp_perm, $security_perm, $arrival, $meeting_end_time, $meeting_end_sts, $intime, $outtime, $check_sts);
 
         return ($columns);
     } else {
-        $columns = array($sl_no, $v_log_id, $visitor_id, $visitor_name, $gvt_id_type, $gvt_id_no, $com_name, $desig, $mobile_no, $email, $address, $id_no, $v_type, $purpose, $m_c_in, $vehical_type, $vehical_no, $branch, $emp_code, $emp_name, $emp_dpt, $emp_desig, $intime, $outtime, $check_sts, $meeting_end_time, $meeting_end_sts, $security_perm, $emp_perm);
+        $columns = array($sl_no, $v_log_id, $visitor_id, $visitor_name, $gvt_id_type, $gvt_id_no, $com_name, $desig, $mobile_no, $email, $address, $id_no, $v_type, $purpose, $m_c_in, $vehical_type, $vehical_no, $branch, $emp_code, $emp_name, $emp_dpt, $emp_desig, $emp_perm, $security_perm, $meeting_end_time, $meeting_end_sts, $intime, $outtime, $check_sts);
 
         return ($columns);
     }
@@ -64,7 +66,7 @@ function besic_excle($sql_query, $file_name, $i)
         $colum_name = array('i', 'visit_uid', 'visitor_id', 'visitor_id', 'visitor_id', 'visitor_id', 'visitor_id', 'visitor_id', 'visitor_id', 'visitor_id', 'visitor_id', 'id_card_no', 'visitor_type', 'visit_purpose', 'things_brought', 'vehical_type', 'vahical_num', 'branch_id', 'emp_id', 'emp_id', 'emp_id', 'emp_id', 'visit_uid', 'visit_uid', 'check_status', 'visit_uid', 'meeting_status', 'security_approval', 'Emp_approve');
 
     } else {
-        $colum_name = array('i', 'visit_uid', 'visitor_id', 'visitor_id', '', '', 'visitor_id', '', 'visitor_id', '', '', 'id_card_no', '', 'visit_purpose', '', 'vehical_type', 'vahical_num', 'branch_id', 'emp_id', 'emp_id', 'emp_id', '', 'visit_uid', 'visit_uid', 'check_status', 'visit_uid', 'meeting_status', 'security_approval', 'Emp_approve');
+        $colum_name = array('i', 'visit_uid', 'visitor_id', 'visitor_id', '', '', 'visitor_id', '', 'visitor_id', '', '', 'id_card_no', '', 'visit_purpose', '', 'vehical_type', 'vahical_num', 'branch_id', 'emp_id', 'emp_id', 'emp_id', '', 'register_type', 'Emp_approve', 'security_approval', 'Arrival_time_stamp', 'visit_uid', 'meeting_status', 'visit_uid', 'visit_uid', 'check_status');
         // $colum_name = array('i','visit_uid','visitor_id','visitor_id','visitor_id','visitor_id','id_card_no','visit_purpose','vehical_type','vahical_num','emp_id','emp_id','emp_id','visit_uid','visit_uid','check_status','visit_uid','meeting_status','security_approval','Emp_approve');
 
     }
@@ -153,25 +155,25 @@ function besic_excle($sql_query, $file_name, $i)
                             $table_formate[$i][$j] = ucfirst(findDesig($conn, $desig_id));
                             break;
                     }
-                } else if (in_array($j, range(22, 23)) || $j == 25) {
+                } else if (in_array($j, range(28, 29)) || $j == 26) {
                     $v_lof_id = $log_data[$column];
                     $timeing_data = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visitor_log` where `visit_uid` = '$v_lof_id'"));
                     switch ($j) {
-                        case 22:
+                        case 28:
                             if ($timeing_data['checkin_date'] != '0000-00-00' && $timeing_data['checkin_time'] != '00:00:00') {
                                 $table_formate[$i][$j] = date("d-m-Y h:i:s", strtotime($timeing_data['checkin_date'] . ' ' . $timeing_data['checkin_time']));
                             } else {
                                 $table_formate[$i][$j] = "00-00-0000" . ' ' . "00:00:00";
                             }
                             break;
-                        case 23:
+                        case 29:
                             if ($timeing_data['checkout_date'] != '0000-00-00' && $timeing_data['checkout_time'] != '00:00:00') {
                                 $table_formate[$i][$j] = date("d-m-Y h:i:s", strtotime($timeing_data['checkout_date'] . ' ' . $timeing_data['checkout_time']));
                             } else {
                                 $table_formate[$i][$j] = "00-00-0000" . ' ' . "00:00:00";
                             }
                             break;
-                        case 25:
+                        case 26:
                             if ($timeing_data['meeting_end_date'] != '0000-00-00' && $timeing_data['meeting_end_time'] != '00:00:00') {
                                 $table_formate[$i][$j] = date("d-m-Y h:i:s", strtotime($timeing_data['meeting_end_date'] . ' ' . $timeing_data['meeting_end_time']));
                             } else {
@@ -179,6 +181,13 @@ function besic_excle($sql_query, $file_name, $i)
                             }
                             break;
                     }
+                } else if ($j == 25) {
+                    if ($log_data[$column] != "0000-00-00 00:00:00") {
+                        $table_formate[$i][$j] = "Arrived";
+                    } else {
+                        $table_formate[$i][$j] = "Not Arrive";
+                    }
+
                 } else {
                     $table_formate[$i][$j] = $log_data[$column];
                 }

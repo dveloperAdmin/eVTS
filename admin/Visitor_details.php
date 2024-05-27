@@ -315,7 +315,7 @@ if (isset($_POST['view_v'])) {
                       </div>
 
                       <section class="animate pop">
-                        <div class="container" style="padding:1rem;">
+                        <div class="container" style="padding:.5rem;">
                           <div class="admit-card">
                             <div class="BoxA border- padding mar-bot">
                               <div class="row">
@@ -346,28 +346,28 @@ if (isset($_POST['view_v'])) {
                               </div>
                             </div>
                             <?php if ($end_meeting_sts == "Pending") { ?>
-                            <div class="BoxA border- padding mar-bot">
-                              <div class="row">
-                                <div class="col-sm-4" style="flex:0 0 33%; ">
-                                  <h5 style="font-size:15px;">Meeting status :- <span
-                                      style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
-                                  </h5>
+                              <div class="BoxA border- padding mar-bot">
+                                <div class="row">
+                                  <div class="col-sm-4" style="flex:0 0 33%; ">
+                                    <h5 style="font-size:15px;">Meeting status :- <span
+                                        style="font-style: italic;"><?php echo $meeting_end_sts ?></span>
+                                    </h5>
 
-                                </div>
-                                <div class="col-sm-4 txt-center"
-                                  style="flex:0 0 33%; max-width:50%; text-align: center;">
-                                  <h5 style="font-size:15px;">Meeting End By.: -
-                                    <?php echo $meeting_end_by; ?>
-                                  </h5>
-                                </div>
-                                <div class="col-sm-4" style="flex:0 0 25%;">
-                                  <h5 style="font-size:15px;">End Date-Time :- <span
-                                      style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
-                                  </h5>
+                                  </div>
+                                  <div class="col-sm-4 txt-center"
+                                    style="flex:0 0 33%; max-width:50%; text-align: center;">
+                                    <h5 style="font-size:15px;">Meeting End By.: -
+                                      <?php echo $meeting_end_by; ?>
+                                    </h5>
+                                  </div>
+                                  <div class="col-sm-4" style="flex:0 0 35%;">
+                                    <h5 style="font-size:15px;">End Date-Time :- <span
+                                        style="font-style: italic;"><?php echo $meeting_end_date_time ?></span>
+                                    </h5>
 
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                             <?php } ?>
 
                             <div class="BoxD mar-bot">
@@ -391,7 +391,7 @@ if (isset($_POST['view_v'])) {
                                             &nbsp;</b><?php echo $v_govt_id; ?>
                                         </td>
                                         <th rowspan="4" scope="row txt-center" style="width:8rem;"><img
-                                            src="../upload/<?php echo $visitor_id; ?>.png" width="123px" height="120px"
+                                            src="../upload/<?php echo $visitor_id; ?>.png" width="103px" height="100px"
                                             onerror="this.src='../src/error.png'" />
                                         </th>
 
@@ -515,34 +515,35 @@ if (isset($_POST['view_v'])) {
                         </div>
                       </section>
                       <?php if ($check_in_sts == 'IN' && $refer_details >= 1) { ?>
-                      <div class="card-block " style=" padding-top:0;">
-                        <div class="user-entry"
-                          style="margin-right: 1.3rem; display:flex; width:30rem;place-content: end;">
-                          <?php if ($refer_status == 'Active' && $meeting_status != 'End') { ?>
-                          <form action="refer_emp.php" method="post">
-                            <input type="hidden" name="back_page" value="<?php echo $back_page; ?>">
-                            <input type="hidden" name="v_id" value="<?php echo $visitor_id; ?>">
-                            <input type="hidden" name="emp_code" value="<?php echo $v_emp_code; ?>">
-                            <button class="btn waves-effect waves-light btn-info btn-outline-info" id="print_url"
-                              style=" margin-right:1rem;" name="reffer"><i class="icofont icofont-rotation"
-                                style="    font-size: 20px;margin-right: 10px;"></i>Reffer</button>
+                        <div class="card-block " style=" padding-top:0;">
+                          <div class="user-entry"
+                            style="margin-right: 1.3rem; display:flex; width:30rem;place-content: end;">
+                            <?php if ($refer_status == 'Active' && $meeting_status != 'End') { ?>
+                              <form action="refer_emp.php" method="post">
+                                <input type="hidden" name="back_page" value="<?php echo $back_page; ?>">
+                                <input type="hidden" name="v_id" value="<?php echo $visitor_id; ?>">
+                                <input type="hidden" name="emp_code" value="<?php echo $v_emp_code; ?>">
+                                <button class="btn waves-effect waves-light btn-info btn-outline-info" id="print_url"
+                                  style=" margin-right:1rem; padding:5px 20px;" name="reffer"><i
+                                    class="icofont icofont-rotation"
+                                    style="    font-size: 20px;margin-right: 10px;"></i>Reffer</button>
 
-                          </form>
-                          <?php }
+                              </form>
+                            <?php }
                             if ($end_meeting_sts != 'End' && $meeting_status != 'End') { ?>
-                          <form action="new_visit_process.php" method="post">
-                            <input type="hidden" name="back_page" value="<?php echo $back_page; ?>">
-                            <input type="hidden" name="v_id" value="<?php echo $visitor_id; ?>">
-                            <input type="hidden" name="emp_code" value="<?php echo $v_emp_code; ?>">
+                              <form action="new_visit_process.php" method="post">
+                                <input type="hidden" name="back_page" value="<?php echo $back_page; ?>">
+                                <input type="hidden" name="v_id" value="<?php echo $visitor_id; ?>">
+                                <input type="hidden" name="emp_code" value="<?php echo $v_emp_code; ?>">
 
-                            <button class="btn waves-effect waves-light btn-success btn-outline-success" id="print_url"
-                              style="margin-right:1rem;" name="end_meeting"><i class="fa fa-arrow-right"
-                                style="    font-size: 20px;margin-right: 10px;"></i>End
-                              Meeting</button>
+                                <button class="btn waves-effect waves-light btn-success btn-outline-success" id="print_url"
+                                  style="margin-right:1rem; padding:5px;" name="end_meeting"><i class="fa fa-arrow-right"
+                                    style="    font-size: 20px;margin-right: 10px;"></i>End
+                                  Meeting</button>
 
-                          </form>
-                        </div>
-                        <?php }
+                              </form>
+                            </div>
+                          <?php }
                       } ?>
                       </div>
                       <!-- Page-body end -->
@@ -562,29 +563,29 @@ if (isset($_POST['view_v'])) {
 </html>
 
 <script>
-$('.delt_href').on('submit', function(e) {
-  e.preventDefault();
-  // console.log(e);
-  var href = $(this).attr('action')
-  console.log(href)
+  $('.delt_href').on('submit', function (e) {
+    e.preventDefault();
+    // console.log(e);
+    var href = $(this).attr('action')
+    console.log(href)
 
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You Want to refuse For visiting... ",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, Reject'
-  }).then((result) => {
-    if (result.value) {
-      console.log(result.value);
-      document.location.href = href;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You Want to refuse For visiting... ",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Reject'
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value);
+        document.location.href = href;
 
-    } else {
+      } else {
 
-    }
+      }
+    })
+    $(':focus').blur();
   })
-  $(':focus').blur();
-})
 </script>

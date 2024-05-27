@@ -7,6 +7,7 @@ $des = "Page Load User View";
 $rem = "User View";
 $head = "User Info";
 include '../include/_audi_log.php';
+include '../include/_function.php';
 
 
 if (isset($_GET['id'])) {
@@ -106,6 +107,7 @@ if (isset($_GET['id'])) {
                                 <th>Emp Login Id</th>
                                 <th>Name</th>
                                 <th>Branch</th>
+                                <th>Department</th>
                                 <th>Role</th>
                                 <th>Status</th>
                                 <th colspan=3 style="  width: 30%;">Action</th>
@@ -153,6 +155,8 @@ if (isset($_GET['id'])) {
                                   <?php echo $user_data['name']; ?>
                                 </td>
                                 <td style="padding:.25rem;"><?php echo $branch_name; ?>
+                                </td>
+                                <td style="padding:.25rem;"><?= findDepartment($conn, $sql_emp_data['DepartmentId']) ?>
                                 </td>
                                 <td style="padding:.25rem;">
                                   <?php echo $user_data['user_role']; ?>

@@ -276,7 +276,7 @@ if (isset($_POST['view_v'])) {
                       </div>
 
                       <section class="animate pop">
-                        <div class="container" style="padding:1rem;">
+                        <div class="container" style="padding:.5rem;">
                           <div class="admit-card">
                             <div class="BoxA border- padding mar-bot">
                               <div class="row">
@@ -352,7 +352,7 @@ if (isset($_POST['view_v'])) {
                                             &nbsp;</b><?php echo $v_govt_id; ?>
                                         </td>
                                         <th rowspan="4" scope="row txt-center" style="width:8rem;"><img
-                                            src="../upload/<?php echo $visitor_id; ?>.png" width="123px" height="120px"
+                                            src="../upload/<?php echo $visitor_id; ?>.png" width="103px" height="100px"
                                             onerror="this.src='../src/error.png'" />
                                         </th>
 
@@ -487,17 +487,17 @@ if (isset($_POST['view_v'])) {
                             style="width:60%; margin-right:1rem;height:2.1rem; padding:0rem;"><i class="fa fa-print"
                               style="    font-size: 20px;margin-right: 10px;"></i>Print</button>
 
-                          <a href="view_visitor" style="width:60%;  ">
+                          <a href="view_visitor" style="width:25%;  ">
                             <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                              style="height:2.1rem; padding:0rem 1.5rem"><i class="fa fa-arrow-left"
+                              style="height:2.1rem; padding:5px "><i class="fa fa-arrow-left"
                                 style="    font-size: 20px;margin-right: 10px;"></i>Back</button>
                           </a>
                           <?php } else { ?>
 
-                          <a href="view_visitor" style="width:60%; display:grid; "><button
-                              class="btn waves-effect waves-light btn-inverse btn-outline-inverse"><i
-                                class="fa fa-arrow-left"
-                                style="    font-size: 20px;margin-right: 10px;"></i>Back</button></a>
+                          <a href="view_visitor" style="width:25%; display:grid; "><button
+                              class="btn waves-effect waves-light btn-inverse btn-outline-inverse" style="padding:5px;">
+                              <i class="fa fa-arrow-left"
+                                style="font-size: 20px;margin-right: 10px;"></i>Back</button></a>
                           <?php } ?>
                         </div>
                       </div>

@@ -53,6 +53,40 @@ $('input[list]').on('input', function(e) {
     }
   });
 });
+
+$("#empd").prop('disabled', true);
+$("#branchSelect").change(function() {
+  let branchValue = $(this).val();
+  var formData = new FormData();
+  formData.append("branchValueemp", branchValue);
+  $.ajax({
+    url: "ajax.php", // Update the URL to your server-side script
+    type: "POST",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function(response) {
+      var data = JSON.parse(response);
+      updateDatalist(data);
+      $("#empd").prop('disabled', false);
+    }
+  });
+
+})
+
+function updateDatalist(data) {
+  var $datalist = $('#suggestionListe');
+  $datalist.empty(); // Clear existing options
+
+
+
+  // Append new options from the AJAX response
+  $.each(data, function(index, item) {
+    $datalist.append($('<option></option>')
+      .attr('data-value', item.Emp_code)
+      .text(item.EmployeeName));
+  });
+}
 </script>
 
 <?php if (isset($_SESSION['status']) && $_SESSION['status'] != '') { ?>

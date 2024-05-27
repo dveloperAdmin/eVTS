@@ -30,7 +30,7 @@ if (isset($_POST['u_submit'])) {
 
     if ($emp_details != "" && $time != "" && $gate_no != "" && $purpose != "") {
 
-      $emp_name_v = substr($emp_details, strpos($emp_details, ' '), strlen($emp_details));
+      // $emp_name_v = substr($emp_details, strpos($emp_details, ' '), strlen($emp_details));
       // echo $emp_name;
       $purpose_check = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$purpose'"));
       if ($purpose_check != "") {
@@ -40,7 +40,7 @@ if (isset($_POST['u_submit'])) {
       $emp_code = $full1[0];
       $sql_emp_data = mysqli_fetch_assoc(mysqli_query($conn, "select eomploye_details.* from eomploye_details join user on eomploye_details.EmployeeId = user.EmployeeId where user.user_role != 'Security' and eomploye_details.Emp_code ='$emp_code'"));
       if ($sql_emp_data != "") {
-
+        $emp_name_v = $sql_emp_data['EmployeeName'];
         $email = $sql_emp_data['email_id'];
         if ($email == "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $_SESSION['icon'] = 'error';
@@ -158,19 +158,19 @@ if (isset($_POST['u_submit'])) {
                   <!-- Page body start -->
                   <div class="page-body">
                     <div class="card">
-                      <div class="card-header">
+                      <div class="card-header" style="padding-bottom:5px; padding-top:10px;">
                         <div class="row">
-                          <div class="col-md-3" style="flex:0 0 30%; max-width:35%;">
+                          <div class="col-md-3" style="flex:0 0 28%; max-width:35%; padding-right:0;">
 
                             <h5>Emp.name :- </h5><?php echo $emp_name_v; ?>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 30%; max-width:35%;">
+                          <div class="col-md-3" style="flex:0 0 30%; max-width:35%; padding-right:0;">
                             <div style="display:flex;flex-wrap:wrap;">
 
                               <div>
                                 <h5>Purpose :- </h5>
                               </div>
-                              <div id="containerOverFlow" style="flex:0 0 74%; max-width: 75%; overflow: hidden;">
+                              <div id="containerOverFlow" style="flex:0 0 72%; max-width: 75%; overflow: hidden;">
                                 <textarea id="expandingTextarea" rows="1" style="width: 100%;"
                                   readonly><?= $purpose; ?></textarea>
 
@@ -179,11 +179,11 @@ if (isset($_POST['u_submit'])) {
 
                             <!--  -->
                           </div>
-                          <div class="col-md-3" style="flex:0 0 20.5%; ">
+                          <div class="col-md-3" style="flex:0 0 20.5%; padding-right:0;">
 
                             <h5>Arrive-Time:- <?php echo $time; ?></h5>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 17%; padding-right:0px;">
+                          <div class="col-md-3" style="flex:0 0 20%; padding-right:0px;">
 
                             <h5>Gate No :- <?php echo $gate_no; ?></h5>
                           </div>

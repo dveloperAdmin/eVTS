@@ -85,7 +85,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                 <label class="col-sm-3 col-form-label" style="padding: 2px 10px;flex: 0 0 16%;">Branch &
                                   Employee</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto; flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto; flex-wrap: wrap; justify-content: space-between;">
                                   <select name="branchData" id="branchSelect" class="form-control"
                                     style="height: 35px; width: 49%;">
                                     <option value="" disabled selected hidden>Select Branch</option>
@@ -136,7 +136,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                   & Date
                                   Range</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
                                   <select name="branchData" id="branchSelect" class="form-control"
                                     style="height: 35px; width: 49%;">
                                     <option value="" disabled selected hidden>Select Branch</option>
@@ -178,7 +178,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                   & Date
                                   Range</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
                                   <input list="suggestionList" id="emp" name="" class="form-control"
                                     placeholder="Enter Employee Name" oninput="this.value = this.value.toUpperCase()"
                                     required style="width:49%">
@@ -225,7 +225,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                   &
                                   Month</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto; flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto; flex-wrap: wrap; justify-content: space-between;">
                                   <input list="suggestionListS" id="empS" name="" class="form-control"
                                     placeholder="Enter Employee Name" oninput="this.value = this.value.toUpperCase()"
                                     required style="height: 35px; width:49%">
@@ -286,7 +286,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                   Sts. & Date
                                   Range</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
 
                                   <select name="check_sts" id="" class="form-control" style="height: 35px; width:49%">
                                     <option value="" disabled selected hidden>Select
@@ -325,7 +325,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                 <label class="col-sm-3 col-form-label" style="padding: 2px 10px;flex: 0 0 16%;">Type &
                                   Purpose </label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto;height:auto;flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto;height:auto;flex-wrap: wrap; justify-content: space-between;">
                                   <select name="v_type" id="" class="form-control" style="height: 35px; width: 49%;"
                                     required>
                                     <option value="" disabled selected hidden>Select
@@ -379,7 +379,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                   By &nbsp; & Date
                                   Range</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
                                   <input list="suggestionList" id="empp" name="" class="form-control"
                                     placeholder="Enter Employee Name" oninput="this.value = this.value.toUpperCase()"
                                     required style=" width:49%">
@@ -420,7 +420,7 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                   To &nbsp; & Date
                                   Range</label>
                                 <div class="col-sm-9"
-                                  style="display:flex; max-width: 42%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
+                                  style="display:flex; max-width: 45%;; height:auto;flex-wrap: wrap; justify-content: space-between;">
                                   <input list="suggestionList" id="empr" name="" class="form-control"
                                     placeholder="Enter Employee Name" oninput="this.value = this.value.toUpperCase()"
                                     required style=" width:49%">

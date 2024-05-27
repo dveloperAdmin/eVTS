@@ -87,7 +87,7 @@ if (isset($_GET['id'])) {
 
 
                                         <div class="card">
-                                            <div class="col-md-6" style="    padding-top: 1rem;">
+                                            <div class="col-md-6" style="    padding-top: .5rem;">
                                                 <div class="form-group row" style="margin:5px;">
                                                     <label class="col-sm-3 col-form-label"
                                                         style="padding-right: 0;flex:0 0 10%;">Search</label>
@@ -97,9 +97,9 @@ if (isset($_GET['id'])) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-block table-border-style">
+                                            <div class="card-block table-border-style" style="padding-top:3px;">
                                                 <div class="table-responsive table-short" style="height: 376px;">
-                                                    <table class="table" id="dataTable">
+                                                    <table class="table" id="dataTable" style="margin:0;">
                                                         <thead>
                                                             <tr>
                                                                 <th

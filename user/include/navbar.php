@@ -1,32 +1,32 @@
 <?php
 include '../include/_dbconnect.php';
 $user_id = $_SESSION['user_id'];
-$user_data_sql = mysqli_fetch_assoc(mysqli_query($conn,"select * from `user` where `uid`='$user_id'"));
+$user_data_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `user` where `uid`='$user_id'"));
 ?>
 <style>
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-  padding-right: 1%;
-}
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding-right: 1%;
+  }
 
-.closebtn:hover {
-  color: black;
-}
+  .closebtn:hover {
+    color: black;
+  }
 
-#connection_sts {
-  margin: initial;
-  font-size: 1.3em;
-  text-align: center;
-  font-family: monospace;
-  font-weight: 600;
-}
+  #connection_sts {
+    margin: initial;
+    font-size: 1.3em;
+    text-align: center;
+    font-family: monospace;
+    font-weight: 600;
+  }
 </style>
 
 <nav class="navbar header-navbar pcoded-header">
@@ -83,10 +83,15 @@ $user_data_sql = mysqli_fetch_assoc(mysqli_query($conn,"select * from `user` whe
         <li class="user-profile header-notification">
           <a href="#!" class="waves-effect waves-light">
             <img src="assets/images/user.png" class="img-radius" alt="User-Profile-Image">
-            <span><?php echo $user_data_sql['name'];?></span>
+            <span><?php echo $user_data_sql['name']; ?></span>
             <i class="ti-angle-down"></i>
           </a>
           <ul class="show-notification profile-notification">
+            <li class="waves-effect waves-light">
+              <a href="my_details">
+                <i class="ti-settings"></i> Profile Details
+              </a>
+            </li>
             <li class="waves-effect waves-light">
               <a href="change_password.php">
                 <i class="ti-settings"></i> Change Password

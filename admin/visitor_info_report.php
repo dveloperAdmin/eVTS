@@ -63,7 +63,7 @@ $approvat = $refer_status;
                           <div class="card-block table-border-style" style="padding-bottom:0px">
                             <form action="visitor_info_report_process.php" method="post">
                               <div class="form-group row" style="margin-bottom: .5em;    place-items: center;">
-                                <label class="col-sm-3 col-form-label" style="flex: 0 0 17%;">Date Range</label>
+                                <label class="col-sm-3 col-form-label" style="flex: 0 0 17%;">Arrival Date Range</label>
                                 <div class="col-sm-9" style="display:flex; max-width: 45%; height:auto;">
                                   <input type="date" name="from_date" id="" class="form-control"
                                     style="margin-right:.5rem;" required>
@@ -196,19 +196,19 @@ $approvat = $refer_status;
 
 </html>
 <script>
-$("#emp").change(function() {
-  $("#emp_date").val('');
-  $("#emp_month").val('');
-  $("#emp_year").val('');
-})
-$("#emp_date").change(function() {
-  $("#emp").val('');
-  $("#emp_month").val('');
-  $("#emp_year").val('');
-})
-$("#emp_month , #emp_year").change(function() {
-  $("#emp").val('');
-  $("#emp_date").val('');
+  $("#emp").change(function () {
+    $("#emp_date").val('');
+    $("#emp_month").val('');
+    $("#emp_year").val('');
+  })
+  $("#emp_date").change(function () {
+    $("#emp").val('');
+    $("#emp_month").val('');
+    $("#emp_year").val('');
+  })
+  $("#emp_month , #emp_year").change(function () {
+    $("#emp").val('');
+    $("#emp_date").val('');
 
-})
+  })
 </script>

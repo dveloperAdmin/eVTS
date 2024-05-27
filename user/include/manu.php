@@ -78,13 +78,13 @@ if ($emp_details != "") {
             </li> -->
 
 
-      <li class=" ">
-        <a href="my_details" class="waves-effect waves-dark">
+      <!-- <li class=" ">
+        <a href="" class="waves-effect waves-dark">
           <span class="pcoded-micon"><i class="icofont icofont-user" style="font-size: 20px;"></i></span>
           <span class="pcoded-mtext">My Details </span>
           <span class="pcoded-mcaret"></span>
         </a>
-      </li>
+      </li> -->
 
 
       <li class="pcoded-hasmenu">
