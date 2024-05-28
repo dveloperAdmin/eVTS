@@ -43,15 +43,15 @@ $sql_vistor5 = mysqli_query($conn, "select * from `visitor_log` where `check_sta
       </li>
       <?php if ($end_sts != "End") { ?>
 
-      <li class="">
-        <a href="view_visitor_check_out?id=1" class="waves-effect waves-dark">
-          <span class="pcoded-micon"><i class="fa fa-commenting"></i><b>D</b></span>
-          <span class="pcoded-mtext">Notification <?php if (mysqli_num_rows($sql_vistor5) >= 1) { ?><i
-              class="fa fa-circle" id="blink_me"
-              style="margin-left: 4.5rem; color: #36d000;font-size: 12px;"></i><?php } ?></span>
-          <span class="pcoded-mcaret"></span>
-        </a>
-      </li>
+        <li class="">
+          <a href="view_visitor_check_out?id=1" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-commenting"></i><b>D</b></span>
+            <span class="pcoded-mtext">Notification <?php if (mysqli_num_rows($sql_vistor5) >= 1) { ?><i
+                  class="fa fa-circle" id="blink_me"
+                  style="margin-left: 4.5rem; color: #36d000;font-size: 12px;"></i><?php } ?></span>
+            <span class="pcoded-mcaret"></span>
+          </a>
+        </li>
       <?php } ?>
 
       <!-- <li class="">
@@ -66,7 +66,7 @@ $sql_vistor5 = mysqli_query($conn, "select * from `visitor_log` where `check_sta
 
       <li class="">
         <a href="new_visitor1" class="waves-effect waves-dark">
-          <span class="pcoded-micon" style="padding:0;"><i class="icofont icofont-arrow-left"
+          <span class="pcoded-micon" style="padding:0;"><i class="icofont icofont-arrow-right"
               style="color:green; font-size:1.7rem;"></i></span>
           <span class="pcoded-mtext">Check In</span>
           <span class="pcoded-mcaret"></span>
@@ -74,7 +74,7 @@ $sql_vistor5 = mysqli_query($conn, "select * from `visitor_log` where `check_sta
       </li>
       <li class="">
         <a href="check_out1" class="waves-effect waves-dark">
-          <span class="pcoded-micon" style="padding:0;"><i class="icofont icofont-arrow-right"
+          <span class="pcoded-micon" style="padding:0;"><i class="icofont icofont-arrow-left"
               style="color:red; font-size:1.7rem;"></i></span>
           <span class="pcoded-mtext">Check Out</span>
           <span class="pcoded-mcaret"></span>

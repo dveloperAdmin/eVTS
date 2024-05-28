@@ -8,21 +8,22 @@ $user_data_sql = mysqli_fetch_assoc(mysqli_query($conn, "select * from `user` wh
 $emp_id = $user_data_sql['EmployeeId'];
 $emp_details = mysqli_fetch_assoc(mysqli_query($conn, "select * from `eomploye_details` where `EmployeeId` = '$emp_id'"));
 if ($emp_details != "") {
-    $com_code = $emp_details['CompanyId'];
-    $branchCode = $emp_details['BranchId'];
-    $emp_code = $emp_details['Emp_code'];
-    $_SESSION['emp_code'] = $emp_details['Emp_code'];
-    $approval = "Deactivate";
-    $check_approve_status = mysqli_fetch_assoc(mysqli_query($conn, "select * from `approval_sts` where `branch_id` = '$branchCode'"));
-    if ($check_approve_status != "") {
-        $approval = $check_approve_status['Approve_status'];
-        // echo "$approval";
-        $refer = $check_approve_status['referral_status'];
+  $com_code = $emp_details['CompanyId'];
+  $branchCode = $emp_details['BranchId'];
+  $emp_code = $emp_details['Emp_code'];
+  $_SESSION['emp_code'] = $emp_details['Emp_code'];
+  $approval = "Deactivate";
+  $check_approve_status = mysqli_fetch_assoc(mysqli_query($conn, "select * from `approval_sts` where `branch_id` = '$branchCode'"));
+  if ($check_approve_status != "") {
+    $approval = $check_approve_status['Approve_status'];
+    // echo "$approval";
+    $refer = $check_approve_status['referral_status'];
 
-    }
-    $check_pending_number = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `emp_id`='$emp_code' and `Emp_approve`='Pending'"));
+  }
+  $check_pending_number = mysqli_num_rows(mysqli_query($conn, "select * from `visitor_log` where `emp_id`='$emp_code' and `Emp_approve`='Pending'"));
 
 }
+$sql_refer_vistor1 = mysqli_query($conn, "select * from `meeting_referrable` where `refer_to`='$user_id' and `reffer_status` in ('Reffer', 'Reffer End') and `visitor_enetry`!= 'Register' order by `sl_no` desc");
 
 
 
@@ -91,7 +92,11 @@ if ($emp_details != "") {
         <a href="javascript:void(0)" class="waves-effect waves-dark">
           <span class="pcoded-micon"><img src="assets/images/visitor-card.png" alt="" srcset=""
               style="width: 1.5rem;"></span>
-          <span class="pcoded-mtext">Visitor Details</span>
+          <span class="pcoded-mtext">Visitor Details
+            <?php if ($refer == 'Activate') {
+              if (mysqli_num_rows($sql_refer_vistor1) >= 1) { ?><i class="fa fa-circle" id="blink_me"
+              style="margin-left: 4.5rem; color: #36d000;font-size: 12px;"></i><?php }
+            } ?></span>
           <span class="pcoded-mcaret"></span>
         </a>
         <ul class="pcoded-submenu">
@@ -114,7 +119,9 @@ if ($emp_details != "") {
           <li class=" ">
             <a href="view_refer_visitor" class="waves-effect waves-dark">
               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Refer Vsitor Log </span>
+              <span class="pcoded-mtext">Refer Vsitor Log<?php if (mysqli_num_rows($sql_refer_vistor1) >= 1) { ?><i
+                  class="fa fa-circle" id="blink_me"
+                  style="margin-left: 4.5rem; color: #36d000;font-size: 12px;"></i><?php } ?> </span>
               <span class="pcoded-mcaret"></span>
             </a>
           </li>

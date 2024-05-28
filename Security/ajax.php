@@ -274,16 +274,18 @@ if (isset($_POST['V_log'])) {
 		<div class="admit-card">
 			<div class="BoxA border- padding mar-bot"> 
 				<div class="row" >
-					<div class="col-sm-4" style="flex:0 0 25%">
+					<div class="col-sm-4" style="flex:0 0 33%">
 						<h5 style="font-size:15px;">Date :- ' . $v_date . '</h5>
 						<p style="margin-bottom:.5rem;">Intime: - ' . $v_time_p . '</p>
 					</div>
-					<div class="col-sm-4 txt-center" style="flex:0 0 48%; max-width:50%">
-						<h5 style="text-align:center;">' . strtoupper($company_name) . '</h5>
+					<div class="col-sm-4 txt-center" style="flex:0 0 30%; max-width:50%">
+						
 					</div>
-					<div class="col-sm-4"style="flex:0 0 25%">
-						<h5 style="font-size:15px;">UID:- ' . $id . '</h5>
-						<p style="margin-bottom:.5rem;">Approval Sts.: - ' . $approval_sts . ' </p>
+					<div class="col-sm-4"style="flex:0 0 33%">
+                        <div style="display:grid; justify-content:end;">
+                            <h5 style="font-size:15px;">UID:- ' . $id . '</h5>
+                            <p style="margin-bottom:.5rem;">Approval Sts.: - ' . $approval_sts . ' </p>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -293,7 +295,7 @@ if (isset($_POST['V_log'])) {
 					<div class="col-sm-10" style=" max-width: 100%; flex: 0 0 100%;" >
 						<table class="table" style="margin-bottom:0px">
 						  <tbody>
-							<tr ><td colspan="3" style="font-size:16px; padding: .5rem;font-weight:700;border-bottom:2px solid #000;text-align:left;"> Visitor Info</td></tr>
+							<tr ><td colspan="3" style="font-size:19px; padding:0rem;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: ' . "El Messiri" . ', sans-serif; font-style:italic;"> Visitor Info</td></tr>
 							<tr>
 							  <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;"><b>Visitor Name:- </b>' . $v_name . ' </td>
 							  <td style="padding:0; height:2rem;text-align:left;"><b>Govt. Id:- </b>' . $v_govt_id . ' </td>
@@ -336,7 +338,7 @@ if (isset($_POST['V_log'])) {
 				<div class="col-sm-10" style="max-width: 100%; flex: 0 0 100%;">
 						<table class="table">
 							  <tbody>
-							  <tr ><td colspan="2" style="font-size:16px; padding: .5rem;font-weight:700;border-bottom:2px solid #000;text-align:left;"> TO Meet</td></tr>
+							  <tr ><td colspan="2" style="font-size:19px; padding:0rem;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: ' . "El Messiri" . ', sans-serif; font-style:italic;"> TO Meet</td></tr>
 								<tr>
 									<td id="tb" style="padding:0; height:2rem;text-align:left;"><b>Employe Code:- </b>' . $v_e_code . '</td>
 									<td style="padding:0; height:2rem;text-align:left;"><b>Employe Name:- </b>' . $v_e_name . '</td>

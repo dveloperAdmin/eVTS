@@ -30,71 +30,66 @@ if(isset($_GET['id'])){
 <?php include "include/head.php";?>
 
 <body>
-    <!-- Pre-loader start -->
-    <?php include "include/pre_loader.php"; ?>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
-            <!-- navbar start -->
-            <?php include "include/navbar.php"; ?>
-            <!-- navbar end -->
+  <!-- Pre-loader start -->
+  <?php include "include/pre_loader.php"; ?>
+  <!-- Pre-loader end -->
+  <div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+      <!-- navbar start -->
+      <?php include "include/navbar.php"; ?>
+      <!-- navbar end -->
 
-            <div class="pcoded-main-container">
-                <div class="pcoded-wrapper">
+      <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
 
-                    <!-- Side Manu start -->
-                    <?php include "include/manu.php"; ?>
-                    <!-- Side Manu end -->
+          <!-- Side Manu start -->
+          <?php include "include/manu.php"; ?>
+          <!-- Side Manu end -->
 
-                    <div class="pcoded-content">
+          <div class="pcoded-content">
 
-                        <!-- Page-header start -->
-                        <?php include "include/header.php"?>
-                        <!-- Page-header end -->
+            <!-- Page-header start -->
+            <?php include "include/header.php"?>
+            <!-- Page-header end -->
 
-                        <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
-                            <div class="main-body">
-                                <div class="page-wrapper">
+            <div class="pcoded-inner-content">
+              <!-- Main-body start -->
+              <div class="main-body">
+                <div class="page-wrapper">
 
-                                    <!-- Page body start -->
-                                    <div class="page-body">
-                                  
-                                         
-                                                <div class="card">
-                                                    <div class="col-md-6" style="    padding-top: 1rem;">
-                                                        <div class="form-group row" style="margin:5px;">
-                                                            <label class="col-sm-3 col-form-label" style="padding-right: 0;">Search By Name</label>
-                                                            <div class="col-sm-9">
-                                                                <input list="emp_name" type="text" class="form-control" placeholder="Search By Uid" id="myInput" onkeyup="quickSearch()">
-                                                                <datalist id="emp_name">
-                                                                    <?php $serach_visit= mysqli_query($conn,"select * from `visitor_log` where `check_status`='IN' and `meeting_status`='End' order by `sl_no` desc");
-                                                                    while($visit_data= mysqli_fetch_assoc($serach_visit)){?>
-                                                                        <option value="<?php if($visit_data!=""){$id = explode("-",rtrim($visit_data['visit_uid'])); echo $id[1];}?>"></option>
-                                                                    <?php }  ?>
-                                                                </datalist>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <div class="card-block table-border-style">
-                                                <div class="table-responsive table-short" style="height: 376px;" >
-                                                    <table class="table" id="myTable">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="width: 4rem;padding-bottom:2px;padding-top:2px;">Sl No.</th>
-                                                                <th style="padding-bottom:2px;padding-top:2px;">Visit Id</th>
-                                                                <th style="  width: 20%;padding-bottom:2px;padding-top:2px;">Visitor Name</th>
-                                                                <th style="padding-bottom:2px;padding-top:2px;">Comapny Name</th>
-                                                                <th style="padding-bottom:2px;padding-top:2px;">Id Card</th>
-                                                                <th style="  width: 20%;padding-bottom:2px;padding-top:2px;">Meeting Status</th>
-                                                                <th style="padding-bottom:2px;padding-top:2px;">Meeting End Time</th>
-                                                                <th style="padding-bottom:2px;padding-top:2px;">Check Status</th>
-                                                                <th style="  width: 6%;padding-bottom:2px;padding-top:2px;">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php $i=0; while($visitor_data = mysqli_fetch_assoc($sql_vistor)){
+                  <!-- Page body start -->
+                  <div class="page-body">
+
+
+                    <div class="card">
+                      <div class="col-md-6" style="    padding-top: .5rem;">
+                        <div class="form-group row" style="margin:5px;">
+                          <label class="col-sm-3 col-form-label" style="padding-right: 0;flex:0 0 10%;">Search</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Search.." id="searchInput"
+                              style="width:60%">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-block table-border-style" style="padding-top:3px;">
+                        <div class="table-responsive table-short" style="height: 376px;">
+                          <table class="table" id="dataTable">
+                            <thead>
+                              <tr>
+                                <th style="width: 4rem;padding-bottom:2px;padding-top:2px;">Sl No.</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">Visit Id</th>
+                                <th style="  width: 20%;padding-bottom:2px;padding-top:2px;">Visitor Name</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">Comapny Name</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">Id Card</th>
+                                <th style="  width: 20%;padding-bottom:2px;padding-top:2px;">Meeting Status</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">Meeting End Time</th>
+                                <th style="padding-bottom:2px;padding-top:2px;">Check Status</th>
+                                <th style="  width: 6%;padding-bottom:2px;padding-top:2px;">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php $i=0; while($visitor_data = mysqli_fetch_assoc($sql_vistor)){
                                                                     $v_nam="";
                                                                     $v_com="";
                                                                     $e_name="";
@@ -114,59 +109,67 @@ if(isset($_GET['id'])){
 
                                                                 $i++;
                                                                 
-                                                                ?> 
-                                                            <tr>
-                                                                <th scope="row" style="padding:1px;"><?php echo $i;?></th>
-                                                                <td style="padding:1px;"><?php $id = explode("-",rtrim($visitor_data['visit_uid'])); if($id!=""){ echo $id[1];}?></td>
-                                                                <td style="padding:1px;"><?php echo ucfirst($v_nam);?></td>
-                                                                <td style="padding:1px;"><?php echo ucfirst($v_com);?></td>
-                                                                <td style="padding:1px;"><?php echo $visitor_data['id_card_no'];?></td>
-                                                                <td style="padding:1px;"><?php echo ucfirst($visitor_data['meeting_status']);?></td>
-                                                                <td style="padding:1px;"><?php if($visitor_data['meeting_status']!=""){echo date("d-M-Y h:i:s",strtotime($visitor_data['meeting_end_date'].' '.$visitor_data['meeting_end_time']));}?></td>
-                                                                <td <?php 
+                                                                ?>
+                              <tr>
+                                <th scope="row" style="padding:1px;"><?php echo $i;?></th>
+                                <td style="padding:1px;">
+                                  <?php $id = explode("-",rtrim($visitor_data['visit_uid'])); if($id!=""){ echo $id[1];}?>
+                                </td>
+                                <td style="padding:1px;"><?php echo ucfirst($v_nam);?></td>
+                                <td style="padding:1px;"><?php echo ucfirst($v_com);?></td>
+                                <td style="padding:1px;"><?php echo $visitor_data['id_card_no'];?></td>
+                                <td style="padding:1px;"><?php echo ucfirst($visitor_data['meeting_status']);?></td>
+                                <td style="padding:1px;">
+                                  <?php if($visitor_data['meeting_status']!=""){echo date("d-M-Y h:i:s",strtotime($visitor_data['meeting_end_date'].' '.$visitor_data['meeting_end_time']));}?>
+                                </td>
+                                <td
+                                  <?php 
                                                                     if($visitor_data['check_status']=="OUT"){echo 'style="font-weight:700; color:red; padding:1px;"';}
                                                                     else if ($visitor_data['check_status']=="IN"){echo 'style="font-weight:700; color:green;padding:1px;"';}
-                                                                            else{echo 'style="font-weight:700; color:blue;padding:1px;"';}?>><?php echo ucfirst($visitor_data['check_status']);?></td>
-                                                                
-                                                                <td style="padding:1px;">
-                                                                    <form action="<?php echo $form_action;?>" method="post">
-                                                                        <input type="hidden" name="v_id" value="<?php echo $visitor_data['visit_uid'];?>">
-                                                                        <button class="btn waves-effect waves-light btn-primary btn-outline-primary" name = "view_v" style="padding: 4px 11px 4px 11px;"><i class="icofont icofont-eye-alt"></i>View</button>
-                                                                    </form>
-                                                                    
-                                                                </td>
-                                                                
-                                                          
-                                                            </tr>
-                                                            <?php }?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                                </div>
-                                            
-                                            </div>
-                                            </div>
-                                    </div>
-                                    <!-- Page-body end -->
-                                </div>
-                                
-                            </div>
+                                                                            else{echo 'style="font-weight:700; color:blue;padding:1px;"';}?>>
+                                  <?php echo ucfirst($visitor_data['check_status']);?></td>
+
+                                <td style="padding:1px;">
+                                  <form action="<?php echo $form_action;?>" method="post">
+                                    <input type="hidden" name="v_id" value="<?php echo $visitor_data['visit_uid'];?>">
+                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                      name="view_v" style="padding: 4px 11px 4px 11px;"><i
+                                        class="icofont icofont-eye-alt"></i>View</button>
+                                  </form>
+
+                                </td>
+
+
+                              </tr>
+                              <?php }?>
+                            </tbody>
+                          </table>
                         </div>
+                      </div>
                     </div>
+                  </div>
+
                 </div>
+              </div>
             </div>
+            <!-- Page-body end -->
+          </div>
+
         </div>
+      </div>
     </div>
-   
-    <!-- Required Jquery -->
-    <?php include "include/footer.php";?>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- Required Jquery -->
+  <?php include "include/footer.php";?>
 </body>
 <script>
 function quickSearch() {
   var input, filter, table, tr, td, i, txtValue;
- 
+
   input = document.getElementById("myInput");
   filter = input.value;
   console.log(filter);
@@ -181,34 +184,35 @@ function quickSearch() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
-   
-$('.delt_href').on('click', function(e){
+
+$('.delt_href').on('click', function(e) {
   e.preventDefault();
   // console.log(e);
   var href = $(this).attr('href')
   console.log(href)
-   
-Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.value) {
-    console.log(result.value);
-    document.location.href = href;
-   
-  }else{
-    
-  }
-})
-$(':focus').blur();
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      console.log(result.value);
+      document.location.href = href;
+
+    } else {
+
+    }
+  })
+  $(':focus').blur();
 })
 </script>
+
 </html>

@@ -27,7 +27,7 @@ if (isset($_POST['u_submit'])) {
     $purpose = $visitor_data[4];
     if ($emp_details != "" && $time != "" && $gate_no != "" && $purpose != "") {
 
-      $emp_name = substr($emp_details, strpos($emp_details, ' '), strlen($emp_details));
+      // $emp_name = substr($emp_details, strpos($emp_details, ' '), strlen($emp_details));
       $purpose_check = mysqli_fetch_assoc(mysqli_query($conn, "select * from `visit_purpose` where `purpose_id` = '$purpose'"));
       if ($purpose_check != "") {
         $purpose = strtoupper($purpose_check['purpose']);
@@ -36,7 +36,7 @@ if (isset($_POST['u_submit'])) {
       $emp_code = $full1[0];
       $sql_emp_data = mysqli_fetch_assoc(mysqli_query($conn, "select eomploye_details.* from eomploye_details join user on eomploye_details.EmployeeId = user.EmployeeId where user.user_role != 'Security'and eomploye_details.`Emp_code`='$emp_code'"));
       if ($sql_emp_data != "") {
-
+        $emp_name = $sql_emp_data['EmployeeName'];
         $email = $sql_emp_data['email_id'];
         if ($email == "" && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $_SESSION['icon'] = 'error';
@@ -141,21 +141,21 @@ if (isset($_POST['u_submit'])) {
                   <!-- Page body start -->
                   <div class="page-body">
                     <div class="card">
-                      <div class="card-header">
+                      <div class="card-header" style="padding:8px 20px;">
                         <div class="row">
-                          <div class="col-md-3" style="flex:0 0 28%; max-width:35%;">
+                          <div class="col-md-3" style="flex:0 0 28%; max-width:35%; padding-right:0;">
 
                             <h5>Emp.name :- </h5><?php echo $emp_name; ?>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 33%; max-width:35%;">
+                          <div class="col-md-3" style="flex:0 0 30%; max-width:35%; padding-right:0;">
 
                             <h5>Purpose :- </h5><?php echo $purpose; ?>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 25%; ">
+                          <div class="col-md-3" style="flex:0 0 20.5%;  padding-right:0;">
 
                             <h5>Schedule Date:- <?php echo $time; ?></h5>
                           </div>
-                          <div class="col-md-3" style="flex:0 0 14%">
+                          <div class="col-md-3" style="flex:0 0 20%; padding-right:0;">
 
                             <h5>Gate No :- <?php echo $gate_no; ?></h5>
                           </div>
@@ -176,12 +176,12 @@ if (isset($_POST['u_submit'])) {
                                 if ($e == true) {
 
                                   foreach ($visitor_data as $id => $value) { ?>
-                                <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
-                                <?php
+                                    <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
+                                    <?php
                                   }
                                 }
                                 ?>
-                                <label class="col-sm-3 col-form-label">Govt. ID
+                                <label class="col-sm-3 col-form-label">ID
                                   Type<span style="color:red;padding:2px;">*</span></label>
                                 <div class="col-sm-9">
                                   <select class="form-control" name="visit[]" id="govt_id_type" required autofocus>
@@ -199,7 +199,7 @@ if (isset($_POST['u_submit'])) {
                               </div>
 
                               <div class="form-group row" style="margin-bottom:.65rem;">
-                                <label class="col-sm-3 col-form-label"> Govt. ID
+                                <label class="col-sm-3 col-form-label">ID Details
                                   Number<span style="color:red;padding:2px;">*</span></label>
                                 <div class="col-sm-9">
                                   <input type="text" name="visit[]" id="id_no" class="form-control" disabled="true"
@@ -327,10 +327,10 @@ if (isset($_POST['u_submit'])) {
 
 
 <script type="text/javascript">
-function randomString(length) {
-  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-}
-$(document).ready(function() {
-  $("#vidcard").val(randomString(13).toUpperCase());
-});
+  function randomString(length) {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+  }
+  $(document).ready(function () {
+    $("#vidcard").val(randomString(13).toUpperCase());
+  });
 </script>

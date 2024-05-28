@@ -144,358 +144,345 @@ if (isset($_POST['view_v'])) {
 <?php include "include/head.php"; ?>
 
 <body>
-    <!-- Pre-loader start -->
-    <?php include "include/pre_loader.php"; ?>
-    <!-- Pre-loader end -->
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
-            <!-- navbar start -->
-            <?php include "include/navbar.php"; ?>
+  <!-- Pre-loader start -->
+  <?php include "include/pre_loader.php"; ?>
+  <!-- Pre-loader end -->
+  <div id="pcoded" class="pcoded">
+    <div class="pcoded-overlay-box"></div>
+    <div class="pcoded-container navbar-wrapper">
+      <!-- navbar start -->
+      <?php include "include/navbar.php"; ?>
 
-            <!-- navbar end -->
+      <!-- navbar end -->
 
-            <div class="pcoded-main-container">
-                <div class="pcoded-wrapper">
-                    <!-- <?php echo $pass; ?> -->
-                    <!-- Side Manu start -->
-                    <?php include "include/manu.php"; ?>
-                    <!-- Side Manu end -->
+      <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+          <!-- <?php echo $pass; ?> -->
+          <!-- Side Manu start -->
+          <?php include "include/manu.php"; ?>
+          <!-- Side Manu end -->
 
-                    <div class="pcoded-content">
+          <div class="pcoded-content">
 
-                        <!-- Page-header start -->
-                        <?php include "include/header.php" ?>
-                        <!-- Page-header end -->
+            <!-- Page-header start -->
+            <?php include "include/header.php" ?>
+            <!-- Page-header end -->
 
-                        <div class="pcoded-inner-content">
-                            <!-- Main-body start -->
-                            <div class="main-body">
-                                <div class="page-wrapper">
+            <div class="pcoded-inner-content">
+              <!-- Main-body start -->
+              <div class="main-body">
+                <div class="page-wrapper">
 
-                                    <!-- Page body start -->
-                                    <div class="page-body">
-                                        <div class="row">
-                                            <div class="col-md-6" style="flex:0 0 36%;">
+                  <!-- Page body start -->
+                  <div class="page-body">
+                    <div class="row">
+                      <div class="col-md-6" style="flex:0 0 36%;">
 
-                                                <div class="card">
-                                                    <!-- <div class="card-header">
+                        <div class="card">
+                          <!-- <div class="card-header">
                                                         <h5>Visitor Details Print :- &nbsp; <?php echo $id; ?> </h5>
                                                     </div> -->
-                                                    <div class="card-header"
-                                                        style="padding-bottom:8px;padding-top:8px;">
-                                                        <h5>Check Out :- &nbsp; <?php echo $id; ?> </h5>
+                          <div class="card-header" style="padding-bottom:8px;padding-top:8px;">
+                            <h5>Check Out :- &nbsp; <?php echo $id; ?> </h5>
 
-                                                    </div>
-                                                    <div class="card-block">
-                                                        <form action="new_visit_process" method="post">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label">Date</label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="date" name="check_out_date"
-                                                                        class="form-control"
-                                                                        value="<?php echo date("Y-m-d"); ?>" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label">Time</label>
-                                                                <div class="col-sm-9" style="display:flex">
-                                                                    <div style="padding:2px; width:6.1rem;">
-                                                                        <select name="hrs" id="" class="form-control"
-                                                                            style="text-align:center; font-weight:700;"
-                                                                            required>
-                                                                            <option value="<?php echo date("h"); ?>"
-                                                                                selected hidden><?php echo date("h"); ?>
-                                                                            </option>
-                                                                            <?php for ($i = 1; $i <= 12; $i++) {
-                                                                                if ($i < 10) {
-                                                                                    $i = "0" . $i;
-                                                                                } ?>
-                                                                                <option value="<?php echo $i; ?>">
-                                                                                    <?php echo $i; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div style="padding:2px; width:6.1rem;">
-                                                                        <select name="mnt" id="" class="form-control"
-                                                                            style="text-align:center; font-weight:700;"
-                                                                            required>
-                                                                            <option value="<?php echo date("i"); ?>"
-                                                                                selected hidden><?php echo date("i"); ?>
-                                                                            </option>
-                                                                            <?php for ($i = 00; $i < 60; $i++) {
-                                                                                if ($i < 10) {
-                                                                                    $i = "0" . $i;
-                                                                                } ?>
-                                                                                <option value="<?php echo $i; ?>">
-                                                                                    <?php echo $i; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div style="padding:2px; width:6.1rem;">
-                                                                        <select name="ampm" id="" class="form-control"
-                                                                            style="text-align:center;" required>
-                                                                            <option value="<?php echo date("A"); ?>"
-                                                                                selected hidden><?php echo date("A"); ?>
-                                                                            </option>
-                                                                            <option value="AM">AM</option>
-                                                                            <option value="PM">PM</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-
-                                                            <input type="hidden" name="uid" value="<?php echo $id; ?>">
-
-
-                                                            <div class="user-entry">
-                                                                <button type="submit"
-                                                                    class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                                                    name="check_out"><i class="fa fa-arrow-right"
-                                                                        style="    font-size: 20px;margin-right: 10px;"></i>Check
-                                                                    Out</button>
-                                                        </form>
-
-                                                    </div>
-
-                                                    <a href="view_visitor_check_out?id=1">
-
-
-                                                        <button
-                                                            class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                                                            name="dept_update"><i class="fa fa-arrow-left"
-                                                                style="font-size: 20px;margin-right: 10px;"></i>Back</button>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6" style="padding-left:0px; flex:0 0 63%; max-width: 63%;">
-                                            <div class="card " id="contact1">
-                                                <section class="animate pop">
-                                                    <div class="container" style="padding:1rem;">
-                                                        <div class="admit-card">
-                                                            <div class="BoxA border- padding mar-bot">
-                                                                <div class="row">
-                                                                    <div class="col-sm-4" style="flex:0 0 28%">
-                                                                        <h5 style="font-size:15px;">In Date :-
-                                                                            <?php echo $v_date; ?></h5>
-                                                                        <p style="margin-bottom:.5rem;">In time: -
-                                                                            <?php echo $arr_time; ?></p>
-                                                                    </div>
-                                                                    <div class="col-sm-4 txt-center"
-                                                                        style="flex:0 0 47%; max-width:50%">
-                                                                        <h5 style="text-align:center;">
-                                                                            <?php echo strtoupper($company_name); ?></h5>
-                                                                    </div>
-                                                                    <div class="col-sm-4" style="flex:0 0 25%">
-                                                                        <h5 style="font-size:15px;">UID:-
-                                                                            <?php echo $id; ?></h5>
-                                                                        <p style="margin-bottom:.5rem;">Approval Sts.: -
-                                                                            <?php echo $approval_sts; ?> </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="BoxD mar-bot">
-                                                                <div class="row">
-                                                                    <div class="col-sm-10"
-                                                                        style=" max-width: 100%; flex: 0 0 100%;">
-                                                                        <table class="table" style="margin-bottom:0px">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td colspan="3"
-                                                                                        style="font-size:16px; padding: .5rem;font-weight:700;border-bottom:2px solid #000;text-align:left;">
-                                                                                        Visitor Info</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td id="tb"
-                                                                                        style="padding:0; height:2rem;text-align:left; width:45%;">
-                                                                                        <b>Visitor Name:-
-                                                                                        </b><?php echo $v_name; ?> </td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Govt. Id:-
-                                                                                        </b><?php echo $v_govt_id; ?>
-                                                                                    </td>
-                                                                                    <th rowspan="4"
-                                                                                        scope="row txt-center"
-                                                                                        style="width:8rem;"><img
-                                                                                            src="../upload/<?php echo $vlog_id; ?>.png"
-                                                                                            width="123px" height="130px"
-                                                                                            onerror="this.src=<?php echo $dami_img; ?>" />
-                                                                                    </th>
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td id="tb"
-                                                                                        style="padding:0; height:2rem;text-align:left; width:45%;">
-                                                                                        <b>Comopany:-
-                                                                                        </b><?php echo $v_c_name; ?>
-                                                                                    </td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Mobile No :-
-                                                                                        </b><?php echo $v_mobile; ?></td>
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td id="tb"
-                                                                                        style="padding:0; height:2rem;text-align:left; width:45%;">
-                                                                                        <b>Designation:-
-                                                                                        </b><?php echo $v_desig; ?></td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Email:-
-                                                                                        </b><?php echo $v_email; ?></td>
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td id="tb"
-                                                                                        style="padding:0; height:2rem;text-align:left; width:45%;">
-                                                                                        <b>Address:-
-                                                                                        </b><?php echo $v_address; ?>
-                                                                                    </td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Issued Id No:-
-                                                                                        </b><?php echo $v_c_no; ?></td>
-
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td id="tb"
-                                                                                        style="padding:0; height:2rem;text-align:left; width:45%;">
-                                                                                        <b>Visitor Type:-
-                                                                                        </b><?php echo $v_type; ?></td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Purpose:
-                                                                                        </b><?php echo $v_p; ?></td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Gate No:-
-                                                                                        </b><?php echo $v_g_no; ?></td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td id="tb"
-                                                                                        style="padding:0; height:2rem;text-align:left; width:45%;">
-                                                                                        <b>Mterials Carried:- </b><span
-                                                                                            style="word-break: break-all;"><?php echo $v_mertial; ?></span>
-                                                                                    </td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <b>Vehicle Type(With No):
-                                                                                        </b><?php echo $v_vehicle_type; ?>
-                                                                                    </td>
-                                                                                    <td
-                                                                                        style="padding:0; height:2rem;text-align:left;">
-                                                                                        <?php echo $v_vehicle_no; ?></td>
-                                                                                </tr>
-
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-10"
-                                                                    style="max-width: 100%; flex: 0 0 100%;">
-                                                                    <table class="table">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td colspan="2"
-                                                                                    style="font-size:16px; padding: .5rem;font-weight:700;border-bottom:2px solid #000;text-align:left;">
-                                                                                    TO Meet</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td id="tb"
-                                                                                    style="padding:0; height:2rem;text-align:left;">
-                                                                                    <b>Employe Code:-
-                                                                                    </b><?php echo $v_e_code; ?></td>
-                                                                                <td
-                                                                                    style="padding:0; height:2rem;text-align:left;">
-                                                                                    <b>Employe Name:-
-                                                                                    </b><?php echo $v_e_name; ?></td>
-                                                                                <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td id="tb"
-                                                                                    style="padding:0; height:2rem;text-align:left;">
-                                                                                    <b>Department:-
-                                                                                    </b><?php echo $v_e_depart; ?></td>
-                                                                                <td
-                                                                                    style="padding:0; height:2rem;text-align:left;">
-                                                                                    <b>Designation:-
-                                                                                    </b><?php echo $v_e_desig; ?></td>
-                                                                                <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <!-- <!-- <div class="BoxA border- padding mar-bot">  -->
-                                                            </div>
-
-
-
-
-                                                        </div>
-                                                    </div>
-
-                                                </section>
-                                            </div>
-                                        </div>
-                                    </div>
+                          </div>
+                          <div class="card-block">
+                            <form action="new_visit_process" method="post">
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Date</label>
+                                <div class="col-sm-9">
+                                  <input type="date" name="check_out_date" class="form-control"
+                                    value="<?php echo date("Y-m-d"); ?>" required>
                                 </div>
-                                <!-- Page-body end -->
-                            </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Time</label>
+                                <div class="col-sm-9" style="display:flex">
+                                  <div style="padding:2px; width:6.1rem;">
+                                    <select name="hrs" id="" class="form-control"
+                                      style="text-align:center; font-weight:700;" required>
+                                      <option value="<?php echo date("h"); ?>" selected hidden><?php echo date("h"); ?>
+                                      </option>
+                                      <?php for ($i = 1; $i <= 12; $i++) {
+                                          if ($i < 10) {
+                                              $i = "0" . $i;
+                                          } ?>
+                                      <option value="<?php echo $i; ?>">
+                                        <?php echo $i; ?>
+                                      </option>
+                                      <?php } ?>
+                                    </select>
+                                  </div>
+                                  <div style="padding:2px; width:6.1rem;">
+                                    <select name="mnt" id="" class="form-control"
+                                      style="text-align:center; font-weight:700;" required>
+                                      <option value="<?php echo date("i"); ?>" selected hidden><?php echo date("i"); ?>
+                                      </option>
+                                      <?php for ($i = 00; $i < 60; $i++) {
+                                          if ($i < 10) {
+                                              $i = "0" . $i;
+                                          } ?>
+                                      <option value="<?php echo $i; ?>">
+                                        <?php echo $i; ?>
+                                      </option>
+                                      <?php } ?>
+                                    </select>
+                                  </div>
+                                  <div style="padding:2px; width:6.1rem;">
+                                    <select name="ampm" id="" class="form-control" style="text-align:center;" required>
+                                      <option value="<?php echo date("A"); ?>" selected hidden><?php echo date("A"); ?>
+                                      </option>
+                                      <option value="AM">AM</option>
+                                      <option value="PM">PM</option>
+                                    </select>
+                                  </div>
+
+                                </div>
+                              </div>
+
+
+                              <input type="hidden" name="uid" value="<?php echo $id; ?>">
+
+
+                              <div class="user-entry">
+                                <button type="submit"
+                                  class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                  name="check_out"><i class="fa fa-arrow-right"
+                                    style="    font-size: 20px;margin-right: 10px;"></i>Check
+                                  Out</button>
+                            </form>
+
+                          </div>
+
+                          <a href="view_visitor_check_out?id=1">
+
+
+                            <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
+                              name="dept_update"><i class="fa fa-arrow-left"
+                                style="font-size: 20px;margin-right: 10px;"></i>Back</button>
+                          </a>
 
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+                      </div>
 
-    <!-- Required Jquery -->
-    <?php include "include/footer.php"; ?>
+                    </div>
+                    <div class="col-md-6" style="padding-left:0px; flex:0 0 63%; max-width: 63%;">
+                      <div class="card " id="contact1">
+                        <section class="animate pop">
+                          <div class="container" style="padding:1rem;">
+                            <div class="admit-card">
+                              <div class="BoxA border- padding mar-bot">
+                                <div class="row">
+                                  <div class="col-sm-4" style="flex:0 0 28%">
+                                    <h5 style="font-size:15px;">In Date :-
+                                      <?php echo $v_date; ?>
+                                    </h5>
+                                    <p style="margin-bottom:.5rem;">In time: -
+                                      <?php echo $arr_time; ?>
+                                    </p>
+                                  </div>
+                                  <div class="col-sm-4 txt-center" style="flex:0 0 47%; max-width:50%">
+                                    <!-- <h5 style="text-align:center;">
+                                      <?php echo strtoupper($company_name); ?>
+                                    </h5> -->
+                                  </div>
+                                  <div class="col-sm-4" style="flex:0 0 25%">
+                                    <h5 style="font-size:15px;">UID:-
+                                      <?php echo $id; ?>
+                                    </h5>
+                                    <p style="margin-bottom:.5rem;">Approval Sts.: -
+                                      <?php echo $approval_sts; ?>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="BoxD mar-bot">
+                                <div class="row">
+                                  <div class="col-sm-10" style=" max-width: 100%; flex: 0 0 100%;">
+                                    <table class="table" style="margin-bottom:0px">
+                                      <tbody>
+                                        <tr>
+                                          <td colspan="3"
+                                            style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
+                                            Visitor Info</td>
+                                        </tr>
+                                        <tr>
+                                          <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;">
+                                            <b>Visitor Name:-
+                                            </b><?php echo $v_name; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Govt. Id:-
+                                            </b><?php echo $v_govt_id; ?>
+                                          </td>
+                                          <th rowspan="4" scope="row txt-center" style="width:8rem;"><img
+                                              src="../upload/<?php echo $vlog_id; ?>.png" width="123px" height="130px"
+                                              onerror="this.src=<?php echo $dami_img; ?>" />
+                                          </th>
+
+                                        </tr>
+                                        <tr>
+                                          <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;">
+                                            <b>Comopany:-
+                                            </b><?php echo $v_c_name; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Mobile No :-
+                                            </b><?php echo $v_mobile; ?>
+                                          </td>
+
+                                        </tr>
+                                        <tr>
+                                          <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;">
+                                            <b>Designation:-
+                                            </b><?php echo $v_desig; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Email:-
+                                            </b><?php echo $v_email; ?>
+                                          </td>
+
+                                        </tr>
+                                        <tr>
+                                          <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;">
+                                            <b>Address:-
+                                            </b><?php echo $v_address; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Issued Id No:-
+                                            </b><?php echo $v_c_no; ?>
+                                          </td>
+
+                                        </tr>
+                                        <tr>
+                                          <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;">
+                                            <b>Visitor Type:-
+                                            </b><?php echo $v_type; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Purpose:
+                                            </b><?php echo $v_p; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Gate No:-
+                                            </b><?php echo $v_g_no; ?>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td id="tb" style="padding:0; height:2rem;text-align:left; width:45%;">
+                                            <b>Mterials Carried:- </b><span
+                                              style="word-break: break-all;"><?php echo $v_mertial; ?></span>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <b>Vehicle Type(With No):
+                                            </b><?php echo $v_vehicle_type; ?>
+                                          </td>
+                                          <td style="padding:0; height:2rem;text-align:left;">
+                                            <?php echo $v_vehicle_no; ?>
+                                          </td>
+                                        </tr>
+
+                                      </tbody>
+                                    </table>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-10" style="max-width: 100%; flex: 0 0 100%;">
+                                  <table class="table" style="margin:0;">
+                                    <tbody>
+                                      <tr>
+                                        <td colspan="2"
+                                          style="font-size:19px; padding:0rem;font-family: 'Aboreto', cursive;font-weight:700;border-bottom:2px solid #000;text-align:left;font-family: 'El Messiri', sans-serif; font-style:italic;">
+                                          TO Meet</td>
+                                      </tr>
+                                      <tr>
+                                        <td id="tb" style="padding:0; height:2rem;text-align:left;">
+                                          <b>Employe Code:-
+                                          </b><?php echo $v_e_code; ?>
+                                        </td>
+                                        <td style="padding:0; height:2rem;text-align:left;">
+                                          <b>Employe Name:-
+                                          </b><?php echo $v_e_name; ?>
+                                        </td>
+                                        <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
+                                      </tr>
+                                      <tr>
+                                        <td id="tb" style="padding:0; height:2rem;text-align:left;">
+                                          <b>Department:-
+                                          </b><?php echo $v_e_depart; ?>
+                                        </td>
+                                        <td style="padding:0; height:2rem;text-align:left;">
+                                          <b>Designation:-
+                                          </b><?php echo $v_e_desig; ?>
+                                        </td>
+                                        <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <!-- <!-- <div class="BoxA border- padding mar-bot">  -->
+                              </div>
+
+
+
+
+                            </div>
+                          </div>
+
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Page-body end -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Required Jquery -->
+  <?php include "include/footer.php"; ?>
 </body>
 
 </html>
 
 
 <script>
-    function showTime() {
-        var date = new Date();
-        var h = date.getHours(); // 0 - 23
-        var m = date.getMinutes(); // 0 - 59
-        var s = date.getSeconds(); // 0 - 59
-        var session = "AM";
+function showTime() {
+  var date = new Date();
+  var h = date.getHours(); // 0 - 23
+  var m = date.getMinutes(); // 0 - 59
+  var s = date.getSeconds(); // 0 - 59
+  var session = "AM";
 
-        if (h == 0) {
-            h = 12;
-        }
+  if (h == 0) {
+    h = 12;
+  }
 
-        if (h > 12) {
-            h = h - 12;
-            session = "PM";
-        }
+  if (h > 12) {
+    h = h - 12;
+    session = "PM";
+  }
 
-        h = (h < 10) ? "0" + h : h;
-        m = (m < 10) ? "0" + m : m;
-        s = (s < 10) ? "0" + s : s;
+  h = (h < 10) ? "0" + h : h;
+  m = (m < 10) ? "0" + m : m;
+  s = (s < 10) ? "0" + s : s;
 
-        var time = h + ":" + m + ":" + s + " " + session;
-        document.getElementById("clock_span2").innerText = time;
-        document.getElementById("clock_span2").textContent = time;
+  var time = h + ":" + m + ":" + s + " " + session;
+  document.getElementById("clock_span2").innerText = time;
+  document.getElementById("clock_span2").textContent = time;
 
-        setTimeout(showTime, 1000);
+  setTimeout(showTime, 1000);
 
-    }
+}
 
-    showTime();
+showTime();
 </script>

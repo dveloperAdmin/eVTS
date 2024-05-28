@@ -308,7 +308,7 @@ if (isset($_POST['v_app'])) {
                     rename($source, $destination . basename($source));
                     unlink($source);
 
-                    header("location:new_visitor_details_print?vid=" . $id . "&id=1");
+                    header("location:new_visitor_details_print?vid=" . base64_encode(base64_encode($id)) . "&id=" . base64_encode(base64_encode('1')));
                 } else {
                     $_SESSION['icon'] = 'success';
                     $_SESSION['status'] = 'Visitor Details Update successfully ';

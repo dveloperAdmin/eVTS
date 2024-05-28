@@ -25,6 +25,27 @@ $("#searchInput").keyup(function() {
     }
   });
 });
+$('input[list]').on('input', function(e) {
+  var $input = $(e.target),
+    list = $input.attr('list'),
+    $options = $('#' + list + ' option'),
+    $hiddenInput = $('#' + $input.attr('id') + '-hidden'),
+    inputValue = $input.val();
+
+  $hiddenInput.val(inputValue);
+
+  $options.each(function() {
+    var $option = $(this);
+
+    // console.log('Data-value:', $option.data('value'));
+
+    if ($option.val().toLowerCase() === inputValue.toLowerCase()) {
+
+      $hiddenInput.val($option.data('value'));
+      return false; // Break the loop
+    }
+  });
+});
 </script>
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>

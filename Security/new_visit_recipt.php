@@ -214,7 +214,7 @@ if ($visit_data != "") {
     href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Josefin+Sans:ital,wght@1,700&family=Noto+Serif:ital,wght@1,600&family=Raleway:ital,wght@0,800;1,500&display=swap"
     rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oleo+Script:wght@400;700&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oleo+Script:wght@400;700&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&display=swap');
   </style>
 
 </head>
@@ -233,10 +233,10 @@ if ($visit_data != "") {
             <div class="col-sm-4" style="flex:0 0 30%;  padding-right:0px">
               <h5>Date :- <?= $v_date_p; ?></h5>
               <?php if ($v_sts === "OUT") { ?>
-                <p>Time:- <span style="font-size:14px;"><?= $v_time_p . " - " . $o_time_p; ?></span> </p>
+              <p>Time:- <span style="font-size:14px;"><?= $v_time_p . " - " . $o_time_p; ?></span> </p>
 
               <?php } else { ?>
-                <p>In time: - <?= $v_time_p; ?> </p>
+              <p>In time: - <?= $v_time_p; ?> </p>
 
               <?php } ?>
             </div>
@@ -317,11 +317,12 @@ if ($visit_data != "") {
                 <tr>
                   <!-- <td id="tb"><b>Employe Code:- </b><?php echo $v_e_code; ?></td> -->
                   <td><b>Employe Name:- </b><?php echo $v_e_name;
+                 ?></td>
+                  <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
+                  <td id="tb"><b>Department:- </b><?php echo $v_e_depart;
                   if ($v_e_desig != "") {
                     echo " - " . $v_e_desig;
                   } ?></td>
-                  <!-- <td><b>DOB: </b>02 Jul 2019</td> -->
-                  <td id="tb"><b>Department:- </b><?php echo $v_e_depart; ?></td>
                 </tr>
 
               </tbody>
@@ -380,9 +381,9 @@ if ($visit_data != "") {
         while ($rules = mysqli_fetch_assoc($rules_sql)) {
           if ($rules != "") {
             $i++ ?>
-            <span style="font-weight:700; font-size:14px; color:red; text-align:left!important;">
-              <?php echo $i . ". " . $rules['rules']; ?></span><br>
-          <?php }
+        <span style="font-weight:700; font-size:14px; color:red; text-align:left!important;">
+          <?php echo $i . ". " . $rules['rules']; ?></span><br>
+        <?php }
         } ?>
       </div>
     </div>
@@ -399,12 +400,12 @@ if ($visit_data != "") {
 
 </html>
 <script>
-  const $btnPrint = document.querySelector("#btnPrint");
-  $btnPrint.addEventListener("click", () => {
-    window.print();
-  });
-  const $btnClose = document.querySelector("#btnClose");
-  $btnClose.addEventListener("click", () => {
-    window.close();
-  });
+const $btnPrint = document.querySelector("#btnPrint");
+$btnPrint.addEventListener("click", () => {
+  window.print();
+});
+const $btnClose = document.querySelector("#btnClose");
+$btnClose.addEventListener("click", () => {
+  window.close();
+});
 </script>

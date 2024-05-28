@@ -140,6 +140,10 @@ if (!empty($branchCode)) {
   $com = strtoupper($company_name) . '<span style="font-size: 18px; font-weight: 500; font-style: italic;"> ( ' . findBranch($conn, $branchCode) . ' )</span>';
 }
 
+if ($Approval['Camera'] != "" && $Approval['Camera'] != null) {
+  $preschedul_Image = $Approval['Camera'];
+}
+
 
 
 
@@ -358,17 +362,26 @@ if (!empty($branchCode)) {
                                   </div>
                                   <div style="display:grid;    justify-content: end;">
 
-                                    <?php if (strtotime(date("Y-m-d")) == strtotime($v_preschedul_date) && $empApprove == "Approve") { ?>
-                                    <form action="preschedul_Image" method="post">
-                                      <div class="user-entry">
-                                        <input type="hidden" name="v_id" value="<?php echo $vlog_id; ?>" />
-                                        <button type="submit"
-                                          class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                          name="view_v"
-                                          style="font:normal normal normal 14px/1 FontAwesome;font-size: 20px;padding:.2rem 1rem;">Next
-                                          <i class="fa fa-arrow-right" style="    font-size: 20px;margin-right: 10px;">
-                                          </i></button>
-                                    </form>
+                                    <?php if (strtotime(date("Y-m-d")) == strtotime($v_preschedul_date) && $empApprove == "Approve") {
+
+                                      if ($preschedul_Image == 'Activate') {
+                                        $formUrl = "preschedul_Image";
+                                      } else {
+                                        $formUrl = "preschedulImage";
+
+                                      }
+
+                                      ?>
+                                      <form action="<?= $formUrl; ?>" method="post">
+                                        <div class="user-entry">
+                                          <input type="hidden" name="v_id" value="<?php echo $vlog_id; ?>" />
+                                          <button type="submit"
+                                            class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                            name="view_v"
+                                            style="font:normal normal normal 14px/1 FontAwesome;font-size: 20px;padding:.2rem 1rem;">Next
+                                            <i class="fa fa-arrow-right" style="    font-size: 20px;margin-right: 10px;">
+                                            </i></button>
+                                      </form>
 
                                     <?php } ?>
 
@@ -411,42 +424,42 @@ if (!empty($branchCode)) {
 
 
 <script>
-function randomString(length) {
-  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-}
-$(document).ready(function() {
+  function randomString(length) {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+  }
+  $(document).ready(function () {
 
-  $("#vidcard").val(randomString(13).toUpperCase());
+    $("#vidcard").val(randomString(13).toUpperCase());
 
-});
+  });
 
-function showTime() {
-  var date = new Date();
-  var h = date.getHours(); // 0 - 23
-  var m = date.getMinutes(); // 0 - 59
-  var s = date.getSeconds(); // 0 - 59
-  var session = "AM";
+  function showTime() {
+    var date = new Date();
+    var h = date.getHours(); // 0 - 23
+    var m = date.getMinutes(); // 0 - 59
+    var s = date.getSeconds(); // 0 - 59
+    var session = "AM";
 
-  if (h == 0) {
-    h = 12;
+    if (h == 0) {
+      h = 12;
+    }
+
+    if (h > 12) {
+      h = h - 12;
+      session = "PM";
+    }
+
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+
+    var time = h + ":" + m + ":" + s + " " + session;
+    document.getElementById("clock_span2").innerText = time;
+    document.getElementById("clock_span2").textContent = time;
+
+    setTimeout(showTime, 1000);
+
   }
 
-  if (h > 12) {
-    h = h - 12;
-    session = "PM";
-  }
-
-  h = (h < 10) ? "0" + h : h;
-  m = (m < 10) ? "0" + m : m;
-  s = (s < 10) ? "0" + s : s;
-
-  var time = h + ":" + m + ":" + s + " " + session;
-  document.getElementById("clock_span2").innerText = time;
-  document.getElementById("clock_span2").textContent = time;
-
-  setTimeout(showTime, 1000);
-
-}
-
-showTime();
+  showTime();
 </script>

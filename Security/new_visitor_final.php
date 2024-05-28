@@ -75,9 +75,9 @@ if (isset($_POST['img_submit'])) {
 
             } else {
               echo $_FILES['image']['size'];
-              // $_SESSION['icon'] = 'warning';
-              // $_SESSION['status'] = 'Image Size within 500kb';
-              // header("location:new_visitor1");
+              $_SESSION['icon'] = 'warning';
+              $_SESSION['status'] = 'Image Size within 500kb';
+              header("location:new_visitor1");
             }
           } else {
             $_SESSION['icon'] = 'warning';

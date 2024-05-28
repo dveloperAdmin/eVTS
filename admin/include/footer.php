@@ -86,7 +86,7 @@
     $options.each(function () {
       var $option = $(this);
 
-      console.log('Data-value:', $option.data('value'));
+      // console.log('Data-value:', $option.data('value'));
 
       if ($option.val().toLowerCase() === inputValue.toLowerCase()) {
 
@@ -132,7 +132,7 @@
 </script>
 <script type="text/javascript" src="assets/js/jquery/jquery.min.js "></script>
 <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
-<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.jsjs/popper.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
 <!-- waves js -->
 <script src="assets/pages/waves/js/waves.min.js"></script>
