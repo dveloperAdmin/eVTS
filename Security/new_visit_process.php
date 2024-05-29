@@ -17,25 +17,28 @@ function is_connected()
 }
 function mail_send($approv_sts, $email, $v_log_id, $v_id, $name, $company, $add, $cont, $visit_purpose, $arr_time, $check_sts_mail)
 {
+    include '../include/_dbconnect.php';
+
+    $sqlEmp = mysqli_fetch_assoc(mysqli_query($conn, "select em.EmployeeName from eomploye_details em inner join visitor_log vl on em.Emp_code = vl.emp_id where vl.visit_uid = '$v_log_id'"));
+    if (!empty($sqlEmp)) {
+        $employeName = ucfirst($sqlEmp['EmployeeName']);
+    } else {
+        $employeName = " ";
+    }
+
+    $url = $_SERVER['REQUEST_URI'];
+
+    // Parse the URL and get the host/domain name
+    $parsed_url = parse_url($url);
+    $domain = $parsed_url['host'];
     $url = $_SERVER['REQUEST_URI'];
 
     // Parse the URL and get the host/domain name
     $parsed_url = parse_url($url);
     $domain = $parsed_url['host'];
 
-
-
     // Get the IP address
     $ip = gethostbyname($domain);
-
-    // $url = "";
-
-    // if ($url == "") {
-    //     $url_host = gethostname();
-    // } else {
-    //     $url_host = $url;
-    // }
-    // $ipaddress_server = gethostbynamel($url_host);
     $localhost = $ip . ":" . $_SERVER['SERVER_PORT'];
     $emp_visit_status =
         $destination_mail = $email;
@@ -81,27 +84,20 @@ function mail_send($approv_sts, $email, $v_log_id, $v_id, $name, $company, $add,
     </tr>
     ';
     if ($approv_sts != "Approve") {
-        $button = "<tr>
-        <td valign='middle' class='hero bg_white' style='padding: 2em 0 4em 0;'>
-            <table>
-                <tr>
-                    <td>
+        $button = "
                         <div class='text' style='padding: 0 2.5em; text-align: center;'>
-                            <h2>Please verify and give your Reponse </h2>
+                            <h2>Please verify and respond </h2>
+                            <a href='http://" . $localhost . "/vms/approve_by_mail?sts=IN&vc=" . $visit_code . "'>
+                            <button type='button' class='button' style='cursor:pointer; mergin-right:1rem;background-color:#068711; padding:5px 20px; '>Approve</button>
+                            </a>
+                            <a href='http://" . $localhost . "/vms/approve_by_mail?sts=OUT&vc=" . $visit_code . "'>
+                            <button type='button' class='button' style='cursor:pointer;background-color:red; padding:5px 20px;'>Reject</button>
+                            </a>
                             
-                            
-                            <p>
-                                <a href='http://" . $localhost . "/vms/approve_by_mail?sts=IN&vc=" . $visit_code . "'><button type='button' class='btn btn-primary' style='cursor:pointer; mergin-right:1rem;background-color:#068711;'>Approve</button></a>
-                                <a href='http://" . $localhost . "/vms/approve_by_mail?sts=OUT&vc=" . $visit_code . "'><button type='button' class='btn btn-denger' style='cursor:pointer;'>Reject</button></a>
-                            </p>
                         </div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>";
+                    ";
     } else {
-        $button = "<tr></tr>";
+        $button = "";
     }
 
     include '../include/_mail.php';

@@ -64,14 +64,14 @@ if ($user_name != "ADMIN") {
         </a>
       </li>
       <?php if ($approval == 'Activate' && $user_role != 'Developer') { ?>
-      <li class="">
-        <a href="view_visitor?id=1" class="waves-effect waves-dark">
-          <span class="pcoded-micon"><i class="fa fa-commenting"></i><b>D</b></span>
-          <span class="pcoded-mtext">Notification <?php if ($check_pending_number >= 1) { ?><i class="fa fa-circle"
-              id="blink_me" style="margin-left: 4.5rem; color: #36d000;font-size: 12px;"></i><?php } ?></span>
-          <span class="pcoded-mcaret"></span>
-        </a>
-      </li>
+        <li class="">
+          <a href="view_visitor?id=1" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-commenting"></i><b>D</b></span>
+            <span class="pcoded-mtext">Notification <?php if ($check_pending_number >= 1) { ?><i class="fa fa-circle"
+                  id="blink_me" style="margin-left: 4.5rem; color: #36d000;font-size: 12px;"></i><?php } ?></span>
+            <span class="pcoded-mcaret"></span>
+          </a>
+        </li>
       <?php } ?>
 
       <!-- <li class="">
@@ -90,13 +90,13 @@ if ($user_name != "ADMIN") {
         </a>
         <ul class="pcoded-submenu">
           <?php if (in_array($user_role, array("Developer", "Super Admin"))) { ?>
-          <li class=" ">
-            <a href="branch" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Branch</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
+            <li class=" ">
+              <a href="branch" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Branch</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
           <?php } ?>
           <li class=" ">
             <a href="department" class="waves-effect waves-dark">
@@ -138,20 +138,20 @@ if ($user_name != "ADMIN") {
             </a>
           </li>
           <?php if (in_array($user_role, array("Developer", "Super Admin"))) { ?>
-          <li class=" ">
-            <a href="emp-type" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Employee Type</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="emp-cat" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Employee Category</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
+            <li class=" ">
+              <a href="emp-type" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Employee Type</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="emp-cat" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Employee Category</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
           <?php } ?>
           <li class=" ">
             <a href="visitor-type" class="waves-effect waves-dark">
@@ -175,13 +175,13 @@ if ($user_name != "ADMIN") {
             </a>
           </li>
           <?php if (in_array($user_role, array("Developer", "Super Admin"))) { ?>
-          <li class=" ">
-            <a href="important_rules" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Importent Rules</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
+            <li class=" ">
+              <a href="important_rules" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Importent Rules</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
           <?php } ?>
 
 
@@ -262,56 +262,56 @@ if ($user_name != "ADMIN") {
         </ul>
       </li>
       <?php if ($user_data_sql['name'] != 'ADMIN') { ?>
-      <li class="pcoded-hasmenu">
-        <a href="javascript:void(0)" class="waves-effect waves-dark">
-          <span class="pcoded-micon"><i class="fa fa-id-badge" style="font-size: 20px;"></i></span>
-          <span class="pcoded-mtext">Visitor</span>
-          <span class="pcoded-mcaret"></span>
-        </a>
-        <ul class="pcoded-submenu">
+        <li class="pcoded-hasmenu">
+          <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="fa fa-id-badge" style="font-size: 20px;"></i></span>
+            <span class="pcoded-mtext">Visitor</span>
+            <span class="pcoded-mcaret"></span>
+          </a>
+          <ul class="pcoded-submenu">
 
-          <li class=" ">
-            <a href="visitor_info" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Visitor Info</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="new_visitor1" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Pre Schedule</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="view_visitor" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">My Visitor Log</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <?php if ($reffer == 'Activate') { ?>
-          <li class=" ">
-            <a href="view_refer_visitor" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Reffer Visitor Log</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <?php } ?>
-          <li class=" ">
-            <a href="viewVisitor" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Total Visitor Log</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
+            <li class=" ">
+              <a href="visitor_info" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Visitor Info</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="new_visitor1" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Pre Schedule</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="view_visitor" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">My Visitor Log</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <?php if ($reffer == 'Activate') { ?>
+              <li class=" ">
+                <a href="view_refer_visitor" class="waves-effect waves-dark">
+                  <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                  <span class="pcoded-mtext">Reffer Visitor Log</span>
+                  <span class="pcoded-mcaret"></span>
+                </a>
+              </li>
+            <?php } ?>
+            <li class=" ">
+              <a href="view_visitor" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Total Visitor Log</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
 
 
 
-        </ul>
-      </li>
+          </ul>
+        </li>
 
       <?php } ?>
       <li class="pcoded-hasmenu">
@@ -398,53 +398,53 @@ if ($user_name != "ADMIN") {
         </ul>
       </li>
       <?php if ($user_data_sql['name'] == 'ADMIN') { ?>
-      <li class="pcoded-hasmenu">
-        <a href="javascript:void(0)" class="waves-effect waves-dark">
-          <span class="pcoded-micon"><i class="icofont icofont-user-alt-5" style="font-size: 20px;"></i></span>
-          <span class="pcoded-mtext">Developer</span>
-          <span class="pcoded-mcaret"></span>
-        </a>
-        <ul class="pcoded-submenu">
-          <li class=" ">
-            <a href="company" class="waves-effect waves-dark">
+        <li class="pcoded-hasmenu">
+          <a href="javascript:void(0)" class="waves-effect waves-dark">
+            <span class="pcoded-micon"><i class="icofont icofont-user-alt-5" style="font-size: 20px;"></i></span>
+            <span class="pcoded-mtext">Developer</span>
+            <span class="pcoded-mcaret"></span>
+          </a>
+          <ul class="pcoded-submenu">
+            <li class=" ">
+              <a href="company" class="waves-effect waves-dark">
 
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Company</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="approval" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Aproval Status </span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="dev" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Log out Timing </span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="import_emp" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Import Emp. Info </span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
-          <li class=" ">
-            <a href="db_formate" class="waves-effect waves-dark">
-              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-              <span class="pcoded-mtext">Formate Database</span>
-              <span class="pcoded-mcaret"></span>
-            </a>
-          </li>
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Company</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="approval" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Aproval Status </span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="dev" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Log out Timing </span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="import_emp" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Import Emp. Info </span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
+            <li class=" ">
+              <a href="db_formate" class="waves-effect waves-dark">
+                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                <span class="pcoded-mtext">Formate Database</span>
+                <span class="pcoded-mcaret"></span>
+              </a>
+            </li>
 
 
-        </ul>
-      </li>
+          </ul>
+        </li>
       <?php } ?>
 
 

@@ -149,7 +149,8 @@ if (in_array($user_role, array("Developer", "Super Admin"))) {
                                 <td style="padding:1px;"><?php echo $info_report['visit_count']; ?></td>
                                 <td style="padding: .25rem;" colspan="2">
                                   <form action="viewVisitor" method="post">
-                                    <input type="hidden" name="vId" value="<?php echo $info_report['visitor_id']; ?>">
+                                    <input type="hidden" name="vId" value="<?= $info_report['visitor_id']; ?>">
+                                    <input type="hidden" name="branchData" value="<?= $info_report['branch_id']; ?>">
                                     <input type="hidden" name="viewFrom" value="visitor_info">
                                     <button class="btn waves-effect waves-light btn-success btn-outline-success"
                                       name="visitorView" style="padding: 5px 13px; width:90%"><i

@@ -11,6 +11,7 @@ $isPost = "";
 if (isset($_POST['visitorView']) && $_POST['vId'] != "") {
   $visitorId = $_POST['vId'];
   $visitorUrl = $_POST['viewFrom'];
+  $branchData = $_POST['branchData'];
   $isPost = "POST";
   $visitorBasicInfo = mysqli_query($conn, "SELECT * from visitor_info where visitor_id = '$visitorId'");
   if
@@ -18,10 +19,10 @@ if (isset($_POST['visitorView']) && $_POST['vId'] != "") {
     $visitorBasicInfo = mysqli_fetch_assoc($visitorBasicInfo);
     if (in_array($user_role, array("Developer", "Super Admin"))) {
       $sqlVisitor = "SELECT * from visitor_log vl join visitor_info vi on vl.visitor_id = vi.visitor_id where vl.visitor_id
-  = '$visitorId' order by vl.sl_no desc";
+  = '$visitorId' and vl.branch_id = '$branchData' order by vl.sl_no desc";
     } else {
       $sqlVisitor = "SELECT * from visitor_log vl join visitor_info vi on vl.visitor_id = vi.visitor_id where vl.visitor_id
-  = '$visitorId' and vl.branch_id = '$branch_id' order by vl.sl_no desc";
+  = '$visitorId' and vl.branch_id = '$branchData' order by vl.sl_no desc";
 
     }
 
@@ -94,51 +95,51 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
 
                       <?php if ($isPost == "POST") { ?>
 
-                      <div style="padding:6px 20px; display:flex; flex-wrap: wrap;    align-items: baseline;">
-                        <div style="flex:0 0 30%; max-width:30%;text-align:left">
-                          <label class="col-sm-3 col-form-label"
-                            style="padding-right: 0;max-width: 30%;font-family: 'El Messiri', sans-serif;  padding-bottom:0;  font-size: 18px;"><b>Visitor
-                              Id :-</b>
-                          </label>
-                          <span style="font-style:italic; font-size:16px;"><?= $visitorBasicInfo['visitor_id'] ?></span>
+                        <div style="padding:6px 20px; display:flex; flex-wrap: wrap;    align-items: baseline;">
+                          <div style="flex:0 0 30%; max-width:30%;text-align:left">
+                            <label class="col-sm-3 col-form-label"
+                              style="padding-right: 0;max-width: 30%;font-family: 'El Messiri', sans-serif;  padding-bottom:0;  font-size: 18px;"><b>Visitor
+                                Id :-</b>
+                            </label>
+                            <span style="font-style:italic; font-size:16px;"><?= $visitorBasicInfo['visitor_id'] ?></span>
 
-                        </div>
-                        <div style="flex:0 0 30%; max: width 30px;%;text-align:center">
-                          <label class="col-sm-3 col-form-label"
-                            style="padding-right: 0;max-width: 40%;font-family: 'El Messiri', sans-serif;  padding-bottom:0;  font-size: 18px;"><b>Visitor
-                              Name
-                              :-</b>
-                          </label>
-                          <span style="font-style:italic; font-size:16px;"><?= $visitorBasicInfo['name'] ?></span>
-                        </div>
-                        <div style="flex:0 0 30%; max-width:30%;text-align:right;padding-right:2rem;">
-                          <label class="col-sm-3 col-form-label"
-                            style="padding-right: 0;max-width: 36%;font-family: 'El Messiri', sans-serif;   padding-bottom:0; font-size: 18px;text-align:left;"><b></b>No
-                            of
-                            Visit :-
-                            </b>
-                          </label>
-                          <span style="font-style:italic; font-size:16px;"><?= mysqli_num_rows($sql_vistor) ?></span>
-                        </div>
-                        <div style="flex:0 0 10%; max-width:10%;text-align:right;">
-                          <a href="<?= $visitorUrl ?>" style="width:60%;  ">
-                            <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                              style="height: 2.1rem; width:80%; padding: 0;"><i class="fa fa-arrow-left"
-                                style="font-size: 20px;margin-right: 10px;"></i>Back</button>
-                          </a>
+                          </div>
+                          <div style="flex:0 0 30%; max: width 30px;%;text-align:center">
+                            <label class="col-sm-3 col-form-label"
+                              style="padding-right: 0;max-width: 40%;font-family: 'El Messiri', sans-serif;  padding-bottom:0;  font-size: 18px;"><b>Visitor
+                                Name
+                                :-</b>
+                            </label>
+                            <span style="font-style:italic; font-size:16px;"><?= $visitorBasicInfo['name'] ?></span>
+                          </div>
+                          <div style="flex:0 0 30%; max-width:30%;text-align:right;padding-right:2rem;">
+                            <label class="col-sm-3 col-form-label"
+                              style="padding-right: 0;max-width: 36%;font-family: 'El Messiri', sans-serif;   padding-bottom:0; font-size: 18px;text-align:left;"><b></b>No
+                              of
+                              Visit :-
+                              </b>
+                            </label>
+                            <span style="font-style:italic; font-size:16px;"><?= mysqli_num_rows($sql_vistor) ?></span>
+                          </div>
+                          <div style="flex:0 0 10%; max-width:10%;text-align:right;">
+                            <a href="<?= $visitorUrl ?>" style="width:60%;  ">
+                              <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
+                                style="height: 2.1rem; width:80%; padding: 0;"><i class="fa fa-arrow-left"
+                                  style="font-size: 20px;margin-right: 10px;"></i>Back</button>
+                            </a>
 
-                        </div>
-                      </div>
-                      <?php } else { ?>
-                      <div class="col-md-6">
-                        <div class="form-group row" style="margin:5px;">
-                          <label class="col-sm-3 col-form-label" style="padding-right: 0;flex:0 0 10%;">Search</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Search" id="searchInput"
-                              style="width:60%">
                           </div>
                         </div>
-                      </div>
+                      <?php } else { ?>
+                        <div class="col-md-6">
+                          <div class="form-group row" style="margin:5px;">
+                            <label class="col-sm-3 col-form-label" style="padding-right: 0;flex:0 0 10%;">Search</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" placeholder="Search" id="searchInput"
+                                style="width:60%">
+                            </div>
+                          </div>
+                        </div>
                       <?php } ?>
                       <div class="card-block table-border-style">
                         <div class="table-responsive table-short" style="height: 376px;">
@@ -163,20 +164,20 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
                               <?php $i = 0;
                               while ($visitorData = mysqli_fetch_assoc($sql_vistor)) {
                                 ?>
-                              <tr>
-                                <td><?= ++$i; ?></td>
-                                <td>
-                                  <?php
+                                <tr>
+                                  <td><?= ++$i; ?></td>
+                                  <td>
+                                    <?php
                                     $vID = explode('-', $visitorData['visit_uid']);
                                     echo $vID[1];
                                     ?>
-                                </td>
-                                <td><?= $visitorData['com_name'] ?></td>
-                                <td><?= findVisitortype($conn, $visitorData['visitor_type']) ?></td>
-                                <td><?= findVisitorPurpose($conn, $visitorData['visit_purpose']) ?></td>
-                                <td><?= findBranch($conn, $visitorData['branch_id']) ?></td>
-                                <td>
-                                  <?php
+                                  </td>
+                                  <td><?= $visitorData['com_name'] ?></td>
+                                  <td><?= findVisitortype($conn, $visitorData['visitor_type']) ?></td>
+                                  <td><?= findVisitorPurpose($conn, $visitorData['visit_purpose']) ?></td>
+                                  <td><?= findBranch($conn, $visitorData['branch_id']) ?></td>
+                                  <td>
+                                    <?php
                                     $empData = findEmp($conn, $visitorData['emp_id']);
                                     if ($empData != null) {
                                       echo $empData['EmployeeName'];
@@ -185,10 +186,10 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
                                     }
 
                                     ?>
-                                </td>
-                                <td><?= $visitorData['register_type'] ?></td>
-                                <td style="padding: 0">
-                                  <?php
+                                  </td>
+                                  <td><?= $visitorData['register_type'] ?></td>
+                                  <td style="padding: 0">
+                                    <?php
                                     if ($visitorData['Emp_approve'] == "Approve") {
                                       echo '<i class="icofont icofont-tick-mark" style="color:green; font-size:2rem;"></i>';
                                     } else if ($visitorData['Emp_approve'] == "Reject") {
@@ -197,9 +198,9 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
                                       echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem;font-weight:900;"></i>';
                                     }
                                     ?>
-                                </td>
-                                <td style="padding: 0">
-                                  <?php
+                                  </td>
+                                  <td style="padding: 0">
+                                    <?php
                                     if ($visitorData['security_approval'] == "Approve") {
                                       echo '<i class="icofont icofont-tick-mark" style="color:green; font-size:2rem;"></i>';
                                     } else if ($visitorData['security_approval'] == "Reject") {
@@ -208,9 +209,9 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
                                       echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:900"></i>';
                                     }
                                     ?>
-                                </td>
-                                <td style="padding: 0; text-align:center;">
-                                  <?php
+                                  </td>
+                                  <td style="padding: 0; text-align:center;">
+                                    <?php
                                     if ($visitorData['check_status'] == "IN") {
                                       echo '<i class="icofont icofont-arrow-left" style="color:green; font-size:2.2rem;"></i>';
                                     } else if ($visitorData['check_status'] == "OUT") {
@@ -219,13 +220,13 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
                                       echo '<i class="icofont icofont-history" style="color:blue; font-size:2rem; font-weight:bolder; "></i>';
                                     }
                                     ?>
-                                </td>
+                                  </td>
 
 
-                                <td style="padding:1px;">
-                                  <form action="Visitor_details1" method="post">
-                                    <input type="hidden" name="v_id" value="<?php echo $visitorData['visit_uid']; ?>">
-                                    <input type="hidden" name="vUrl" value="<?php if ($isPost == "POST") {
+                                  <td style="padding:1px;">
+                                    <form action="Visitor_details1" method="post">
+                                      <input type="hidden" name="v_id" value="<?php echo $visitorData['visit_uid']; ?>">
+                                      <input type="hidden" name="vUrl" value="<?php if ($isPost == "POST") {
                                         echo $visitorUrl;
                                       } else {
                                         echo "viewVisitor";
@@ -233,15 +234,15 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
                                     ">
 
 
-                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                      name="view_v" style="padding: 4px 11px 4px 11px;"><i
-                                        class="icofont icofont-eye-alt"></i>View</button>
-                                  </form>
+                                      <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                        name="view_v" style="padding: 4px 11px 4px 11px;"><i
+                                          class="icofont icofont-eye-alt"></i>View</button>
+                                    </form>
 
-                                </td>
+                                  </td>
 
 
-                              </tr>
+                                </tr>
                               <?php } ?>
                             </tbody>
                           </table>
@@ -268,52 +269,52 @@ $sql_vistor = mysqli_query($conn, $sqlVisitor);
   <?php include "include/footer.php"; ?>
 </body>
 <script>
-function quickSearch() {
-  var input, filter, table, tr, td, i, txtValue;
+  function quickSearch() {
+    var input, filter, table, tr, td, i, txtValue;
 
-  input = document.getElementById("myInput");
-  filter = input.value;
-  console.log(filter);
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    input = document.getElementById("myInput");
+    filter = input.value;
+    console.log(filter);
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
       }
     }
   }
-}
 
-$('.delt_href').on('click', function(e) {
-  e.preventDefault();
-  // console.log(e);
-  var href = $(this).attr('href')
-  console.log(href)
+  $('.delt_href').on('click', function (e) {
+    e.preventDefault();
+    // console.log(e);
+    var href = $(this).attr('href')
+    console.log(href)
 
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.value) {
-      console.log(result.value);
-      document.location.href = href;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value);
+        document.location.href = href;
 
-    } else {
+      } else {
 
-    }
+      }
+    })
+    $(':focus').blur();
   })
-  $(':focus').blur();
-})
 </script>
 
 </html>

@@ -99,14 +99,14 @@ if (isset($_POST['u_submit'])) {
 
 <?php include "include/head.php"; ?>
 <style>
-input[type="file"]::file-selector-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+  input[type="file"]::file-selector-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 </style>
 
 <body>
@@ -159,6 +159,7 @@ input[type="file"]::file-selector-button {
 
                                   <input type="file" class="form-control" id="imgFileInput" name="image"
                                     accept=".jpg, .jpeg, .png" Required />
+                                  <span style="color:red">Image Size within 250 Kb</span>
                                 </div>
                               </div>
                               <div class="user-entry">
@@ -174,8 +175,8 @@ input[type="file"]::file-selector-button {
                                 foreach ($visitor_data as $id => $value) {
                                   if ($id != "7") {
                                     ?>
-                              <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
-                              <?php
+                                    <input type="hidden" name="visit[]" value="<?php echo $value; ?>">
+                                    <?php
                                   }
                                 }
                               }
@@ -223,23 +224,23 @@ input[type="file"]::file-selector-button {
 
 </html>
 <script language="JavaScript">
-$("#imgFileInput").change(function() {
-  let img = document.getElementById("imgFileInput");
-  // let imageProparty = $(this).prop('src');
-  var file = this.files[0];
-  var fileType = file["type"];
-  var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-  if ($.inArray(fileType, validImageTypes) < 0) {
-    // invalid file type code goes here.
+  $("#imgFileInput").change(function () {
+    let img = document.getElementById("imgFileInput");
+    // let imageProparty = $(this).prop('src');
+    var file = this.files[0];
+    var fileType = file["type"];
+    var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+    if ($.inArray(fileType, validImageTypes) < 0) {
+      // invalid file type code goes here.
 
 
-    console.log('Invalid image type');
-  } else {
-    document.getElementById("results").innerHTML =
-      '<img style="width:218px; height:222px" src="' + URL.createObjectURL(img.files[0]) + '"/>';
-    $('image-tag').val(img.files[0]);
+      console.log('Invalid image type');
+    } else {
+      document.getElementById("results").innerHTML =
+        '<img style="width:218px; height:222px" src="' + URL.createObjectURL(img.files[0]) + '"/>';
+      $('image-tag').val(img.files[0]);
 
-  }
+    }
 
-})
+  })
 </script>

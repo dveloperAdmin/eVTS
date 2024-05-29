@@ -207,7 +207,7 @@ if (isset($_POST['user_edit'])) {
                         }
                     } else {
                         $check_emp_mail = mysqli_query($conn, "select * from `eomploye_details` where `email_id` = '$emp_email'");
-                        if (mysqli_num_rows($check_emp_mail) >= 1) {
+                        if (mysqli_num_rows($check_emp_mail) >= 0) {
                             if ($sql_emp_data['ContactNo'] == $emp_mob) {
 
                                 $update_cms_emp = mysqli_query($conn, "update `eomploye_details` set `EmployeeName`='$emp_name',`CompanyId`='$emp_co_name',`DepartmentId`='$emp_dept',`BranchId`='$emp_branch',`Sub_DepartmentId`='$emp_subdept',`DesignationId`='$emp_desig',`GradeId`='$emp_grade',`Location`='$emp_loc',`EmployeType`='$emp_type',`CategoryId`='$emp_cat',`ContactNo`='$emp_mob',`email_id`='$emp_email', `Status`='$emp_sts' where `EmployeeId`='$edit_id'");
