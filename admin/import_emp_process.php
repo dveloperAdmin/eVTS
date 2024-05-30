@@ -258,13 +258,13 @@ if (isset($_POST['excel_upload'])) {
 
                     $q = "";
                     foreach ($row as $key => $cell) {
-                        if ($i > 0) {
+                        if ($key > 0) {
                             $q .= "'" . $cell . "',";
                         }
                     }
+
                     if ($i != 0) {
-                        // $emp_code="ES012563";
-                        $q = "'" . ltrim($q, ("'" . $row[0] . ","));
+                        $emp_code = $row[1];
                         $sql_emp_code = mysqli_query($conn, "select * from `eomploye_details` where `Emp_code` = '$emp_code'");
                         if (mysqli_num_rows($sql_emp_code) == 1) {
                             // echo $emp_code;
@@ -273,6 +273,7 @@ if (isset($_POST['excel_upload'])) {
                             // echo $emp_code;
                             $q = $q . "'Insert'";
                         }
+                        // echo $q . "<br>";
                         $sql_insert_temp = mysqli_query($conn, "insert into `import_emp_temp`(`Employee_Code`, `Employee_Name`, `Company_Name`, `Branch`, `Department`, `Sub_Department`, `Designation`, `Location`, `Employee_Type`, `Category`, `Contact`, `Email`,`Status`) values (" . $q . ")");
                     }
                     $i++;
@@ -339,7 +340,7 @@ if (isset($_POST['excel_upload'])) {
         // }
     } catch (Exception $e) {
         $_SESSION['icon'] = 'warning';
-        $_SESSION['status'] = "Please Import Excel File Properly..... ";
+        $_SESSION['status'] = "Please Import Excel File with proper data..... ";
         $des = "Click On Import ";
         $rem = "Employe Import Process unsuccess";
         include '../include/_audi_log.php';

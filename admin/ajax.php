@@ -386,9 +386,12 @@ if (isset($_POST['branch'])) {
     $branch_id = $_POST['branch'];
 
     $sql_emp_data = mysqli_query($conn, "select *from `eomploye_details` where `BranchId`='$branch_id'");
-    while ($emp_data = mysqli_fetch_assoc($sql_emp_data)) {
-        // echo '<option  data-value=""></option>';
-        echo '<option data-value="' . $emp_data['EmployeeId'] . '">' . $emp_data['EmployeeName'] . '</option>';
+    if (mysqli_num_rows($sql_emp_data) > 0) {
+        while ($emp_data = mysqli_fetch_assoc($sql_emp_data)) {
+            // echo '<option  data-value=""></option>';
+            echo '<option data-value="' . $emp_data['EmployeeId'] . '">' . $emp_data['EmployeeName'] . '</option>';
+        }
+
     }
 
 }

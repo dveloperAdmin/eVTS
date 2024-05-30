@@ -110,7 +110,7 @@ if (isset($_GET['id'])) {
                                 <th>Department</th>
                                 <th>Role</th>
                                 <th>Status</th>
-                                <th colspan=3 style="  width: 30%;">Action</th>
+                                <th colspan=3 style="">Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -140,69 +140,69 @@ if (isset($_GET['id'])) {
 
 
 
-                              <tr>
-                                <th scope="row" style="padding:.25rem;">
-                                  <?php echo $i; ?>
-                                </th>
-                                <td style="padding:.25rem;"><?php if ($sql_emp_data != "") {
+                                <tr>
+                                  <th scope="row" style="padding:.25rem;">
+                                    <?php echo $i; ?>
+                                  </th>
+                                  <td style="padding:.25rem;"><?php if ($sql_emp_data != "") {
                                     echo $sql_emp_data['Emp_code'];
                                   } ?>
-                                </td>
-                                <td style="padding:.25rem;">
-                                  <?php echo $user_data['user_name']; ?>
-                                </td>
-                                <td style="padding:.25rem;">
-                                  <?php echo $user_data['name']; ?>
-                                </td>
-                                <td style="padding:.25rem;"><?php echo $branch_name; ?>
-                                </td>
-                                <td style="padding:.25rem;"><?= findDepartment($conn, $sql_emp_data['DepartmentId']) ?>
-                                </td>
-                                <td style="padding:.25rem;">
-                                  <?php echo $user_data['user_role']; ?>
-                                </td>
-                                <td style="padding:.25rem;">
-                                  <?php echo $user_data['user_sts']; ?>
-                                </td>
-                                <td style="padding:.25rem;">
-                                  <form action="user_view_more.php" method="post">
-                                    <input type="hidden" name="view_id" value="<?php echo $user_data['uid']; ?>">
-                                    <button class="btn waves-effect waves-light btn-success btn-outline-success"
-                                      name="view" style="padding: 5px 13px;"><i
-                                        class="icofont icofont-eye-alt"></i>View</button>
+                                  </td>
+                                  <td style="padding:.25rem;">
+                                    <?php echo $user_data['user_name']; ?>
+                                  </td>
+                                  <td style="padding:.25rem;">
+                                    <?php echo $user_data['name']; ?>
+                                  </td>
+                                  <td style="padding:.25rem;"><?php echo $branch_name; ?>
+                                  </td>
+                                  <td style="padding:.25rem;"><?= findDepartment($conn, $sql_emp_data['DepartmentId']) ?>
+                                  </td>
+                                  <td style="padding:.25rem;">
+                                    <?php echo $user_data['user_role']; ?>
+                                  </td>
+                                  <td style="padding:.25rem;">
+                                    <?php echo $user_data['user_sts']; ?>
+                                  </td>
+                                  <td style="padding:.25rem;">
+                                    <form action="user_view_more.php" method="post">
+                                      <input type="hidden" name="view_id" value="<?php echo $user_data['uid']; ?>">
+                                      <button class="btn waves-effect waves-light btn-success btn-outline-success"
+                                        name="view" style="padding: 5px 13px;"><i
+                                          class="icofont icofont-eye-alt"></i>View</button>
 
-                                  </form>
+                                    </form>
 
 
-                                </td>
-                                <?php if ($user_data['uid'] != $user_id) { ?>
-                                <td style="padding:.25rem;">
-                                  <form action="user_edit.php" method="post">
-                                    <input type="hidden" name="edit_id" value="<?php echo $user_data['uid']; ?>">
-                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                      name="edit" style="padding: 5px 13px;"><i
-                                        class="icofont icofont-ui-edit"></i>Edit</button>
-                                  </form>
-                                </td>
-                                <td style="padding:.25rem;">
-                                  <?php
+                                  </td>
+                                  <?php if ($user_data['uid'] != $user_id) { ?>
+                                    <td style="padding:.25rem;">
+                                      <form action="user_edit.php" method="post">
+                                        <input type="hidden" name="edit_id" value="<?php echo $user_data['uid']; ?>">
+                                        <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                          name="edit" style="padding: 5px 13px;"><i
+                                            class="icofont icofont-ui-edit"></i>Edit</button>
+                                      </form>
+                                    </td>
+                                    <td style="padding:.25rem;">
+                                      <?php
                                       if (in_array($user_data['user_role'], array("Developer", "Super Admin", "Admin"))) {
                                         $disbale = "disabled";
                                       } else {
                                         $disbale = "";
                                       }
                                       ?>
-                                  <a href="user_view.php?id=<?php echo $user_data['uid']; ?>" class="delt_href">
-                                    <button class="btn waves-effect waves-light btn-danger btn-outline-danger btn"
-                                      name="delete"
-                                      style="outline: none;box-shadow: none; padding: 5px 13px;background-color:none"
-                                      <?= $disbale ?>><i class="icofont icofont-delete-alt"></i>Delete</button>
-                                  </a>
+                                      <a href="user_view.php?id=<?php echo $user_data['uid']; ?>" class="delt_href">
+                                        <button class="btn waves-effect waves-light btn-danger btn-outline-danger btn"
+                                          name="delete"
+                                          style="outline: none;box-shadow: none; padding: 5px 13px;background-color:none"
+                                          <?= $disbale ?>><i class="icofont icofont-delete-alt"></i>Delete</button>
+                                      </a>
 
 
-                                </td>
-                                <?php } ?>
-                              </tr>
+                                    </td>
+                                  <?php } ?>
+                                </tr>
 
                               <?php } ?>
 
@@ -236,29 +236,29 @@ if (isset($_GET['id'])) {
 
 </html>
 <script>
-$('.delt_href').on('click', function(e) {
-  e.preventDefault();
-  // console.log(e);
-  var href = $(this).attr('href')
-  console.log(href)
+  $('.delt_href').on('click', function (e) {
+    e.preventDefault();
+    // console.log(e);
+    var href = $(this).attr('href')
+    console.log(href)
 
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.value) {
-      console.log(result.value);
-      document.location.href = href;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        console.log(result.value);
+        document.location.href = href;
 
-    } else {
+      } else {
 
-    }
+      }
+    })
+    $(':focus').blur();
   })
-  $(':focus').blur();
-})
 </script>

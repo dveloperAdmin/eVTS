@@ -11,6 +11,7 @@ include '../include/_function.php';
 
 $user_emp_id = $emp_id;
 $printNoBlank = "";
+$printCountEmp = "";
 // echo $user_role;
 if (in_array($user_role, array("Developer", "Super Admin"))) {
   $serach_emp = mysqli_query($conn, "select * from `eomploye_details` order by `EmployeeId` desc");
@@ -161,53 +162,53 @@ if ($count = mysqli_num_rows($countSql)) {
                                   $bgcolor = "#ffffff";
                                 }
                                 ?>
-                                <tr style="background-color:<?= $bgcolor ?>">
-                                  <th scope="row" style="padding: .25rem;">
-                                    <?php echo $i; ?>
-                                  </th>
-                                  <td style="padding: .25rem;">
-                                    <?php echo $emp_data['Emp_code']; ?>
-                                  </td>
-                                  <td style="padding: .25rem;">
-                                    <?php echo ucfirst($emp_data['EmployeeName']); ?>
-                                  </td>
-                                  <td style="padding: .25rem;"><?= findBranch($conn, $emp_data['BranchId']) ?>
-                                  </td>
-                                  <td style="padding: .25rem;"><?php echo $department; ?>
-                                  </td>
-                                  <td style="padding: .25rem;">
-                                    <?php echo $emp_data['Location']; ?>
-                                  </td>
-                                  <td style="padding: .25rem;">
-                                    <?php echo $emp_data['EmployeType']; ?>
-                                  </td>
-                                  <td style="padding: .25rem;">
-                                    <?php echo ucfirst($emp_data['Status']); ?>
-                                  </td>
-                                  <?php if ($emp_data['EmployeeId'] == $user_emp_id) { ?>
-                                    <td style="padding: .25rem;" colspan="2">
-                                      <form action="new-employe" method="post">
-                                        <input type="hidden" name="emp_id" value="<?php echo $emp_data['EmployeeId']; ?>">
-                                        <input type="hidden" name="view" value="true">
-                                        <button class="btn waves-effect waves-light btn-success btn-outline-success"
-                                          name="emp_edit" style="padding: 5px 13px; width:90%"><i
-                                            class="icofont icofont-eye-alt"></i>View</button>
-                                      </form>
+                              <tr style="background-color:<?= $bgcolor ?>">
+                                <th scope="row" style="padding: .25rem;">
+                                  <?php echo $i; ?>
+                                </th>
+                                <td style="padding: .25rem;">
+                                  <?php echo $emp_data['Emp_code']; ?>
+                                </td>
+                                <td style="padding: .25rem;">
+                                  <?php echo ucfirst($emp_data['EmployeeName']); ?>
+                                </td>
+                                <td style="padding: .25rem;"><?= findBranch($conn, $emp_data['BranchId']) ?>
+                                </td>
+                                <td style="padding: .25rem;"><?php echo $department; ?>
+                                </td>
+                                <td style="padding: .25rem;">
+                                  <?php echo $emp_data['Location']; ?>
+                                </td>
+                                <td style="padding: .25rem;">
+                                  <?php echo $emp_data['EmployeType']; ?>
+                                </td>
+                                <td style="padding: .25rem;">
+                                  <?php echo ucfirst($emp_data['Status']); ?>
+                                </td>
+                                <?php if ($emp_data['EmployeeId'] == $user_emp_id) { ?>
+                                <td style="padding: .25rem;" colspan="2">
+                                  <form action="new-employe" method="post">
+                                    <input type="hidden" name="emp_id" value="<?php echo $emp_data['EmployeeId']; ?>">
+                                    <input type="hidden" name="view" value="true">
+                                    <button class="btn waves-effect waves-light btn-success btn-outline-success"
+                                      name="emp_edit" style="padding: 5px 13px; width:90%"><i
+                                        class="icofont icofont-eye-alt"></i>View</button>
+                                  </form>
 
-                                    </td>
+                                </td>
 
-                                  <?php } else { ?>
-                                    <td style="padding: .25rem;">
-                                      <form action="new-employe" method="post">
-                                        <input type="hidden" name="emp_id" value="<?php echo $emp_data['EmployeeId']; ?>">
-                                        <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
-                                          name="emp_edit" style="padding: 5px 13px;"><i
-                                            class="icofont icofont-ui-edit"></i>Edit</button>
-                                      </form>
+                                <?php } else { ?>
+                                <td style="padding: .25rem;">
+                                  <form action="new-employe" method="post">
+                                    <input type="hidden" name="emp_id" value="<?php echo $emp_data['EmployeeId']; ?>">
+                                    <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                      name="emp_edit" style="padding: 5px 13px;"><i
+                                        class="icofont icofont-ui-edit"></i>Edit</button>
+                                  </form>
 
-                                    </td>
-                                    <td style="padding: .25rem;">
-                                      <?php
+                                </td>
+                                <td style="padding: .25rem;">
+                                  <?php
                                       $userDetails = userDetails($conn, $emp_data['EmployeeId']);
                                       if ($userDetails != null && in_array($userDetails['user_role'], array("Developer", "Super Admin", "Admin"))) {
                                         $disbale = "disabled";
@@ -217,15 +218,15 @@ if ($count = mysqli_num_rows($countSql)) {
 
                                       ?>
 
-                                      <a href="emp_process?del_id=<?php echo $emp_data['EmployeeId']; ?> "
-                                        class="delt_href">
-                                        <button class="btn waves-effect waves-light btn-danger btn-outline-danger"
-                                          style="padding: 5px 13px;" <?= $disbale ?>><i
-                                            class="icofont icofont-delete-alt"></i>Delete</button>
-                                      </a>
-                                    </td>
-                                  <?php } ?>
-                                </tr>
+                                  <a href="emp_process?del_id=<?php echo $emp_data['EmployeeId']; ?> "
+                                    class="delt_href">
+                                    <button class="btn waves-effect waves-light btn-danger btn-outline-danger"
+                                      style="padding: 5px 13px;" <?= $disbale ?>><i
+                                        class="icofont icofont-delete-alt"></i>Delete</button>
+                                  </a>
+                                </td>
+                                <?php } ?>
+                              </tr>
                               <?php } ?>
                             </tbody>
                           </table>
@@ -252,44 +253,44 @@ if ($count = mysqli_num_rows($countSql)) {
   <?php include "include/footer.php"; ?>
 </body>
 <script>
-  $("#searchInput").keyup(function () {
-    var searchText = $(this).val().toLowerCase();
+$("#searchInput").keyup(function() {
+  var searchText = $(this).val().toLowerCase();
 
-    $("#dataTable tbody tr").each(function () {
-      var rowData = $(this).text().toLowerCase();
-      if (rowData.indexOf(searchText) === -1) {
-        $(this).hide();
-      } else {
-        $(this).show();
-      }
-    });
+  $("#dataTable tbody tr").each(function() {
+    var rowData = $(this).text().toLowerCase();
+    if (rowData.indexOf(searchText) === -1) {
+      $(this).hide();
+    } else {
+      $(this).show();
+    }
   });
+});
 
-  $('.delt_href').on('click', function (e) {
-    e.preventDefault();
-    // console.log(e);
-    var href = $(this).attr('href')
+$('.delt_href').on('click', function(e) {
+  e.preventDefault();
+  // console.log(e);
+  var href = $(this).attr('href')
 
 
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.value) {
-        console.log(result.value);
-        document.location.href = href;
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.value) {
+      console.log(result.value);
+      document.location.href = href;
 
-      } else {
+    } else {
 
-      }
-    })
-    $(':focus').blur();
+    }
   })
+  $(':focus').blur();
+})
 </script>
 
 </html>

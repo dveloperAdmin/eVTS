@@ -21,7 +21,8 @@ if (isset($_POST['set_app_sts'])) {
     $sql_emp_code_temp = mysqli_query($conn, "select * from `approval_sts` where `branch_id`= '$ap_branch'");
 
     if (mysqli_num_rows($sql_emp_code_temp) < 1) {
-      $sql_insert = mysqli_query($conn, "insert into `approval_sts`(`branch_id`, `Approve_status`,`meet_end_status`,`referral_status`,`emailApproval`.`camApprove`) values ('$ap_branch','$app_sts','$meet_end_sts','$referral_sts','$emailApp','$camApproval')");
+      $sql_insert = mysqli_query($conn, "insert into `approval_sts`(`branch_id`, `Approve_status`, `meet_end_status`, `referral_status`, `emailApproval`, `camApprove`) values ('$ap_branch', '$app_sts', '$meet_end_sts', '$referral_sts', '$emailApp', '$camApproval')");
+
       if ($sql_insert != "") {
         $_SESSION['icon'] = 'success';
         $_SESSION['status'] = 'Approval Status Set Successfully';
