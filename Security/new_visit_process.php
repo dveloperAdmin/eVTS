@@ -2,6 +2,7 @@
 include '../include/_dbconnect.php';
 include '../include/_session.php';
 include '../include/_lic_check.php';
+$localhost = "";
 function is_connected()
 {
     $connected = @fsockopen("www.example.com", 80);
@@ -18,6 +19,7 @@ function is_connected()
 function mail_send($approv_sts, $email, $v_log_id, $v_id, $name, $company, $add, $cont, $visit_purpose, $arr_time, $check_sts_mail)
 {
     include '../include/_dbconnect.php';
+    include '../include/_audi_log.php';
 
     $sqlEmp = mysqli_fetch_assoc(mysqli_query($conn, "select em.EmployeeName from eomploye_details em inner join visitor_log vl on em.Emp_code = vl.emp_id where vl.visit_uid = '$v_log_id'"));
     if (!empty($sqlEmp)) {
@@ -26,20 +28,12 @@ function mail_send($approv_sts, $email, $v_log_id, $v_id, $name, $company, $add,
         $employeName = " ";
     }
 
-    $url = $_SERVER['REQUEST_URI'];
+    if (!empty($Approval)) {
+        $localhost = $Approval['AppUrl'];
 
-    // Parse the URL and get the host/domain name
-    $parsed_url = parse_url($url);
-    $domain = $parsed_url['host'];
-    $url = $_SERVER['REQUEST_URI'];
-
-    // Parse the URL and get the host/domain name
-    $parsed_url = parse_url($url);
-    $domain = $parsed_url['host'];
-
-    // Get the IP address
-    $ip = gethostbyname($domain);
-    $localhost = $ip . ":" . $_SERVER['SERVER_PORT'];
+    } else {
+        $localhost = "";
+    }
     $emp_visit_status =
         $destination_mail = $email;
     $attechment = '../upload/' . $v_log_id . '.png';
@@ -84,18 +78,22 @@ function mail_send($approv_sts, $email, $v_log_id, $v_id, $name, $company, $add,
     </tr>
     ';
     if ($approv_sts != "Approve") {
-        $button = "
-                        <div class='text' style='padding: 0 2.5em; text-align: center;'>
+        if (!empty($localhost)) {
+            $button = "
+                        <div class='text' style='padding: 0; text-align: center;'>
                             <h2>Please verify and respond </h2>
-                            <a href='http://" . $localhost . "/vms/approve_by_mail?sts=IN&vc=" . $visit_code . "'>
-                            <button type='button' class='button' style='cursor:pointer; mergin-right:1rem;background-color:#068711; padding:5px 20px; '>Approve</button>
-                            </a>
-                            <a href='http://" . $localhost . "/vms/approve_by_mail?sts=OUT&vc=" . $visit_code . "'>
-                            <button type='button' class='button' style='cursor:pointer;background-color:red; padding:5px 20px;'>Reject</button>
-                            </a>
                             
+                            
+                          
+                                <a href='" . $localhost . "approve_by_mail.php?sts=" . base64_encode('IN') . "&vc=" . base64_encode(base64_encode(base64_encode($visit_code))) . "'><button type='button' class='button' style='cursor:pointer; mergin-right:1rem; padding: 5px 20px; background-color:#068711;'>Approve</button></a>
+                                <a href='" . $localhost . "approve_by_mail.php?sts=" . base64_encode('OUT') . "&vc=" . base64_encode(base64_encode(base64_encode($visit_code))) . "'><button type='button' class='button' style='cursor:pointer; padding: 5px 20px;background-color:red;'>Reject</button></a>
+                           
                         </div>
                     ";
+
+        } else {
+            $button = "";
+        }
     } else {
         $button = "";
     }

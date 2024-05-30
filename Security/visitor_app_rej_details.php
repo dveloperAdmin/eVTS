@@ -241,25 +241,25 @@ if (isset($_POST['view_v'])) {
 
 <?php include "include/head.php"; ?>
 <style>
-  .form-group {
-    margin-bottom: .5rem;
-  }
+.form-group {
+  margin-bottom: .5rem;
+}
 
-  .col-sm-9 {
-    padding: 0;
-    flex: 0 0 65%;
-    max-height: 80%;
-  }
+.col-sm-9 {
+  padding: 0;
+  flex: 0 0 65%;
+  max-height: 80%;
+}
 
-  .col-sm-3 {
-    flex: 0 0 34%;
-    max-width: 35%;
+.col-sm-3 {
+  flex: 0 0 34%;
+  max-width: 35%;
 
-  }
+}
 
-  select {
-    max-height: 80%
-  }
+select {
+  max-height: 80%
+}
 </style>
 
 <body>
@@ -296,133 +296,150 @@ if (isset($_POST['view_v'])) {
                   <div class="page-body">
                     <div class="row">
                       <?php if (strtotime(date("Y-m-d")) == strtotime($v_preschedul_date)) { ?>
-                        <div class="col-md-6" style="flex:0 0 36%;">
+                      <div class="col-md-6" style="flex:0 0 36%;">
 
-                          <div class="card">
-                            <!-- <div class="card-header">
+                        <div class="card">
+                          <!-- <div class="card-header">
                                                         <h5>Visitor Details Print :- &nbsp; <?php echo $id; ?> </h5>
                                                     </div> -->
-                            <div class="card-header" style="padding-bottom:8px;padding-top:8px;">
-                              <h5>Update Permission :- &nbsp; <?php echo $id; ?> </h5>
+                          <div class="card-header" style="padding-bottom:8px;padding-top:8px;">
+                            <h5>Update Permission :- &nbsp; <?php echo $id; ?> </h5>
 
-                            </div>
-                            <div class="card-block">
-                              <form action="new_visit_process" method="post">
-                                <div class="form-group row">
-                                  <label class="col-sm-3 col-form-label">Visitor Id
-                                    Card <span style="color:red;padding:2px;">*</span></label>
-                                  <div class="col-sm-9" style=";padding:0;">
-                                    <input type="text" name="v_id_card" id="vidcard" class="form-control"
-                                      placeholder="Enter Vehicale Number" required autofocus>
+                          </div>
+                          <div class="card-block">
+                            <form action="new_visit_process" method="post">
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Visitor Id
+                                  Card <span style="color:red;padding:2px;">*</span></label>
+                                <div class="col-sm-9" style=";padding:0;">
+                                  <input type="text" name="v_id_card" id="vidcard" class="form-control"
+                                    placeholder="Enter Vehicale Number" required autofocus>
 
-                                    <!-- <label type="label" class="form-control" value="Arrived"><span style="color:green; font-weight:900;" ><?php echo date("d / M / Y") . " - "; ?> <span id= "clock_span2"></span></span></label> -->
-                                    <input type="hidden" name="arrive_date_time"
-                                      value="<?php echo date("Y-m-d H:i:s"); ?>">
-                                  </div>
+                                  <!-- <label type="label" class="form-control" value="Arrived"><span style="color:green; font-weight:900;" ><?php echo date("d / M / Y") . " - "; ?> <span id= "clock_span2"></span></span></label> -->
+                                  <input type="hidden" name="arrive_date_time"
+                                    value="<?php echo date("Y-m-d H:i:s"); ?>">
                                 </div>
-                                <div class="form-group row" style="margin-bottom:0rem;">
-                                  <label class="col-sm-3 col-form-label">Visitor
-                                    Type<span style="color:red;padding:2px;">*</span></label>
-                                  <div class="col-sm-9" style="">
-                                    <select name="visit_type" id="cont" class="form-control" required>
-                                      <option value="" selected disabled hidden>Select
-                                        Visitor Type</option>
-                                      <?php
+                              </div>
+                              <div class="form-group row" style="margin-bottom:0rem;">
+                                <label class="col-sm-3 col-form-label">Visitor
+                                  Type<span style="color:red;padding:2px;">*</span></label>
+                                <div class="col-sm-9" style="">
+                                  <select name="visit_type" id="cont" class="form-control" required>
+                                    <option value="" selected disabled hidden>Select
+                                      Visitor Type</option>
+                                    <?php
                                       $sql_visitor_type = mysqli_query($conn, "select * from `vsitor_type`");
                                       while ($visitor_type = mysqli_fetch_assoc($sql_visitor_type)) {
                                         ?>
-                                        <option value="<?php echo $visitor_type['type_id']; ?>">
-                                          <?php echo $visitor_type['type_name']; ?>
-                                        </option>
-                                      <?php }
+                                    <option value="<?php echo $visitor_type['type_id']; ?>">
+                                      <?php echo $visitor_type['type_name']; ?>
+                                    </option>
+                                    <?php }
                                       ?>
-                                    </select>
+                                  </select>
 
 
-                                  </div>
                                 </div>
-                                <div class="form-group row" style="margin-bottom:0rem;">
-                                  <label class="col-sm-3 col-form-label">Vehicle Type
-                                    <span style="color:red;padding:2px;">*</span></label>
-                                  <div class="col-sm-9" style="">
-                                    <select name="v_type" id="vehicle" class="form-control" required>
-                                      <option value="" selected disabled hidden>Select
-                                        Vehicle Type</option>
+                              </div>
+                              <div class="form-group row" style="margin-bottom:0rem;">
+                                <label class="col-sm-3 col-form-label">Vehicle Type
+                                  <span style="color:red;padding:2px;">*</span></label>
+                                <div class="col-sm-9" style="">
+                                  <select name="v_type" id="vehicle" class="form-control" required>
+                                    <option value="" selected disabled hidden>Select
+                                      Vehicle Type</option>
 
-                                      <option value="NO">NO</option>
-                                      <option value="Cycle">Two While(Cycle)</option>
-                                      <option value="Bike">Two While(Bike)</option>
-                                      <option value="Car">Four Whiler</option>
-                                      <option value="Others">Others</option>
+                                    <option value="NO">NO</option>
+                                    <option value="Cycle">Two While(Cycle)</option>
+                                    <option value="Bike">Two While(Bike)</option>
+                                    <option value="Car">CAR</option>
+                                    <option value="SUV">SUV</option>
+                                    <option value="VAN">VAN</option>
+                                    <option value="TAXI">TAXI</option>
+                                    <option value="AUTO">AUTO</option>
+                                    <option value="OLA">OLA</option>
+                                    <option value="UBER">UBER</option>
+                                    <option value="CAB">CAB</option>
+                                    <option value="TRUCK">TRUCK</option>
+                                    <option value="DUMPER TRUCK">DUMPER TRUCK</option>
+                                    <option value="PICKUP VAN">PICKUP VAN</option>
+                                    <option value="PICKUP TRUCK">PICKUP TRUCK</option>
+                                    <option value="TIPPER TRUCK">TIPPER TRUCK</option>
+                                    <option value="SMALL TRUCK">SMALL TRUCK</option>
+                                    <option value="BOX TRUCK">BOX TRUCK</option>
+                                    <option value="CONCRETE TRUCK">CONCRETE TRUCK</option>
+                                    <option value="TANKER">TANKER</option>
+                                    <option value="CRAN">CRAN</option>
+                                    <option value="Others">Others</option>
 
-                                    </select>
-                                  </div>
+                                  </select>
                                 </div>
-                                <div class="form-group row">
-                                  <label class="col-sm-3 col-form-label">Vehical No
-                                  </label>
-                                  <div class="col-sm-9" style="">
-                                    <input type="text" name="v_no" id="v_no" class="form-control"
-                                      placeholder="Enter Vehicale Number" value=""
-                                      oninput="this.value = this.value.toUpperCase()">
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Vehical No
+                                </label>
+                                <div class="col-sm-9" style="">
+                                  <input type="text" name="v_no" id="v_no" class="form-control"
+                                    placeholder="Enter Vehicale Number" value=""
+                                    oninput="this.value = this.value.toUpperCase()">
 
-                                  </div>
                                 </div>
-                                <div class="form-group row">
-                                  <label class="col-sm-3 col-form-label" style="">Carry
-                                    Inside
-                                  </label>
-                                  <div class="col-sm-9" style="">
-                                    <textarea type="textarea" name="carry_in" class="form-control"
-                                      placeholder="Enter The Things You are carring " value="" rows="4"
-                                      cols="10"></textarea>
-                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" style="">Carry
+                                  Inside
+                                </label>
+                                <div class="col-sm-9" style="">
+                                  <textarea type="textarea" name="carry_in" class="form-control"
+                                    placeholder="Enter The Things You are carring " value="" rows="4"
+                                    cols="10"></textarea>
                                 </div>
-                                <div class="form-group row" style="margin-bottom:0rem;">
-                                  <label class="col-sm-3 col-form-label" style="">Permission
-                                    <span style="color:red;padding:2px;">*</span></label>
-                                  <div class="col-sm-9" style="">
-                                    <select class="form-control" name="action" id="url" style="margin-right:1rem;"
-                                      required>
-                                      <option value="" selected disabled hidden>Select
-                                        Permission</option>
-                                      <option value="Approve">Approve</option>
-                                      <option value="Reject">Reject</option>
+                              </div>
+                              <div class="form-group row" style="margin-bottom:0rem;">
+                                <label class="col-sm-3 col-form-label" style="">Permission
+                                  <span style="color:red;padding:2px;">*</span></label>
+                                <div class="col-sm-9" style="">
+                                  <select class="form-control" name="action" id="url" style="margin-right:1rem;"
+                                    required>
+                                    <option value="" selected disabled hidden>Select
+                                      Permission</option>
+                                    <option value="Approve">Approve</option>
+                                    <option value="Reject">Reject</option>
 
-                                    </select>
-                                  </div>
+                                  </select>
                                 </div>
+                              </div>
 
 
 
 
-                                <input type="hidden" name="vid" value="<?php echo $vlog_id; ?>">
+                              <input type="hidden" name="vid" value="<?php echo $vlog_id; ?>">
 
 
-                                <div class="user-entry">
-                                  <button type="submit"
-                                    class="btn waves-effect waves-light btn-primary btn-outline-primary" name="v_app"
-                                    id="print_url" style="padding:5px 20px;"><i class="fa fa-ticket"
-                                      style="    font-size: 20px;margin-right: 10px;"></i>Submit</button>
-                              </form>
-
-                            </div>
-
-                            <a href="view_visitor?id=1">
-
-
-                              <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
-                                name="dept_update" style="padding:5px 20px;"><i class="fa fa-arrow-left"
-                                  style="font-size: 20px;margin-right: 10px;"></i>Back</button>
-                            </a>
+                              <div class="user-entry">
+                                <button type="submit"
+                                  class="btn waves-effect waves-light btn-primary btn-outline-primary" name="v_app"
+                                  id="print_url" style="padding:5px 20px;"><i class="fa fa-ticket"
+                                    style="    font-size: 20px;margin-right: 10px;"></i>Submit</button>
+                            </form>
 
                           </div>
-                        </div>
 
+                          <a href="view_visitor?id=1">
+
+
+                            <button class="btn waves-effect waves-light btn-inverse btn-outline-inverse"
+                              name="dept_update" style="padding:5px 20px;"><i class="fa fa-arrow-left"
+                                style="font-size: 20px;margin-right: 10px;"></i>Back</button>
+                          </a>
+
+                        </div>
                       </div>
-                      <div class="col-md-6" style="padding-left:0px; flex:0 0 63%; max-width: 63%;">
+
+                    </div>
+                    <div class="col-md-6" style="padding-left:0px; flex:0 0 63%; max-width: 63%;">
                       <?php } else { ?>
-                        <div class="col-md-6" style="padding-left: 45px;flex: 0 0 98%; max-width: 98%;">
+                      <div class="col-md-6" style="padding-left: 45px;flex: 0 0 98%; max-width: 98%;">
 
                         <?php } ?>
                         <div class="card " id="contact1">
@@ -619,42 +636,42 @@ if (isset($_POST['view_v'])) {
 
 
 <script>
-  function randomString(length) {
-    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-  }
-  $(document).ready(function () {
+function randomString(length) {
+  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+}
+$(document).ready(function() {
 
-    $("#vidcard").val(randomString(13).toUpperCase());
+  $("#vidcard").val(randomString(13).toUpperCase());
 
-  });
+});
 
-  function showTime() {
-    var date = new Date();
-    var h = date.getHours(); // 0 - 23
-    var m = date.getMinutes(); // 0 - 59
-    var s = date.getSeconds(); // 0 - 59
-    var session = "AM";
+function showTime() {
+  var date = new Date();
+  var h = date.getHours(); // 0 - 23
+  var m = date.getMinutes(); // 0 - 59
+  var s = date.getSeconds(); // 0 - 59
+  var session = "AM";
 
-    if (h == 0) {
-      h = 12;
-    }
-
-    if (h > 12) {
-      h = h - 12;
-      session = "PM";
-    }
-
-    h = (h < 10) ? "0" + h : h;
-    m = (m < 10) ? "0" + m : m;
-    s = (s < 10) ? "0" + s : s;
-
-    var time = h + ":" + m + ":" + s + " " + session;
-    document.getElementById("clock_span2").innerText = time;
-    document.getElementById("clock_span2").textContent = time;
-
-    setTimeout(showTime, 1000);
-
+  if (h == 0) {
+    h = 12;
   }
 
-  showTime();
+  if (h > 12) {
+    h = h - 12;
+    session = "PM";
+  }
+
+  h = (h < 10) ? "0" + h : h;
+  m = (m < 10) ? "0" + m : m;
+  s = (s < 10) ? "0" + s : s;
+
+  var time = h + ":" + m + ":" + s + " " + session;
+  document.getElementById("clock_span2").innerText = time;
+  document.getElementById("clock_span2").textContent = time;
+
+  setTimeout(showTime, 1000);
+
+}
+
+showTime();
 </script>

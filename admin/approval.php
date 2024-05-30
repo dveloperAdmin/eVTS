@@ -7,7 +7,7 @@ $des = "Page Load approval";
 $rem = "approval status";
 include '../include/_audi_log.php';
 $log_out_time_sts = True;
-// $sql_com = mysqli_fetch_assoc(mysqli_query($conn,'select * from ``'));
+$dataExists = mysqli_num_rows(mysqli_query($conn, 'select * from `approval_sts`'));
 
 if (isset($_POST['set_app_sts'])) {
   // $com_id = $_POST['com_id'];
@@ -19,6 +19,7 @@ if (isset($_POST['set_app_sts'])) {
   $camApproval = $_POST['camApp_sts'];
   if ($ap_branch != "" && $app_sts != "") {
     $sql_emp_code_temp = mysqli_query($conn, "select * from `approval_sts` where `branch_id`= '$ap_branch'");
+
     if (mysqli_num_rows($sql_emp_code_temp) < 1) {
       $sql_insert = mysqli_query($conn, "insert into `approval_sts`(`branch_id`, `Approve_status`,`meet_end_status`,`referral_status`,`emailApproval`.`camApprove`) values ('$ap_branch','$app_sts','$meet_end_sts','$referral_sts','$emailApp','$camApproval')");
       if ($sql_insert != "") {
@@ -89,16 +90,31 @@ if (isset($_POST['set_app_sts'])) {
     $des = "Page Load approval";
     $rem = "approval status delete Successfully";
   }
+  include '../include/_audi_log.php';
 }
-
+if (isset($_POST['urlSet'])) {
+  $url = $_POST['mailUrl'];
+  if (!empty($url)) {
+    // $insertUrl = mysqli_query($conn, "insert into `approval_sts` (url) values('$url')");
+    $updateUrl = mysqli_query($conn, "update `approval_sts` set url ='$url'");
+    if (!empty($insertUrl)) {
+      $_SESSION['icon'] = 'success';
+      $_SESSION['status'] = 'Url uploaded check it before use';
+      $des = "Page Load approval";
+      $rem = "approval status delete Successfully";
+    }
+  } else {
+    $_SESSION['icon'] = 'error';
+    $_SESSION['status'] = 'Insafficiant data';
+    $des = "Page Load approval";
+    $rem = "approval status delete Successfully";
+  }
+  include '../include/_audi_log.php';
+}
 if (isset($_GET['true'])) {
-
 } else if (isset($_GET['false'])) {
   $content = file_get_contents('../Security/check_out1.php');
 }
-
-
-
 
 
 ?>
@@ -106,6 +122,24 @@ if (isset($_GET['true'])) {
 <html lang="en">
 
 <?php include "include/head.php"; ?>
+<style>
+select {
+  max-height: 100%;
+}
+
+.col-sm-9 {
+  height: 2.2rem;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+tbody td,
+th {
+  padding: 8px 20px;
+}
+</style>
 
 <body>
   <!-- Pre-loader start -->
@@ -146,7 +180,7 @@ if (isset($_GET['true'])) {
                       <form action="" method="post" enctype="multipart/form-data">
                         <div class="row ">
                           <div class="col-md-6" style="max-width: 80%; flex: 0 0 40%;">
-                            <div class="card-block table-border-style">
+                            <div class="card-block table-border-style" style="padding-bottom:12px;">
                               <div class="form-group row">
                                 <label class="col-sm-3 col-form-label" style="padding-right: 0;max-width:7.7rem;">Branch
                                   Name</label>
@@ -229,11 +263,7 @@ if (isset($_GET['true'])) {
                                     </select>
                                   </div>
                                 </div>
-                                <div class="form-group row">
-                                  <div class="col-sm-3" style="max-width: 61%;"></div>
-                                  <div class="col-sm-9" style="max-width: 61%;"></div>
 
-                                </div>
                               </div>
                               <div class="form-group row">
                                 <div class="col-sm-3" style="max-width: 61%;"></div>
@@ -250,22 +280,46 @@ if (isset($_GET['true'])) {
                           </div>
                         </div>
                       </form>
+                      <?php if ($dataExists > 0) { ?>
+                      <div class="row ">
+                        <div class="col-md-6" style="max-width: 80%; flex: 0 0 50%;">
+                          <div class="card-block table-border-style">
+                            <form action="" method="post" enctype="multipart/form-data">
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" style="padding-right: 0;max-width:7.7rem;">Enter
+                                  Url</label>
+                                <div class="col-sm-9" style="max-width: 50%;">
+                                  <input type="text" class="form-control" name="mailUrl" placeholder="Enter the url"
+                                    required>
+
+                                </div>
+                                <button class="btn waves-effect waves-light btn-primary btn-outline-primary"
+                                  style="padding: 2px 15px; background-color:none;" name="urlSet"><i
+                                    class="icofont icofont-settings-alt"
+                                    style="    font-size: 20px;margin-right: 10px;"></i>Set Url</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <?php } ?>
                     </div>
                     <div class="card">
                       <div class="card-block table-border-style">
-                        <div class="table-responsive table-short">
+                        <div class="table-responsive table-short" style="height:115px;">
                           <table class="table">
                             <thead>
                               <tr>
-                                <th style="width: 5rem;">Sl No.</th>
-                                <th>Branch Name</th>
-                                <th>Approval Status</th>
-                                <th>Cam Appr. Status</th>
-                                <th>Email Approval</th>
-                                <th>Meeing End Status</th>
-                                <th>Referral Status</th>
+                                <th style="width: 5rem;padding: 2px 10px">Sl No.</th>
+                                <th style="padding: 2px 10px">Branch Name</th>
+                                <th style="padding: 2px 10px">Approval Status</th>
+                                <th style="padding: 2px 10px">Cam Appr. Status</th>
+                                <th style="padding: 2px 10px">Email Approval</th>
+                                <th style="padding: 2px 10px">Meeing End Status</th>
+                                <th style="padding: 2px 10px">Referral Status</th>
+                                <th style="padding: 2px 10px">Url</th>
 
-                                <th style="  width: 30%;">Action</th>
+                                <th style=" padding: 2px 10px;">Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -282,21 +336,22 @@ if (isset($_GET['true'])) {
 
                                 ?>
                               <tr>
-                                <th scope="row"><?php echo $i; ?></th>
-                                <td><?php echo ucfirst($comp_name); ?></td>
-                                <td><?php echo ucfirst($Approve_data['Approve_status']); ?>
-                                <td><?php echo ucfirst($Approve_data['camApprove']); ?>
+                                <th style="padding:5px;" scope="row"><?php echo $i; ?></th>
+                                <td style="padding:5px;"><?php echo ucfirst($comp_name); ?></td>
+                                <td style="padding:5px;"><?php echo ucfirst($Approve_data['Approve_status']); ?>
+                                <td style="padding:5px;"><?php echo ucfirst($Approve_data['camApprove']); ?>
                                 </td>
-                                <td><?php echo ucfirst($Approve_data['emailApproval']); ?>
+                                <td style="padding:5px;"><?php echo ucfirst($Approve_data['emailApproval']); ?>
                                 </td>
-                                <td><?php echo ucfirst($Approve_data['meet_end_status']); ?>
+                                <td style="padding:5px;"><?php echo ucfirst($Approve_data['meet_end_status']); ?>
                                 </td>
-                                <td><?php echo ucfirst($Approve_data['referral_status']); ?>
+                                <td style="padding:5px;"><?php echo ucfirst($Approve_data['referral_status']); ?>
+                                <td style="padding:5px;"><?php echo $Approve_data['url']; ?>
                                 </td>
-                                <td class="th_width">
+                                <td style="padding:5px;" class="th_width">
                                   <a href="approval? did=<?php echo $Approve_data['sl_no']; ?> " class="delt_href">
-                                    <button class="btn waves-effect waves-light btn-danger btn-outline-danger"><i
-                                        class="icofont icofont-delete-alt"></i>Delete</button>
+                                    <button class="btn waves-effect waves-light btn-danger btn-outline-danger"
+                                      style="padding:5px 20px"><i class="icofont icofont-delete-alt"></i>Delete</button>
                                   </a>
                                 </td>
                                 <!-- <td class="th_width">

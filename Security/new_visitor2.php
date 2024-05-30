@@ -362,13 +362,28 @@ if (isset($_POST['u_submit'])) {
                                 <div class="col-sm-9">
                                   <select name="visit[]" id="vehicle" class="form-control" required>
                                     <option value="" selected disabled hidden>Select Vehicle Type</option>
-
                                     <option value="NO">NO</option>
                                     <option value="Cycle">Two While(Cycle)</option>
                                     <option value="Bike">Two While(Bike)</option>
-                                    <option value="Car">Four Whiler</option>
+                                    <option value="Car">CAR</option>
+                                    <option value="SUV">SUV</option>
+                                    <option value="VAN">VAN</option>
+                                    <option value="TAXI">TAXI</option>
+                                    <option value="AUTO">AUTO</option>
+                                    <option value="OLA">OLA</option>
+                                    <option value="UBER">UBER</option>
+                                    <option value="CAB">CAB</option>
+                                    <option value="TRUCK">TRUCK</option>
+                                    <option value="DUMPER TRUCK">DUMPER TRUCK</option>
+                                    <option value="PICKUP VAN">PICKUP VAN</option>
+                                    <option value="PICKUP TRUCK">PICKUP TRUCK</option>
+                                    <option value="TIPPER TRUCK">TIPPER TRUCK</option>
+                                    <option value="SMALL TRUCK">SMALL TRUCK</option>
+                                    <option value="BOX TRUCK">BOX TRUCK</option>
+                                    <option value="CONCRETE TRUCK">CONCRETE TRUCK</option>
+                                    <option value="TANKER">TANKER</option>
+                                    <option value="CRAN">CRAN</option>
                                     <option value="Others">Others</option>
-
                                   </select>
                                 </div>
                               </div>
