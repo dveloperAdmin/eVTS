@@ -1,8 +1,8 @@
-<?php 
+<?php
 include "../include/_session.php";
 include "../include/_dbconnect.php";
-$des="Page Load Index";
-$rem="Index";
+$des = "Page Load Index";
+$rem = "Index";
 $head = "Home";
 include "../include/_audi_log.php";
 
@@ -12,7 +12,7 @@ include "../include/_audi_log.php";
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include "include/head.php";?>
+<?php include "include/head.php"; ?>
 
 <body>
     <!-- Pre-loader start -->
@@ -35,7 +35,7 @@ include "../include/_audi_log.php";
                     <div class="pcoded-content">
 
                         <!-- Page-header start -->
-                        <?php include "include/header.php"?>
+                        <?php include "include/header.php" ?>
                         <!-- Page-header end -->
 
                         <div class="pcoded-inner-content">
@@ -44,7 +44,7 @@ include "../include/_audi_log.php";
                                 <div class="page-wrapper">
                                     <!-- Page-body start -->
                                     <div class="page-body">
-                                       
+
                                         <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
                                             <div class="col-md-6">
                                                 <h5 id="bio_sync" style="margin: 0;">Visitor Info</h5>
@@ -52,8 +52,8 @@ include "../include/_audi_log.php";
                                         </div>
                                         <div class="row" id="timegap">
                                             <!-- dashbord start -->
-                                            <?php include "include/visitor_info.php";?>
-                                           
+                                            <?php include "include/visitor_info.php"; ?>
+
                                             <!-- dashbord end -->
                                         </div>
                                         <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
@@ -62,9 +62,9 @@ include "../include/_audi_log.php";
                                             </div>
                                         </div>
                                         <div class="row" id="timegap">
-                                         <!-- dashbord start -->
-                                         <?php include "include/visitor_checking_info.php";?>
-                                         <!-- dashbord end -->
+                                            <!-- dashbord start -->
+                                            <?php include "include/visitor_checking_info.php"; ?>
+                                            <!-- dashbord end -->
                                         </div>
                                         <!-- <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
                                             <div class="col-md-6">
@@ -73,31 +73,46 @@ include "../include/_audi_log.php";
                                         </div>
                                         <div class="row">
                                            dashbord start -->
-                                            <?php //include "include/dashbord.php";?>
-                                            <!-- dashbord start -->
-                                            
-                                        </div> 
-                                        <!-- <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
+                                        <?php //include "include/dashbord.php"; ?>
+                                        <!-- dashbord start -->
+
+                                    </div>
+                                    <!-- <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
                                             <div class="col-md-6">
                                                 <h5 id="bio_sync" style="margin: 0;">Employee Bio Dashbord</h5>
                                             </div>
                                         </div> -->
-                                         <!-- dashbord start -->
-                                        <?php //include "include/emp_bio_dashbord.php";?>
-                                         <!-- dashbord end -->
-                                    </div>
-                                    <!-- Page-body end -->
+                                    <!-- dashbord start -->
+                                    <?php //include "include/emp_bio_dashbord.php"; ?>
+                                    <!-- dashbord end -->
                                 </div>
-                                
+                                <!-- Page-body end -->
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
+    </div>
+
     <!-- Required Jquery -->
-    <?php include "include/footer.php";?>
+    <?php include "include/footer.php"; ?>
 </body>
+
 </html>
+<?php if (isset($_SESSION['status_ad']) && $_SESSION['status_ad'] != '') { ?>
+    <script>
+        Swal.fire({
+            icon: '<?php echo $_SESSION['icon_ad'] ?>',
+            title: '<?php echo $_SESSION['status_ad'] ?>',
+            showCloseButton: true,
+            confirmButton: true,
+
+        })
+    </script>
+    <?php
+    unset($_SESSION['status_ad']);
+    unset($_SESSION['status_ad']);
+} ?>
