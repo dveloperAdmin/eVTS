@@ -345,6 +345,13 @@ if ($user_name != "ADMIN") {
           </li>
 
           <li class=" ">
+            <a href="userReport" class="waves-effect waves-dark">
+              <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+              <span class="pcoded-mtext">User Report</span>
+              <span class="pcoded-mcaret"></span>
+            </a>
+          </li>
+          <li class=" ">
             <a href="log_report" class="waves-effect waves-dark">
               <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
               <span class="pcoded-mtext">Log Report</span>
