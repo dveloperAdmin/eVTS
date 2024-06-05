@@ -1,4 +1,4 @@
-<?php
+<?php 
 include "../include/_session.php";
 include "../include/_dbconnect.php";
 // include '../include/_lic_check.php';

@@ -97,9 +97,18 @@ if (isset($_GET['id'])) {
                   <div class="page-body">
 
                     <div class="card">
+                      <div class="col-md-6">
+                        <div class="form-group row" style="margin:5px;">
+                          <label class="col-sm-3 col-form-label" style="padding-right: 0;flex:0 0 10%;">Search</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" placeholder="Search" id="searchInput"
+                              style="width:60%">
+                          </div>
+                        </div>
+                      </div>
                       <div class="card-block table-border-style">
                         <div class="table-responsive" style="height:390px;">
-                          <table class="table">
+                          <table class="table" id="dataTable">
                             <thead>
                               <tr>
                                 <th style="width: 5rem;">Sl No.</th>
@@ -117,11 +126,11 @@ if (isset($_GET['id'])) {
                               <?php
                               $i = 0;
                               if (in_array($user_role, array("Developer", "Super Admin"))) {
-                                $sql_query_users = mysqli_query($conn, "select * from `user` where `user_role`!='Developer' order by case when `uid` = '$user_id' then 1 else 0 end, `uid` desc");
+                                $sql_query_users = mysqli_query($conn, "select * from `user` where `user_role`!='Developer' order by registration_time_stamp asc");
 
                               } else {
 
-                                $sql_query_users = mysqli_query($conn, "select * from `user` where `BranchId` = '$branch_id' and `user_role` not in ('Developer' 'Super Admin')order by case when `uid` = '$user_id' then 1 else 0 end, `uid` desc");
+                                $sql_query_users = mysqli_query($conn, "select * from `user` where `BranchId` = '$branch_id' and `user_role` not in ('Developer' 'Super Admin')registration_time_stamp asc");
                               }
                               while ($user_data = mysqli_fetch_assoc($sql_query_users)) {
                                 $i++;

@@ -84,11 +84,11 @@ function mac_id(){
                                 <div class="page-wrapper">
                                     <!-- Page-body start -->
                                     <div class="page-body">
-                                        <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
+                                        <!-- <div class="card" style="padding:.5rem;    margin-bottom: 0.8rem;">
                                             <div class="col-md-6">
                                                 <h5 id="bio_sync" style="margin: 0;">Your MAC ID :- <span style="color:red;">&nbsp;<?php echo mac_id();?></span></h5>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="row">
                                             
                                             

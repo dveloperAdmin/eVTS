@@ -1,1 +1,0 @@
-<?php    $com_name = 'abcd';    ?>
